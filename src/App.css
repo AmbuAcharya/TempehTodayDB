@@ -1,27 +1,66 @@
+body {
+  margin: 0;
+  overflow-x: auto; /* Hide horizontal overflow */
+}
+
 .App {
   text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  height: 100px; /* Adjust height as needed */
+  width: auto; /* Maintain aspect ratio */
+  display: block; /* Ensures the image is treated as a block element */
+  margin: 0 auto; /* Center the image horizontally */
 }
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 20px; /* Add padding for better aesthetics */
+}
+
+.Logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff; /* Add a background color that complements your design */
+  padding: 10px;
+  border-radius: 10px;
+  display: block; 
+  margin:auto;
+}
+
+table {
+  width: auto;
+  text-align: center;
+  border-collapse: collapse;
+  margin: auto; /* Center the table horizontally with 20px top and bottom margin */
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #000000;
+  vertical-align: middle;
+  width: auto; /* Let the browser determine the width based on content */
+  white-space: nowrap; /* Prevent line breaks in content */
+  overflow: hidden; /* Hide content overflow */
+  text-overflow: ellipsis; /* Display ellipsis (...) for overflowed content */
+}
+
+th {
+  padding-bottom: 10px;
+  white-space: wrap; 
+}
+
+.table-image {
+  width: 100px;
+  height: 100px;
 }
 
 .App-link {
