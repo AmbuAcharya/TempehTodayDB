@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './App.css';
+import AppBar from './components/AppBar';
+import DatabaseSelection from './components/DatabaseSelection';
+import DatabaseTable from './components/DatabaseTable';
+import MfuDbData from './components/MfuDbData';
+import SfuDbData from './components/SfuDbData';
+import Footer from './components/Footer';
 
-function App() {
+const App = () => {
   const [file, setFile] = useState(null);
   const [mfuId, setMfuId] = useState('');
   const [mfuIds, setMfuIds] = useState([])
@@ -14,6 +19,8 @@ function App() {
   const [txt, settxt] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [Message, setMessage] = useState('');
+  const [explicitGetDataTriggered, setExplicitGetDataTriggered] = useState(false);
+
   // const [isCreateProfileClicked, setIsCreateProfileClicked] = useState(false);
   // const [newOperator, setNewOperator] = useState({
   //   Operator_ID: '',
@@ -66,19 +73,20 @@ function App() {
   //     [key]: value,
   //   }));
   // };
-  useEffect(() => {
 
+  useEffect(() => {
     setMfuId('');
   }, [selectedDatabaseKey]);
 
   useEffect(() => {
     settxt('');
   }, [selectedDatabaseKey, mfuId]);
-  
+
   useEffect(() => {
     setData('');
     setErrorMessage('');
     setMessage('');
+    setExplicitGetDataTriggered(false); // Reset the flag when txt changes
   }, [mfuId, selectedDatabaseKey, txt]);
 
   const handleDatabaseKeyChange = (e) => {
@@ -89,8 +97,23 @@ function App() {
     setSelectedMFUKey(e.target.value);
   };
 
-  const url='http://localhost:5001';
-  // const url = 'https://tempehtoday-f866c.web.app';
+  const handleOperatorOrBatchIdClick = (operatorOrBatchId) => {
+    if (operatorOrBatchId !== '') {
+      settxt(operatorOrBatchId);
+      setExplicitGetDataTriggered(false); // Reset the flag when txt is set by clicking the column
+    }
+  };
+
+  useEffect(() => {
+    if (txt !== '') {
+      if (txt.includes('SB') || txt.includes('GB') || txt.includes('OP')) {
+        handleGetData();
+      }
+    }
+  }, [txt, selectedMFUKey, selectedDatabaseKey]);
+
+  // const url='http://localhost:5001';
+  const url = 'https://tempehtoday-f866c.web.app';
 
   useEffect(() => {
     // Fetch database keys when the component mounts
@@ -166,11 +189,14 @@ function App() {
   };
 
   const handleGetData = async () => {
-    if (selectedMFUKey) {
+    console.log("selected Text" + txt);
+    if (selectedMFUKey && !explicitGetDataTriggered) {
       try {
         const response = await axios.get(`${url}/fetchData?MFU_ID=${selectedMFUKey}&databaseKey=${selectedDatabaseKey}&enteredValue=${txt}`);
         const rawData = response.data;
         console.log("Data", rawData);
+        setErrorMessage('');
+        setData('');
 
         if (selectedDatabaseKey == "SFU") {
           if (!rawData) {
@@ -220,6 +246,7 @@ function App() {
         console.error('Error getting data:', error);
       }
     } else {
+      setData('');
       setErrorMessage('MFU_ID is required');
       console.error('Enter the ID');
     }
@@ -427,150 +454,62 @@ function App() {
   };
 
   return (
-    <div className="App">
-    {/* <toolbar>
-    <img
-            src={process.env.PUBLIC_URL + '/tempeh_logo.png'}
-            alt="App Logo"
-            className="App-logo"
-            style={{ height: 'auto', width: 'auto' }}
-          />
-    </toolbar> */}
-      <div className="App-header">
-        <div className="Logo-container">
-          <img
-            src={process.env.PUBLIC_URL + '/tempeh_logo.png'}
-            alt="App Logo"
-            className="App-logo"
-            style={{ height: 'auto', width: 'auto' }}
-          />
-        </div>
-        </div>
-        <label>
-          <b>Select Database Key:</b>
-          <select value={selectedDatabaseKey} onChange={handleDatabaseKeyChange}>
-            <option value="">Select a key</option>
-            {dataKeys.map((key) => (
-              <option key={key} value={key}>
-                {key}
-              </option>
-            ))}
-          </select>
-        </label>
+    <div className="App bg-gray-100 min-h-screen flex flex-col">
+      <AppBar />
+      <div className="container mx-auto my-8 flex flex-col items-center lg:flex-row lg:justify-between flex-grow">
+        <DatabaseSelection
+          dataKeys={dataKeys}
+          handleDatabaseKeyChange={handleDatabaseKeyChange}
+          selectedDatabaseKey={selectedDatabaseKey}
+        />
         {selectedDatabaseKey === 'MFU_DB' && (
-          <>
-            <label>
-              <b>Enter MFU_ID:</b>
-              <select value={selectedMFUKey} onChange={handleMFUKeyChange}>
-            <option value="">Select MFU_ID</option>
-            {mfuIds.map((key) => (
-              <option key={key} value={key}>
-                {key}
-              </option>
-            ))}
-          </select>
-              {/* <input type="text" value={mfuId} onChange={(e) => setMfuId(e.target.value)} /> */}
-            </label>
-            <label>
-              <b>Find Batch or Operator:</b>
-              <input type="text" value={txt} onChange={(e) => settxt(e.target.value)} />
-            </label>
-            <br />
-            {fileInputVisible && (
-              <>
-                <input type="file" onChange={handleFileChange} />
-                <button onClick={handleFileUpload}>Upload File</button>
-                <button onClick={() => setFileInputVisible(false)}>Close</button>
-              </>
-            )}
-
-            {!fileInputVisible && (
-              <>
-                <button onClick={() => setFileInputVisible(true)}>Upload File</button>
-                <br />
-                <button onClick={handleGetData}>Get Data</button>
-              </>
-            )}
-          </>
+          <MfuDbData
+            fileInputVisible={fileInputVisible}
+            handleFileChange={handleFileChange}
+            handleFileUpload={handleFileUpload}
+            handleGetData={handleGetData}
+            handleMFUKeyChange={handleMFUKeyChange}
+            mfuIds={mfuIds}
+            selectedMFUKey={selectedMFUKey}
+            setFileInputVisible={setFileInputVisible}
+            settxt={settxt}
+            txt={txt}
+          />
         )}
         {selectedDatabaseKey === 'SFU' && (
-          <>
-            <label>
-              Enter SFU_ID:
-              <select value={selectedMFUKey} onChange={handleMFUKeyChange}>
-                <option value="">Select SFU_ID</option>
-                {mfuIds.map((key) => (
-                  <option key={key} value={key}>
-                    {key}
-                  </option>
-                ))}
-              </select>
-              {/* <input type="text" value={mfuId} onChange={(e) => setMfuId(e.target.value)} /> */}
-            </label>
-            <br />
-            {fileInputVisible && (
-              <>
-                <input type="file" onChange={handleFileChange} />
-                <button onClick={handleFileUpload}>Upload File</button>
-                <button onClick={() => setFileInputVisible(false)}>Close</button>
-              </>
-            )}
-
-            {!fileInputVisible && (
-              <>
-                <button onClick={() => setFileInputVisible(true)}>Upload File</button>
-                <button onClick={handleGetData}>Get Data</button>
-              </>
-            )}
-          </>
+          <SfuDbData
+            fileInputVisible={fileInputVisible}
+            handleFileChange={handleFileChange}
+            handleFileUpload={handleFileUpload}
+            handleGetData={handleGetData}
+            handleMFUKeyChange={handleMFUKeyChange}
+            mfuIds={mfuIds}
+            selectedMFUKey={selectedMFUKey}
+            setFileInputVisible={setFileInputVisible}
+          />
         )}
-        {data && (
-          <div>
-            <br />
-            <h2>Data:</h2>
-            <table className="table">
-              <thead>
-                <tr>
-                  {Object.keys(data[0]).map((columnName) => (
-                    <th key={columnName}>{columnName}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((rowData, rowIndex) => (
-                  <tr key={rowIndex}>
-                    {Object.keys(data[0]).map((columnName, colIndex) => {
-                      const cellContent =
-                        columnName === 'Operator_image' && rowData[columnName] ? (
-                          <img
-                            src={rowData[columnName]}
-                            alt={rowData['Operator_name']}
-                            className="table-image"
-                          />
-                        ) : (
-                          rowData[columnName]
-                        );
-
-                      return <td key={colIndex}>{cellContent}</td>;
-                    })}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <br />
-            <button onClick={handleDownloadExcel}>Download Excel</button>
-          </div>
-        )}
-        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-        {Message && <p style={{ color: 'black' }}>{Message}</p>}
+      </div>
+      {data && (
+        <DatabaseTable
+          data={data[0] != null ? data : null}
+          handleDownloadExcel={handleDownloadExcel}
+          txt={txt}
+          handleOperatorOrBatchIdClick={handleOperatorOrBatchIdClick}
+          handleGetData={handleGetData}
+        />
+      )}
+      {errorMessage && (
+        <p className="text-center font-bold text-red-600 text-2xl my-4">{errorMessage}</p>
+      )}
+      {Message && (
+        <p className="text-center font-bold text-black text-2xl my-4">{Message}</p>
+      )}
+      <Footer />
     </div>
   );
-
-
 }
 
 export default App;
-
 {/* <button onClick={() => setIsCreateProfileClicked(true)}>Create Profile</button> */ }
 
 {/* {isCreateProfileClicked && (
