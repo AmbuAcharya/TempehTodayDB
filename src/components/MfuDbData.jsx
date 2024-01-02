@@ -16,9 +16,10 @@ const MfuDbData = ({
     <div className="max-w-md mx-auto p-4 border rounded shadow bg-white mt-8">
       {!fileInputVisible ? (
         <>
-          <label className="block mb-4">
+          <label htmlFor="mfuSelect" className="block mb-4">
             <span className="font-bold text-blue-500">Select MFU_ID:</span>
             <select
+              id="mfuSelect"
               value={selectedMFUKey}
               onChange={handleMFUKeyChange}
               className="w-full p-2 border rounded"
@@ -31,10 +32,11 @@ const MfuDbData = ({
               ))}
             </select>
           </label>
-          <label className="block mb-4">
+          <label htmlFor="searchInput" className="block mb-4">
             <span className="font-bold text-blue-500">Find Batch or Operator:</span>
             <input
               type="text"
+              id="searchInput"
               value={txt}
               onChange={(e) => settxt(e.target.value)}
               className="w-full p-2 border rounded"
@@ -42,10 +44,11 @@ const MfuDbData = ({
           </label>
         </>
       ) : (
-        <label className="block mb-4">
+        <label htmlFor="mfuInput" className="block mb-4">
           <b>Enter MFU_ID:</b>
           <input
             type="text"
+            id="mfuInput"
             value={selectedMFUKey}
             onChange={(e) => handleMFUKeyChange(e)}
             className="w-full p-2 border rounded"

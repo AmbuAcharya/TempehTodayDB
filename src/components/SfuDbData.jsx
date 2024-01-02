@@ -12,9 +12,10 @@ const SfuDbData = ({
 }) => {
   return (
     <div className="max-w-md mx-auto p-4 border rounded shadow bg-white mt-8">
-      <label className="block mb-4">
-        <span className="font-bold text-blue-500">Enter SFU_ID:</span>
+      <label htmlFor="sfuSelect" className="block mb-4">
+        <span className="font-bold text-blue-500">Select SFU_ID:</span>
         <select
+          id="sfuSelect"
           value={selectedMFUKey}
           onChange={handleMFUKeyChange}
           className="w-full p-2 border rounded"

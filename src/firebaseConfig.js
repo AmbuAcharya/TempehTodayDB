@@ -1,5 +1,6 @@
-import firebase from "firebase/compat/app";
-import "firebase/compat/database";
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getDatabase } from 'firebase/database'; // Add this import for the Realtime Database
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -12,6 +13,14 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
-firebase.initializeApp(firebaseConfig);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
-export const db = firebase.database();
+// Initialize Firebase Authentication and get a reference to the service
+const auth = getAuth(app);
+
+// Initialize Firebase Realtime Database and get a reference to the service
+const db = getDatabase(app);
+
+export { auth, db }; // Export both auth and db
+export default app;
