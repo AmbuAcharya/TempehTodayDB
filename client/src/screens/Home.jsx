@@ -1,9 +1,12 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import { get, ref, set } from 'firebase/database';
+import React, { useEffect, useState } from 'react';
 import DatabaseSelection from '../components/DatabaseSelection';
-import MfuDbData from '../components/MfuDbData'
-import SfuDbData from '../components/SfuDbData'
-import DatabaseTable from '../components/DatabaseTable'
+import DatabaseTable from '../components/DatabaseTable';
+import MfuDbData from '../components/MfuDbData';
+import SfuDbData from '../components/SfuDbData';
+import { db } from '../firebaseConfig';
+import { read, utils } from 'xlsx';
 
 
 const Home = () => {
@@ -19,7 +22,7 @@ const Home = () => {
     const [txt, settxt] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [Message, setMessage] = useState('');
-    const [explicitGetDataTriggered, setExplicitGetDataTriggered] =  useState(false);
+    const [explicitGetDataTriggered, setExplicitGetDataTriggered] = useState(false);
 
 
     useEffect(() => {
@@ -64,19 +67,33 @@ const Home = () => {
     const url = 'https://tempehtoday-f866c.web.app';
 
     useEffect(() => {
+        // Create a variable to track if the component is mounted
+        let isMounted = true;
+
         // Fetch database keys when the component mounts
         const fetchDatabaseKeys = async () => {
             try {
                 const keysResponse = await axios.get(`${url}/fetchDatabaseKeys`);
-                const databaseKeys = keysResponse.data;
-                setDataKeys(databaseKeys);
+
+                // Check if the component is still mounted before updating the state
+                if (isMounted) {
+                    const databaseKeys = keysResponse.data;
+                    setDataKeys(databaseKeys);
+                }
             } catch (error) {
                 console.error('Error fetching database keys:', error);
             }
         };
 
+        // Call the fetchDatabaseKeys function
         fetchDatabaseKeys();
+
+        // Cleanup function to set isMounted to false when the component is unmounted
+        return () => {
+            isMounted = false;
+        };
     }, []);
+
 
     useEffect(() => {
         // Fetch MFU_IDs from Firebase based on the selectedDatabaseKey
@@ -98,36 +115,188 @@ const Home = () => {
 
     const handleFileUpload = async () => {
         if (file) {
-            const formData = new FormData();
-            formData.append('file', file);
+            // const formData = new FormData();
+            // formData.append('file', file);
 
             try {
                 if (selectedDatabaseKey === "MFU_DB") {
-                    const response = await fetch(`${url}/uploadMFU?MFU_ID=${selectedMFUKey}&databaseKey=${selectedDatabaseKey}`, {
-                        method: 'POST',
-                        body: formData,
-                    });
-                    if (response.ok) {
-                        setMessage('File uploaded successfully');
-                        console.log('File uploaded successfully');
-                    } else {
+                    try {
+                        console.log('Starting file upload process');
+                        console.log('File Buffer:', file.buffer);
+                        console.log('File:', file);
+                        const workbook = read(file.buffer, { type: 'buffer' });
+                        const sheetNames = workbook.SheetNames;
+
+                        if (sheetNames.length > 0) {
+                            console.log('Workbook contains sheets');
+
+                            const refPath = `${selectedDatabaseKey}/MFU`;
+                            const refNode = ref(db, refPath);
+
+                            const existingDataSnapshot = await get(refNode);
+                            const existingData = existingDataSnapshot.val();
+
+                            const result = { ...existingData };
+                            console.log('Existing data:', existingData);
+
+                            if (!result[selectedMFUKey]) {
+                                result[selectedMFUKey] = {
+                                    GB: {}
+                                };
+                            }
+
+                            const GBNode = result[selectedMFUKey].GB;
+
+                            for (const sheetName of sheetNames) {
+                                const sheet = workbook.Sheets[sheetName];
+
+                                try {
+                                    const excelData = utils.sheet_to_json(sheet, { raw: false });
+                                    console.log(`Processing sheet "${sheetName}" with ${excelData.length} rows`);
+
+                                    excelData.forEach(row => {
+                                        const { GB_ID, SB_ID, GB_DATE, GB_TIME, SB_DATE, SB_TIME, OPERATOR_ID, STATUS, COLOR, SOAKING_START, SOAKING_STOP, BOILING_START, BOILING_Reboil, BOILING_STOP, MFU_START, MFU_STOP, INOCULATION_TEMPERATURE, SOAKING_PH } = row;
+
+                                        if (!GBNode[GB_ID]) {
+                                            GBNode[GB_ID] = {
+                                                DATE: GB_DATE || null,
+                                                TIME: GB_TIME || null,
+                                                operatorId: OPERATOR_ID || null
+                                            };
+                                        }
+
+                                        if (!GBNode[GB_ID][SB_ID]) {
+                                            GBNode[GB_ID][SB_ID] = {
+                                                BOILING: {
+                                                    Reboil: {
+                                                        Time: BOILING_Reboil || null,
+                                                        Operator_ID: OPERATOR_ID || null,
+                                                    },
+                                                    STOP: {
+                                                        Time: BOILING_STOP || null,
+                                                        Operator_ID: OPERATOR_ID || null,
+                                                    },
+                                                    START: {
+                                                        Time: BOILING_START || null,
+                                                        Operator_ID: OPERATOR_ID || null,
+                                                    }
+                                                },
+                                                DATE: SB_DATE || null,
+                                                COLOR: COLOR || null,
+                                                INOCULATION: {
+                                                    Operator_ID: OPERATOR_ID || null,
+                                                    temperature: INOCULATION_TEMPERATURE || null,
+                                                },
+                                                MFU: {
+                                                    START: {
+                                                        StartTime: MFU_START || null,
+                                                        Operator_ID: OPERATOR_ID || null,
+                                                    },
+                                                    STOP: {
+                                                        StopTime: MFU_STOP || null,
+                                                        Operator_ID: OPERATOR_ID || null,
+                                                    }
+                                                },
+                                                SOAKING: {
+                                                    START: {
+                                                        StartTime: SOAKING_START || null,
+                                                        Operator_ID: OPERATOR_ID || null,
+                                                    },
+                                                    STOP: {
+                                                        StopTime: SOAKING_STOP || null,
+                                                        Operator_ID: OPERATOR_ID || null,
+                                                    },
+                                                    ph: SOAKING_PH || null,
+                                                },
+                                                status: STATUS || null,
+                                                TIME: SB_TIME || null,
+                                                operatorId: OPERATOR_ID || null,
+                                            };
+                                        } else {
+                                            // Update existing data if GB_ID and SB_ID already exist
+                                            GBNode[GB_ID][SB_ID] = {
+                                                BOILING: {
+                                                    Reboil: {
+                                                        Time: BOILING_Reboil || null,
+                                                        Operator_ID: OPERATOR_ID || null,
+                                                    },
+                                                    STOP: {
+                                                        Time: BOILING_STOP || null,
+                                                        Operator_ID: OPERATOR_ID || null,
+                                                    },
+                                                    START: {
+                                                        Time: BOILING_START || null,
+                                                        Operator_ID: OPERATOR_ID || null,
+                                                    }
+                                                },
+                                                DATE: SB_DATE || null,
+                                                COLOR: COLOR || null,
+                                                INOCULATION: {
+                                                    Operator_ID: OPERATOR_ID || null,
+                                                    temperature: INOCULATION_TEMPERATURE || null,
+                                                },
+                                                MFU: {
+                                                    START: {
+                                                        StartTime: MFU_START || null,
+                                                        Operator_ID: OPERATOR_ID || null,
+                                                    },
+                                                    STOP: {
+                                                        StopTime: MFU_STOP || null,
+                                                        Operator_ID: OPERATOR_ID || null,
+                                                    }
+                                                },
+                                                SOAKING: {
+                                                    START: {
+                                                        StartTime: SOAKING_START || null,
+                                                        Operator_ID: OPERATOR_ID || null,
+                                                    },
+                                                    STOP: {
+                                                        StopTime: SOAKING_STOP || null,
+                                                        Operator_ID: OPERATOR_ID || null,
+                                                    },
+                                                    ph: SOAKING_PH || null,
+                                                },
+                                                status: STATUS || null,
+                                                TIME: SB_TIME || null,
+                                                operatorId: OPERATOR_ID || null,
+                                            };
+                                        }
+                                    });
+
+                                } catch (sheetError) {
+                                    console.error(`Error processing sheet "${sheetName}":`, sheetError);
+                                    // Handle the error, set an appropriate error message, or skip the sheet
+                                }
+                            }
+
+                            console.log('Data processing complete. Uploading to the database.');
+                            // Set the value in the database
+                            await set(refNode, result);
+                            setMessage('File uploaded successfully');
+                            console.log('File uploaded successfully');
+                        } else {
+                            console.error('Workbook does not contain any sheets.');
+                            // Handle the case where the workbook is empty
+                            setErrorMessage('Workbook does not contain any sheets.');
+                        }
+                    } catch (error) {
                         setErrorMessage('Failed to upload file');
-                        console.error('Failed to upload file');
+                        console.error('Failed to upload file', error);
                     }
                 }
                 else if (selectedDatabaseKey === "SFU") {
-                    const response = await fetch(`${url}/SFUupload?MFU_ID=${selectedMFUKey}&databaseKey=${selectedDatabaseKey}`, {
-                        method: 'POST',
-                        body: formData,
-                    });
-                    if (response.ok) {
-                        setMessage('File uploaded successfully');
-                        setFileInputVisible(false);
-                        console.log('File uploaded successfully');
-                    } else {
-                        console.error('Failed to upload file');
-                        setErrorMessage('Failed to upload file');
-                    }
+                    // const response = await fetch(`${url}/SFUupload?MFU_ID=${selectedMFUKey}&databaseKey=${selectedDatabaseKey}`, {
+                    //     method: 'POST',
+                    //     body: formData,
+                    // });
+                    // if (response.ok) {
+                    //     setMessage('File uploaded successfully');
+                    //     setFileInputVisible(false);
+                    //     console.log('File uploaded successfully');
+                    // } else {
+                    //     console.error('Failed to upload file');
+                    //     setErrorMessage('Failed to upload file');
+                    // }
                 }
 
             } catch (error) {
@@ -371,9 +540,19 @@ const Home = () => {
     };
 
     const handleFileChange = (e) => {
-        setFile(e.target.files[0]);
+        const selectedFile = e.target.files[0];
+        const reader = new FileReader();
+    
+        reader.onloadend = () => {
+            const buffer = new Uint8Array(reader.result);
+            // Now, you can use `buffer` in your file processing logic
+            setFile(buffer);
+        };
+    
+        reader.readAsArrayBuffer(selectedFile);
     };
-
+    
+    
     useEffect(() => {
         setData(null);
     }, [file]);
@@ -399,7 +578,7 @@ const Home = () => {
             console.error('MFU_ID is required');
         }
     };
-    
+
     const renderDatabaseData = () => {
         switch (selectedDatabaseKey) {
             case 'MFU_DB':

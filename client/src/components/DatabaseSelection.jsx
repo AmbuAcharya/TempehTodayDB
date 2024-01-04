@@ -2,7 +2,7 @@ import React from 'react';
 
 const DatabaseSelection = ({ selectedDatabaseKey, handleDatabaseKeyChange, dataKeys }) => {
   // Exclude the "users" key from dataKeys
-  const filteredDataKeys = dataKeys.filter(key => key !== "users");
+  const filteredDataKeys = Array.isArray(dataKeys) ? dataKeys.filter(key => key !== "users") : [];
 
   return (
     <div className="max-w-md mx-auto p-4 bg-white border rounded-md shadow-md mt-8">
