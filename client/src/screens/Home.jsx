@@ -142,7 +142,6 @@ const Home = () => {
             try {
                 const response = await axios.get(`${url}/fetchData?MFU_ID=${selectedMFUKey}&databaseKey=${selectedDatabaseKey}&enteredValue=${txt}`);
                 const rawData = response.data;
-                console.log("Data", rawData);
                 setErrorMessage('');
                 setData('');
 
