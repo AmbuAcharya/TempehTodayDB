@@ -64,8 +64,8 @@ const Home = () => {
     }, [txt, selectedMFUKey, selectedDatabaseKey]);
 
     // const url='http://localhost:5001';
-    const url = 'https://tempehtoday-f866c.web.app';
-    // const url = 'http://localhost:5000/tempehtoday-f866c/us-central1/app';
+    // const url = 'https://tempehtoday-f866c.web.app';
+    const url = 'http://localhost:5000/tempehtoday-f866c/us-central1/app';
 
     useEffect(() => {
 
