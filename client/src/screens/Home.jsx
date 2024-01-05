@@ -1,12 +1,13 @@
 import axios from 'axios';
-import { get, ref, set, push } from 'firebase/database';
-import React, { useEffect, useState } from 'react';
+import { get, push, ref, set } from 'firebase/database';
+import React, { useCallback, useEffect, useState } from 'react';
+import { read, utils } from 'xlsx';
+import AppIcon from "../app_icon.png";
 import DatabaseSelection from '../components/DatabaseSelection';
 import DatabaseTable from '../components/DatabaseTable';
 import MfuDbData from '../components/MfuDbData';
 import SfuDbData from '../components/SfuDbData';
 import { db } from '../firebaseConfig';
-import { read, utils } from 'xlsx';
 
 
 const Home = () => {
@@ -19,10 +20,11 @@ const Home = () => {
     const [selectedMFUKey, setSelectedMFUKey] = useState('');
     const [fileInputVisible, setFileInputVisible] = useState(false);
     const [dataKeys, setDataKeys] = useState([]);
-    const [txt, settxt] = useState('');
+    const [userInput, setUserInput] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [Message, setMessage] = useState('');
     const [explicitGetDataTriggered, setExplicitGetDataTriggered] = useState(false);
+    const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
@@ -30,53 +32,53 @@ const Home = () => {
     }, [selectedDatabaseKey]);
 
     useEffect(() => {
-        settxt('');
+        setUserInput('');
     }, [selectedDatabaseKey, mfuId]);
 
     useEffect(() => {
         setData('');
         setErrorMessage('');
         setMessage('');
-        setExplicitGetDataTriggered(false); // Reset the flag when txt changes
-    }, [mfuId, selectedDatabaseKey, txt]);
+        setExplicitGetDataTriggered(false); // Reset the flag when userInput changes
+    }, [mfuId, selectedDatabaseKey, userInput]);
 
-    const handleDatabaseKeyChange = (e) => {
+    const handleDatabaseKeyChange = useCallback((e) => {
         setSelectedDatabaseKey(e.target.value);
-    };
+    }, []);
 
-    const handleMFUKeyChange = (e) => {
+    const handleMFUKeyChange = useCallback((e) => {
         setSelectedMFUKey(e.target.value);
-    };
+    }, []);
 
-    const handleOperatorOrBatchIdClick = (operatorOrBatchId) => {
+
+    const handleOperatorOrBatchIdClick = useCallback((operatorOrBatchId) => {
         if (operatorOrBatchId !== '') {
-            settxt(operatorOrBatchId);
-            setExplicitGetDataTriggered(false); // Reset the flag when txt is set by clicking the column
+            setUserInput(operatorOrBatchId);
+            setExplicitGetDataTriggered(false);
         }
-    };
+    }, []);
 
     useEffect(() => {
-        if (txt !== '') {
-            if (txt.includes('SB') || txt.includes('GB') || txt.includes('OP')) {
+        if (userInput !== '') {
+            if (userInput.includes('SB') || userInput.includes('GB') || userInput.includes('OP')) {
                 handleGetData();
             }
         }
-    }, [txt, selectedMFUKey, selectedDatabaseKey]);
+    }, [userInput, selectedMFUKey, selectedDatabaseKey]);
 
-    // const url='http://localhost:5001';
-    // const url = 'https://tempehtoday-f866c.web.app';
-    const url = 'http://localhost:5000/tempehtoday-f866c/us-central1/app';
+    // const serverUrl='http://localhost:5001';
+    const serverUrl = 'https://tempehtoday-f866c.web.app';
 
     useEffect(() => {
-
+        // Create a variable to track if the component is mounted
         let isMounted = true;
 
-
+        // Fetch database keys when the component mounts
         const fetchDatabaseKeys = async () => {
             try {
-                const keysResponse = await axios.get(`${url}/fetchDatabaseKeys`);
+                const keysResponse = await axios.get(`${serverUrl}/fetchDatabaseKeys`);
 
-
+                // Check if the component is still mounted before updating the state
                 if (isMounted) {
                     const databaseKeys = keysResponse.data;
                     setDataKeys(databaseKeys);
@@ -86,8 +88,10 @@ const Home = () => {
             }
         };
 
+        // Call the fetchDatabaseKeys function
         fetchDatabaseKeys();
-       
+
+        // Cleanup function to set isMounted to false when the component is unmounted
         return () => {
             isMounted = false;
         };
@@ -95,10 +99,10 @@ const Home = () => {
 
 
     useEffect(() => {
-        
+        // Fetch MFU_IDs from Firebase based on the selectedDatabaseKey
         const fetchMfuIdsFromFirebase = async () => {
             try {
-                const response = await axios.get(`${url}/fetchIds?databaseKey=${selectedDatabaseKey}`);
+                const response = await axios.get(`${serverUrl}/fetchIds?databaseKey=${selectedDatabaseKey}`);
                 const mfuIds = response.data;
                 setMfuIds(mfuIds);
             } catch (error) {
@@ -114,6 +118,10 @@ const Home = () => {
 
     const handleFileUpload = async () => {
         if (file) {
+            setLoading(true);
+            // const formData = new FormData();
+            // formData.append('file', file);
+
             try {
                 if (selectedDatabaseKey === "MFU_DB") {
                     try {
@@ -146,10 +154,10 @@ const Home = () => {
                                 try {
                                     const excelData = utils.sheet_to_json(sheet, { raw: false });
                                     console.log(`Processing sheet "${sheetName}" with ${excelData.length} rows`);
-                                    
+
                                     excelData.forEach(row => {
-                                        const { GB_ID , SB_ID, 'GENERAL-BATCH DATE': GB_DATE , 'GENERAL-BATCH TIME':GB_TIME, 'SUB-BATCH DATE': SB_DATE, 'SUB-BATCH TIME': SB_TIME, 'OPERATOR': OPERATOR_ID, STATUS, COLOR, 'SOAKING START':SOAKING_START, 'SOAKING STOP':SOAKING_STOP,'BOILING START': BOILING_START, 'BOILING Reboil':BOILING_Reboil, 'BOILING STOP ': BOILING_STOP, 'MFU START': MFU_START, 'MFU STOP': MFU_STOP,'COOLING TEMPERATURE': INOCULATION_TEMPERATURE, 'SOAKING PH':SOAKING_PH } = row;
-                                        
+                                        const { GB_ID, SB_ID, 'GENERAL-BATCH DATE': GB_DATE, 'GENERAL-BATCH TIME': GB_TIME, 'SUB-BATCH DATE': SB_DATE, 'SUB-BATCH TIME': SB_TIME, 'OPERATOR': OPERATOR_ID, STATUS, COLOR, 'SOAKING START': SOAKING_START, 'SOAKING STOP': SOAKING_STOP, 'BOILING START': BOILING_START, 'BOILING Reboil': BOILING_Reboil, 'BOILING STOP ': BOILING_STOP, 'MFU START': MFU_START, 'MFU STOP': MFU_STOP, 'COOLING TEMPERATURE': INOCULATION_TEMPERATURE, 'SOAKING PH': SOAKING_PH } = row;
+
                                         if (!GBNode[GB_ID]) {
                                             GBNode[GB_ID] = {
                                                 DATE: GB_DATE || null,
@@ -278,81 +286,86 @@ const Home = () => {
                     }
                 }
                 else if (selectedDatabaseKey === "SFU") {
-                    try 
-                    {
+                    try {
                         const workbook = read(file.buffer, { type: 'buffer' });
                         const sheetNames = workbook.SheetNames;
 
                         for (const sheetName of sheetNames) {
-                        const sheet = workbook.Sheets[sheetName];
-                        const excelData = utils.sheet_to_json(sheet, { raw: false });
+                            const sheet = workbook.Sheets[sheetName];
+                            const excelData = utils.sheet_to_json(sheet, { raw: false });
 
-                        const refPath = `${selectedDatabaseKey}/${selectedMFUKey}`;
+                            const refPath = `${selectedDatabaseKey}/${selectedMFUKey}`;
 
-                        for (const item of excelData) {
-                            const date = item['Date'];
-                            const time = item['Time'];
+                            for (const item of excelData) {
+                                const date = item['Date'];
+                                const time = item['Time'];
 
-                            if (!date || !time) {
-                            
-                            await push(ref(db, refPath), item);
-                            } 
-                            else {
-                            const dateRegex = /^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/;
-                            const dateMatch = date.match(dateRegex);
-                            const timeRegex = /^(\d{1,2}):(\d{2}):(\d{2}) (AM|PM)$/;
-                            const timeMatch = time.match(timeRegex);
+                                if (!date || !time) {
 
-                            if (dateMatch && timeMatch) {
-                                const [, month, day, year] = dateMatch;
-                                const [, hours, minutes, seconds, ampm] = timeMatch;
-
-                                const formattedDate = new Date(
-                                year.length === 2 ? `20${year}` : year,
-                                month - 1,
-                                day
-                                );
-                                const formattedTime = `${hours.padStart(2, '0')}:${minutes}:${seconds} ${ampm}`;
-
-                                if (!isNaN(formattedDate.getTime())) {
-                                const datePath = `${day.padStart(2, '0')}-${month.padStart(2, '0')}-${year}`;
-                                const timePath = formattedTime;
-
-                                delete item['Date'];
-                                delete item['Time'];
-
-                                const fullPath = `${refPath}/${datePath}/${timePath}`;
-
-                                // Use set method on the final reference
-                                await set(ref(db, fullPath), item);
-                                setMessage('File uploaded successfully');
-                                console.log('File uploaded successfully');
-                                } else {
-                                    console.error(`Skipping data with invalid date: ${date}`);
+                                    await push(ref(db, refPath), item);
                                 }
-                            } else {
-                                console.error(`Skipping data with invalid date or time format - Date: ${date}, Time: ${time}`);
-                            }
+                                else {
+                                    const dateRegex = /^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/;
+                                    const dateMatch = date.match(dateRegex);
+                                    const timeRegex = /^(\d{1,2}):(\d{2}):(\d{2}) (AM|PM)$/;
+                                    const timeMatch = time.match(timeRegex);
+
+                                    if (dateMatch && timeMatch) {
+                                        const [, month, day, year] = dateMatch;
+                                        const [, hours, minutes, seconds, ampm] = timeMatch;
+
+                                        const formattedDate = new Date(
+                                            year.length === 2 ? `20${year}` : year,
+                                            month - 1,
+                                            day
+                                        );
+                                        const formattedTime = `${hours.padStart(2, '0')}:${minutes}:${seconds} ${ampm}`;
+
+                                        if (!isNaN(formattedDate.getTime())) {
+                                            const datePath = `${day.padStart(2, '0')}-${month.padStart(2, '0')}-${year}`;
+                                            const timePath = formattedTime;
+
+                                            delete item['Date'];
+                                            delete item['Time'];
+
+                                            const fullPath = `${refPath}/${datePath}/${timePath}`;
+
+                                            // Use set method on the final reference
+                                            await set(ref(db, fullPath), item);
+                                            setMessage('File uploaded successfully');
+                                            console.log('File uploaded successfully');
+                                        } else {
+                                            console.error(`Skipping data with invalid date: ${date}`);
+                                        }
+                                    } else {
+                                        console.error(`Skipping data with invalid date or time format - Date: ${date}, Time: ${time}`);
+                                    }
+                                }
                             }
                         }
-                    }
-                } catch (error) {
-                    setErrorMessage('Failed to upload file');
-                    console.error('Failed to upload file', error);
+                    } catch (error) {
+                        setErrorMessage('Failed to upload file');
+                        console.error('Failed to upload file', error);
                     }
                 }
+
             } catch (error) {
+                setErrorMessage('Failed to upload file');
                 console.error('Error uploading file:', error);
+            } finally {
+                setLoading(false);
             }
         }
     };
-      
+
     const handleGetData = async () => {
-        console.log("selected Text" + txt);
-        if (selectedMFUKey && !explicitGetDataTriggered) {
-            try {
-                const response = await axios.get(`${url}/fetchData?MFU_ID=${selectedMFUKey}&databaseKey=${selectedDatabaseKey}&enteredValue=${txt}`);
+        setLoading(true)
+        console.log("selected Text" + userInput);
+        try {
+            if (selectedMFUKey && !explicitGetDataTriggered) {
+                const response = await axios.get(`${serverUrl}/fetchData?MFU_ID=${selectedMFUKey}&databaseKey=${selectedDatabaseKey}&enteredValue=${userInput}`);
                 const rawData = response.data;
+
                 setErrorMessage('');
                 setData('');
 
@@ -366,47 +379,49 @@ const Home = () => {
                     }
                 }
                 else {
-                    if (txt.includes("SB")) {
+                    if (userInput.includes("SB")) {
                         if (!rawData) {
 
-                            setErrorMessage(`No Data found for ${txt}`);
+                            setErrorMessage(`No Data found for ${userInput}`);
                         } else {
-                            const transformedData = transformDatasb(rawData, txt);
+                            const transformedData = transformDatasb(rawData, userInput);
                             setData(transformedData);
                         }
                     }
-                    else if (txt.includes("GB")) {
+                    else if (userInput.includes("GB")) {
                         if (!rawData) {
 
-                            setErrorMessage(`No Data found for ${txt}`);
+                            setErrorMessage(`No Data found for ${userInput}`);
                         } else {
-                            const transformedData = transformDatagb(rawData, txt);
+                            const transformedData = transformDatagb(rawData, userInput);
                             setData(transformedData);
                         }
                     }
-                    else if (txt.includes("_OP")) {
-                        const transformedData = transformDataop(rawData, txt);
+                    else if (userInput.includes("_OP")) {
+                        const transformedData = transformDataop(rawData, userInput);
                         setData(transformedData);
                     }
                     else {
-                        const transformedData = transformDatamfu(rawData, selectedDatabaseKey, txt);
+                        const transformedData = transformDatamfu(rawData, selectedDatabaseKey, userInput);
                         setData(transformedData);
                     }
                 }
 
-            } catch (error) {
-                if (txt) {
-                    setErrorMessage(`No Record found of ${txt}`);
-                }
-                else {
-                    setErrorMessage(`No Record of ${selectedMFUKey}`);
-                }
-                console.error('Error getting data:', error);
+            } else {
+                setData('');
+                setErrorMessage('MFU_ID is required');
+                console.error('Enter the ID');
             }
-        } else {
-            setData('');
-            setErrorMessage('MFU_ID is required');
-            console.error('Enter the ID');
+        } catch (error) {
+            if (userInput) {
+                setErrorMessage(`No Record found of ${userInput}`);
+            }
+            else {
+                setErrorMessage(`No Record of ${selectedMFUKey}`);
+            }
+            console.error('Error getting data:', error);
+        } finally {
+            setLoading(false)
         }
     };
 
@@ -422,12 +437,12 @@ const Home = () => {
         "D4D400": 'Yellow',
     };
 
-    function transformDatasb(sbData, txt) {
+    function transformDatasb(sbData, userInput) {
         const result = [];
 
         if (sbData && typeof sbData === 'object') {
             const row = {
-                SB_ID: txt || '',
+                SB_ID: userInput || '',
                 'SUB-BATCH DATE': sbData.DATE || '',
                 'SUB-BATCH TIME': sbData.TIME || '',
                 OPERATOR: sbData.operatorId || '',
@@ -452,7 +467,7 @@ const Home = () => {
         return result;
     }
 
-    function transformDatagb(jsonData, txt) {
+    function transformDatagb(jsonData, userInput) {
         const result = [];
 
         if (jsonData && typeof jsonData === 'object') {
@@ -464,7 +479,7 @@ const Home = () => {
 
                 if (sbData && typeof sbData === 'object') {
                     const row = {
-                        GB_ID: txt || '',
+                        GB_ID: userInput || '',
                         SB_ID: sbID || '',
                         'SUB-BATCH DATE': sbData.DATE || '',
                         'SUB-BATCH TIME': sbData.TIME || '',
@@ -581,20 +596,18 @@ const Home = () => {
         return tableData;
     };
 
-    const handleFileChange = (e) => {
+    const handleFileChange = useCallback((e) => {
         const selectedFile = e.target.files[0];
         const reader = new FileReader();
-    
+
         reader.onloadend = () => {
             const buffer = new Uint8Array(reader.result);
-            // Now, you can use `buffer` in your file processing logic
             setFile(buffer);
         };
-    
+
         reader.readAsArrayBuffer(selectedFile);
-    };
-    
-    
+    }, []);
+
     useEffect(() => {
         setData(null);
     }, [file]);
@@ -602,7 +615,7 @@ const Home = () => {
     const handleDownloadExcel = async () => {
         if (selectedMFUKey) {
             try {
-                const response = await fetch(`${url}/downloadExcel?MFU_ID=${selectedMFUKey}&databaseKey=${selectedDatabaseKey}`);
+                const response = await fetch(`${serverUrl}/downloadExcel?MFU_ID=${selectedMFUKey}&databaseKey=${selectedDatabaseKey}`);
                 const blob = await response.blob();
 
                 // Create a link element and trigger a download
@@ -634,8 +647,8 @@ const Home = () => {
                         mfuIds={mfuIds}
                         selectedMFUKey={selectedMFUKey}
                         setFileInputVisible={setFileInputVisible}
-                        settxt={settxt}
-                        txt={txt}
+                        setUserInput={setUserInput}
+                        userInput={userInput}
                     />
                 );
             case 'SFU':
@@ -657,6 +670,17 @@ const Home = () => {
     };
     return (
         <>
+            {loading && (
+                <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-700 bg-opacity-50">
+                    <div className="bg-white p-4 rounded-md flex items-center justify-center">
+                        <img
+                            src={AppIcon}
+                            alt="App Logo"
+                            className="animate-spin  h-12 w-12 "
+                        />
+                    </div>
+                </div>
+            )}
             <div className="container mx-auto my-8 flex flex-col items-center lg:flex-row lg:justify-between flex-grow">
                 <DatabaseSelection
                     dataKeys={dataKeys}
@@ -669,7 +693,7 @@ const Home = () => {
                 <DatabaseTable
                     data={data[0] != null ? data : null}
                     handleDownloadExcel={handleDownloadExcel}
-                    txt={txt}
+                    userInput={userInput}
                     handleOperatorOrBatchIdClick={handleOperatorOrBatchIdClick}
                     handleGetData={handleGetData}
                 />

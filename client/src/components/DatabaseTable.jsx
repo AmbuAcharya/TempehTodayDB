@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DatabaseTable = ({ data, handleDownloadExcel, txt, handleOperatorOrBatchIdClick }) => {
+const DatabaseTable = ({ data, handleDownloadExcel, userInput, handleOperatorOrBatchIdClick }) => {
   return (
     <>
       {data !== null && (
@@ -64,7 +64,7 @@ const DatabaseTable = ({ data, handleDownloadExcel, txt, handleOperatorOrBatchId
               </tbody>
             </table>
           </div>
-          {txt === '' && (
+          {userInput === '' && (
             <div className="flex justify-center mt-4">
               <button
                 className="download-button py-2 px-4 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600 focus:outline-none transition duration-300  mb-4"

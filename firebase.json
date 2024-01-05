@@ -28,15 +28,6 @@
         "function": "fetchIds"
       },
       {
-        "source": "/SFUupload",
-        "function": "SFUupload"
-      },
-      {
-        "source": "/uploadMFU",
-        "function": "uploadMFU",
-        "timeoutSeconds": 540
-      },
-      {
         "source": "/fetchData",
         "function": "fetchData"
       },
