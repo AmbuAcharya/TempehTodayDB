@@ -3,45 +3,59 @@ import React from 'react';
 const SfuDbData = ({
   selectedMFUKey,
   handleMFUKeyChange,
-  mfuIds,
-  fileInputVisible,
   handleFileChange,
+  mfuIds,
+  txt,
+  settxt,
+  fileInputVisible,
   handleFileUpload,
   setFileInputVisible,
   handleGetData,
 }) => {
   return (
     <div className="max-w-md mx-auto p-4 border rounded shadow bg-white mt-8">
-      <label htmlFor="sfuSelect" className="block mb-4">
-        <span className="font-bold text-blue-500">Select SFU_ID:</span>
-        <select
-          id="sfuSelect"
-          value={selectedMFUKey}
-          onChange={handleMFUKeyChange}
-          className="w-full p-2 border rounded"
-        >
-          <option value="">Select SFU_ID</option>
-          {mfuIds.map((key) => (
-            <option key={key} value={key}>
-              {key}
-            </option>
-          ))}
-        </select>
-      </label>
+      {!fileInputVisible ? (
+        <>
+          <label htmlFor="mfuSelect" className="block mb-4">
+            <span className="font-bold text-blue-500">Select MFU_ID:</span>
+            <select
+              id="mfuSelect"
+              value={selectedMFUKey}
+              onChange={handleMFUKeyChange}
+              className="w-full p-2 border rounded"
+            >
+              <option value="">Select SFU_ID</option>
+              {mfuIds.map((key) => (
+                <option key={key} value={key}>
+                  {key}
+                </option>
+              ))}
+            </select>
+          </label>
+        </>
+      ) : (
+        <label htmlFor="mfuInput" className="block mb-4">
+          <b>Enter SFU_ID:</b>
+          <input
+            type="text"
+            id="mfuInput"
+            value={selectedMFUKey}
+            onChange={(e) => handleMFUKeyChange(e)}
+            className="w-full p-2 border rounded"
+          />
+        </label>
+      )}
       <div className="flex justify-between">
         {fileInputVisible ? (
           <>
             <input type="file" onChange={handleFileChange} className="mr-2" />
             <button
               onClick={handleFileUpload}
-              className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer mr-2 hover:bg-blue-600"
+              className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600"
             >
               Upload
             </button>
-            <button
-              onClick={() => setFileInputVisible(false)}
-              className="px-4 py-2 hover:text-blue-500"
-            >
+            <button onClick={() => setFileInputVisible(false)} className="px-4 py-2 hover:text-blue-500">
               Close
             </button>
           </>
@@ -49,7 +63,7 @@ const SfuDbData = ({
           <>
             <button
               onClick={() => setFileInputVisible(true)}
-              className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer mr-2 hover:bg-blue-600"
+              className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600 mr-2"
             >
               Upload File
             </button>

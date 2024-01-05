@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { get, ref, set } from 'firebase/database';
+import { get, ref, set, push } from 'firebase/database';
 import React, { useEffect, useState } from 'react';
 import DatabaseSelection from '../components/DatabaseSelection';
 import DatabaseTable from '../components/DatabaseTable';
@@ -65,17 +65,18 @@ const Home = () => {
 
     // const url='http://localhost:5001';
     const url = 'https://tempehtoday-f866c.web.app';
+    // const url = 'http://localhost:5000/tempehtoday-f866c/us-central1/app';
 
     useEffect(() => {
-        // Create a variable to track if the component is mounted
+
         let isMounted = true;
 
-        // Fetch database keys when the component mounts
+
         const fetchDatabaseKeys = async () => {
             try {
                 const keysResponse = await axios.get(`${url}/fetchDatabaseKeys`);
 
-                // Check if the component is still mounted before updating the state
+
                 if (isMounted) {
                     const databaseKeys = keysResponse.data;
                     setDataKeys(databaseKeys);
@@ -85,10 +86,8 @@ const Home = () => {
             }
         };
 
-        // Call the fetchDatabaseKeys function
         fetchDatabaseKeys();
-
-        // Cleanup function to set isMounted to false when the component is unmounted
+       
         return () => {
             isMounted = false;
         };
@@ -96,7 +95,7 @@ const Home = () => {
 
 
     useEffect(() => {
-        // Fetch MFU_IDs from Firebase based on the selectedDatabaseKey
+        
         const fetchMfuIdsFromFirebase = async () => {
             try {
                 const response = await axios.get(`${url}/fetchIds?databaseKey=${selectedDatabaseKey}`);
@@ -115,9 +114,6 @@ const Home = () => {
 
     const handleFileUpload = async () => {
         if (file) {
-            // const formData = new FormData();
-            // formData.append('file', file);
-
             try {
                 if (selectedDatabaseKey === "MFU_DB") {
                     try {
@@ -137,7 +133,7 @@ const Home = () => {
                             const existingData = existingDataSnapshot.val();
 
                             const result = { ...existingData };
-                            console.log('Existing data:', existingData);
+                            console.log('Existing data:', result);
 
                             if (!result[selectedMFUKey]) {
                                 result[selectedMFUKey] = {
@@ -153,10 +149,10 @@ const Home = () => {
                                 try {
                                     const excelData = utils.sheet_to_json(sheet, { raw: false });
                                     console.log(`Processing sheet "${sheetName}" with ${excelData.length} rows`);
-
+                                    
                                     excelData.forEach(row => {
-                                        const { GB_ID, SB_ID, GB_DATE, GB_TIME, SB_DATE, SB_TIME, OPERATOR_ID, STATUS, COLOR, SOAKING_START, SOAKING_STOP, BOILING_START, BOILING_Reboil, BOILING_STOP, MFU_START, MFU_STOP, INOCULATION_TEMPERATURE, SOAKING_PH } = row;
-
+                                        const { GB_ID , SB_ID, 'GENERAL-BATCH DATE': GB_DATE , 'GENERAL-BATCH TIME':GB_TIME, 'SUB-BATCH DATE': SB_DATE, 'SUB-BATCH TIME': SB_TIME, 'OPERATOR': OPERATOR_ID, STATUS, COLOR, 'SOAKING START':SOAKING_START, 'SOAKING STOP':SOAKING_STOP,'BOILING START': BOILING_START, 'BOILING Reboil':BOILING_Reboil, 'BOILING STOP ': BOILING_STOP, 'MFU START': MFU_START, 'MFU STOP': MFU_STOP,'COOLING TEMPERATURE': INOCULATION_TEMPERATURE, 'SOAKING PH':SOAKING_PH } = row;
+                                        
                                         if (!GBNode[GB_ID]) {
                                             GBNode[GB_ID] = {
                                                 DATE: GB_DATE || null,
@@ -285,26 +281,71 @@ const Home = () => {
                     }
                 }
                 else if (selectedDatabaseKey === "SFU") {
-                    // const response = await fetch(`${url}/SFUupload?MFU_ID=${selectedMFUKey}&databaseKey=${selectedDatabaseKey}`, {
-                    //     method: 'POST',
-                    //     body: formData,
-                    // });
-                    // if (response.ok) {
-                    //     setMessage('File uploaded successfully');
-                    //     setFileInputVisible(false);
-                    //     console.log('File uploaded successfully');
-                    // } else {
-                    //     console.error('Failed to upload file');
-                    //     setErrorMessage('Failed to upload file');
-                    // }
+                    const workbook = read(file.buffer, { type: 'buffer' });
+                    const sheetNames = workbook.SheetNames;
+
+                    // Assuming selectedMFUKey and selectedDatabaseKey are already defined
+
+                    for (const sheetName of sheetNames) {
+                    const sheet = workbook.Sheets[sheetName];
+                    const excelData = utils.sheet_to_json(sheet, { raw: false });
+
+                    const refPath = `${selectedDatabaseKey}/${selectedMFUKey}`;
+                    console.log(refPath);
+
+                    for (const item of excelData) {
+                        const date = item['Date'];
+                        const time = item['Time'];
+
+                        if (!date || !time) {
+                        // If Date or Time is missing, push directly to the reference
+                        await push(ref(db, refPath), item);
+                        } else {
+                        const dateRegex = /^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/;
+                        const dateMatch = date.match(dateRegex);
+                        const timeRegex = /^(\d{1,2}):(\d{2}):(\d{2}) (AM|PM)$/;
+                        const timeMatch = time.match(timeRegex);
+
+                        if (dateMatch && timeMatch) {
+                            const [, month, day, year] = dateMatch;
+                            const [, hours, minutes, seconds, ampm] = timeMatch;
+
+                            const formattedDate = new Date(
+                            year.length === 2 ? `20${year}` : year,
+                            month - 1,
+                            day
+                            );
+                            const formattedTime = `${hours.padStart(2, '0')}:${minutes}:${seconds} ${ampm}`;
+
+                            if (!isNaN(formattedDate.getTime())) {
+                            const datePath = `${day.padStart(2, '0')}-${month.padStart(2, '0')}-${year}`;
+                            const timePath = formattedTime;
+
+                            delete item['Date'];
+                            delete item['Time'];
+
+                            const fullPath = `${refPath}/${datePath}/${timePath}`;
+
+                            // Use set method on the final reference
+                            await set(ref(db, fullPath), item);
+                            } else {
+                            console.error(`Skipping data with invalid date: ${date}`);
+                            }
+                        } else {
+                            console.error(`Skipping data with invalid date or time format - Date: ${date}, Time: ${time}`);
+                        }
+                        }
+                    }
+                    }
                 }
+                
 
             } catch (error) {
                 console.error('Error uploading file:', error);
             }
         }
     };
-
+      
     const handleGetData = async () => {
         console.log("selected Text" + txt);
         if (selectedMFUKey && !explicitGetDataTriggered) {

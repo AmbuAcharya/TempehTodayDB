@@ -514,65 +514,59 @@ function transformDatamfu(sheetData, userProvidedDocumentId) {
   const selectedData = sheetData[userProvidedDocumentId].GB;
 
   if (!selectedData) {
-    console.error("No data found for the provided document ID");
+    console.error('No data found for the provided document ID');
     return result;
   }
 
   Object.keys(selectedData).forEach(gbID => {
-    if (gbID === "DATE" || gbID === "TIME" || gbID === "operatorId") {
+    if (gbID === 'DATE' || gbID === 'TIME' || gbID === 'operatorId') {
       return; // Skip unnecessary rows
     }
 
     const gbData = selectedData[gbID];
 
     Object.keys(gbData).forEach(sbID => {
-      if (sbID === "DATE" || sbID === "TIME" || sbID === "operatorId") {
+      if (sbID === 'DATE' || sbID === 'TIME' || sbID === 'operatorId') {
         return; // Skip unnecessary rows
       }
+
       const sbData = gbData[sbID];
 
       const row = {
-        GB_ID: gbID || "",
-        "GENERAL-BATCH DATE": gbData.DATE || "",
-        "GENERAL-BATCH TIME": gbData.TIME || "",
-        SB_ID: sbID || "",
-        "SUB-BATCH DATE": sbData.DATE || "",
-        "SUB-BATCH TIME": sbData.TIME || "",
-        OPERATOR: gbData.operatorId || "",
-        STATUS: sbData.status || "",
-        COLOR: colorMapping[sbData.COLOR] || "",
-        "SOAKING PH": sbData.SOAKING.ph || "",
-        "SOAKING START": sbData.SOAKING.START.StartTime || "",
-        "SOAKING STOP": sbData.SOAKING.STOP.StopTime || "",
-        "BOILING START": sbData.BOILING.START.StartTime || "",
-        "BOILING Reboil": sbData.BOILING.REBOIL.ReboilTime || "",
-        "BOILING STOP": sbData.BOILING.STOP.StopTime || "",
-        "COOLING TEMPERATURE": sbData.INOCULATION.temperature || "",
-        "MFU START": sbData.MFU.START.StartTime || "",
-        "MFU STOP": sbData.MFU.STOP.StopTime || "",
+        GB_ID: gbID || '',
+        'GENERAL-BATCH DATE': gbData.DATE || '', 
+        'GENERAL-BATCH TIME': gbData.TIME || '', 
+        SB_ID: sbID || '',
+        'SUB-BATCH DATE': sbData.DATE || '',
+        'SUB-BATCH TIME': sbData.TIME || '',
+        OPERATOR: sbData.operatorId || '',
+        STATUS: sbData.status || '',
+        COLOR: colorMapping[sbData.COLOR] || '',
+        'SOAKING PH': sbData.SOAKING?.ph || '',
+        'SOAKING START': sbData.SOAKING?.START?.StartTime || '',
+        'SOAKING STOP': sbData.SOAKING?.STOP?.StopTime || '',
+        'BOILING START': sbData.BOILING?.START?.StartTime || '',
+        'BOILING Reboil': sbData.BOILING?.REBOIL?.ReboilTime || '',
+        'BOILING STOP': sbData.BOILING?.STOP?.StopTime || '',
+        'COOLING TEMPERATURE': sbData.INOCULATION?.temperature || '',
+        'MFU START': sbData.MFU?.START?.StartTime || '',
+        'MFU STOP': sbData.MFU?.STOP?.StopTime || '',
       };
+
       result.push(row);
     });
   });
+
   return result;
 }
 
+
 function generateExcelBuffer(data, userProvidedDocumentId) {
   const worksheet = xlsx.utils.json_to_sheet(data);
-
-  // Set style for bold font and center alignment
-  const style = {
-    font: { bold: true },
-    alignment: { horizontal: "center" }
-  };
-
-  // Apply style to header row
-  xlsx.utils.sheet_add_aoa(worksheet, [Object.keys(data[0])], { origin: -1, style });
-
   const workbook = xlsx.utils.book_new();
-  xlsx.utils.book_append_sheet(workbook, worksheet, userProvidedDocumentId);
+  xlsx.utils.book_append_sheet(workbook, worksheet,userProvidedDocumentId);
 
-  const excelBuffer = xlsx.write(workbook, { bookType: "xlsx", bookSST: true, type: "buffer" });
+  const excelBuffer = xlsx.write(workbook, { bookType: 'xlsx', bookSST: true, type: 'buffer' });
 
   return excelBuffer;
 }
