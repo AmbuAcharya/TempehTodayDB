@@ -34,7 +34,7 @@ const CreateUser = () => {
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-100">
       <section className="max-w-md w-full">
-        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 transition-all duration-500 ease-in-out transform hover:scale-105">
           <h1 className="text-2xl font-bold text-center mb-4">CREATE USER</h1>
           <form onSubmit={onSignUp}>
             <div className="mb-4">
@@ -98,6 +98,7 @@ const CreateUser = () => {
               </button>
             </div>
           </form>
+
         </div>
       </section>
     </main>

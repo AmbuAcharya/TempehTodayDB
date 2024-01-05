@@ -72,7 +72,10 @@ const MfuDbData = ({
         ) : (
           <>
             <button
-              onClick={() => setFileInputVisible(true)}
+              onClick={() => {
+                setFileInputVisible(true)
+                handleMFUKeyChange(null)
+              }}
               className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600 mr-2"
             >
               Upload File

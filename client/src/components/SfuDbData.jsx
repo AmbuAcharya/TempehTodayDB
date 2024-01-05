@@ -5,8 +5,6 @@ const SfuDbData = ({
   handleMFUKeyChange,
   handleFileChange,
   mfuIds,
-  txt,
-  settxt,
   fileInputVisible,
   handleFileUpload,
   setFileInputVisible,
@@ -55,7 +53,10 @@ const SfuDbData = ({
             >
               Upload
             </button>
-            <button onClick={() => setFileInputVisible(false)} className="px-4 py-2 hover:text-blue-500">
+            <button onClick={() => {
+              setFileInputVisible(false)
+              handleMFUKeyChange(null)
+            }} className="px-4 py-2 hover:text-blue-500">
               Close
             </button>
           </>

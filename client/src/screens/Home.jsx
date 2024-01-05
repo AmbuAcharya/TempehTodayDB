@@ -43,11 +43,17 @@ const Home = () => {
     }, [mfuId, selectedDatabaseKey, userInput]);
 
     const handleDatabaseKeyChange = useCallback((e) => {
+        setFileInputVisible(false)
+        setSelectedMFUKey("")
         setSelectedDatabaseKey(e.target.value);
     }, []);
 
     const handleMFUKeyChange = useCallback((e) => {
-        setSelectedMFUKey(e.target.value);
+        if (e != null) {
+            setSelectedMFUKey(e.target.value);
+        } else {
+            setSelectedMFUKey("")
+        }
     }, []);
 
 

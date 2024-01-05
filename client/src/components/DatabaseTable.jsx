@@ -3,7 +3,7 @@ import React from 'react';
 const DatabaseTable = ({ data, handleDownloadExcel, userInput, handleOperatorOrBatchIdClick }) => {
   return (
     <>
-      {data !== null && (
+      {data && (
         <div className="container mx-auto mt-8 bg-gray-100">
           <div className="overflow-x-auto">
             <table className="table w-full bg-white shadow-md rounded-md">
@@ -64,10 +64,10 @@ const DatabaseTable = ({ data, handleDownloadExcel, userInput, handleOperatorOrB
               </tbody>
             </table>
           </div>
-          {userInput === '' && (
+          {!userInput && (
             <div className="flex justify-center mt-4">
               <button
-                className="download-button py-2 px-4 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600 focus:outline-none transition duration-300  mb-4"
+                className="download-button py-2 px-4 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600 focus:outline-none transition duration-300 mb-4"
                 onClick={handleDownloadExcel}
               >
                 Download Excel
