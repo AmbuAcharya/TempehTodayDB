@@ -117,9 +117,6 @@ const Home = () => {
             try {
                 if (selectedDatabaseKey === "MFU_DB") {
                     try {
-                        console.log('Starting file upload process');
-                        console.log('File Buffer:', file.buffer);
-                        console.log('File:', file);
                         const workbook = read(file.buffer, { type: 'buffer' });
                         const sheetNames = workbook.SheetNames;
 
@@ -281,65 +278,69 @@ const Home = () => {
                     }
                 }
                 else if (selectedDatabaseKey === "SFU") {
-                    const workbook = read(file.buffer, { type: 'buffer' });
-                    const sheetNames = workbook.SheetNames;
+                    try 
+                    {
+                        const workbook = read(file.buffer, { type: 'buffer' });
+                        const sheetNames = workbook.SheetNames;
 
-                    // Assuming selectedMFUKey and selectedDatabaseKey are already defined
+                        for (const sheetName of sheetNames) {
+                        const sheet = workbook.Sheets[sheetName];
+                        const excelData = utils.sheet_to_json(sheet, { raw: false });
 
-                    for (const sheetName of sheetNames) {
-                    const sheet = workbook.Sheets[sheetName];
-                    const excelData = utils.sheet_to_json(sheet, { raw: false });
+                        const refPath = `${selectedDatabaseKey}/${selectedMFUKey}`;
 
-                    const refPath = `${selectedDatabaseKey}/${selectedMFUKey}`;
-                    console.log(refPath);
+                        for (const item of excelData) {
+                            const date = item['Date'];
+                            const time = item['Time'];
 
-                    for (const item of excelData) {
-                        const date = item['Date'];
-                        const time = item['Time'];
+                            if (!date || !time) {
+                            
+                            await push(ref(db, refPath), item);
+                            } 
+                            else {
+                            const dateRegex = /^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/;
+                            const dateMatch = date.match(dateRegex);
+                            const timeRegex = /^(\d{1,2}):(\d{2}):(\d{2}) (AM|PM)$/;
+                            const timeMatch = time.match(timeRegex);
 
-                        if (!date || !time) {
-                        // If Date or Time is missing, push directly to the reference
-                        await push(ref(db, refPath), item);
-                        } else {
-                        const dateRegex = /^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/;
-                        const dateMatch = date.match(dateRegex);
-                        const timeRegex = /^(\d{1,2}):(\d{2}):(\d{2}) (AM|PM)$/;
-                        const timeMatch = time.match(timeRegex);
+                            if (dateMatch && timeMatch) {
+                                const [, month, day, year] = dateMatch;
+                                const [, hours, minutes, seconds, ampm] = timeMatch;
 
-                        if (dateMatch && timeMatch) {
-                            const [, month, day, year] = dateMatch;
-                            const [, hours, minutes, seconds, ampm] = timeMatch;
+                                const formattedDate = new Date(
+                                year.length === 2 ? `20${year}` : year,
+                                month - 1,
+                                day
+                                );
+                                const formattedTime = `${hours.padStart(2, '0')}:${minutes}:${seconds} ${ampm}`;
 
-                            const formattedDate = new Date(
-                            year.length === 2 ? `20${year}` : year,
-                            month - 1,
-                            day
-                            );
-                            const formattedTime = `${hours.padStart(2, '0')}:${minutes}:${seconds} ${ampm}`;
+                                if (!isNaN(formattedDate.getTime())) {
+                                const datePath = `${day.padStart(2, '0')}-${month.padStart(2, '0')}-${year}`;
+                                const timePath = formattedTime;
 
-                            if (!isNaN(formattedDate.getTime())) {
-                            const datePath = `${day.padStart(2, '0')}-${month.padStart(2, '0')}-${year}`;
-                            const timePath = formattedTime;
+                                delete item['Date'];
+                                delete item['Time'];
 
-                            delete item['Date'];
-                            delete item['Time'];
+                                const fullPath = `${refPath}/${datePath}/${timePath}`;
 
-                            const fullPath = `${refPath}/${datePath}/${timePath}`;
-
-                            // Use set method on the final reference
-                            await set(ref(db, fullPath), item);
+                                // Use set method on the final reference
+                                await set(ref(db, fullPath), item);
+                                setMessage('File uploaded successfully');
+                                console.log('File uploaded successfully');
+                                } else {
+                                    console.error(`Skipping data with invalid date: ${date}`);
+                                }
                             } else {
-                            console.error(`Skipping data with invalid date: ${date}`);
+                                console.error(`Skipping data with invalid date or time format - Date: ${date}, Time: ${time}`);
                             }
-                        } else {
-                            console.error(`Skipping data with invalid date or time format - Date: ${date}, Time: ${time}`);
-                        }
+                            }
                         }
                     }
+                } catch (error) {
+                    setErrorMessage('Failed to upload file');
+                    console.error('Failed to upload file', error);
                     }
                 }
-                
-
             } catch (error) {
                 console.error('Error uploading file:', error);
             }
