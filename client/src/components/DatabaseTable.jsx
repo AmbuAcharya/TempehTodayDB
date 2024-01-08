@@ -4,9 +4,9 @@ const DatabaseTable = ({ data, handleDownloadExcel, userInput, handleOperatorOrB
   return (
     <>
       {data && (
-        <div className="container mx-auto mt-8 bg-gray-100">
+        <div className="container mx-auto mb-20 bg-gray-100">
           <div className="overflow-x-auto">
-            <table className="table w-full bg-white shadow-md rounded-md">
+            <table className="w-full bg-white shadow-md rounded-md table-auto">
               <thead className="bg-blue-500 text-white">
                 <tr>
                   {Object.keys(data[0]).map((columnName, index) => (
@@ -38,7 +38,7 @@ const DatabaseTable = ({ data, handleDownloadExcel, userInput, handleOperatorOrB
                             <img
                               src={rowData[columnName]}
                               alt={rowData['Operator_name']}
-                              className="table-image w-32 h-32 md:w-32 md:h-32 lg:w-32 lg:h-32 object-cover rounded-full mx-auto"
+                              className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 object-cover rounded-full mx-auto"
                             />
                           </td>
                         ) : (

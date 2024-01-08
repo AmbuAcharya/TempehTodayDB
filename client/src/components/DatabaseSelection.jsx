@@ -7,7 +7,7 @@ const DatabaseSelection = ({ selectedDatabaseKey, handleDatabaseKeyChange, dataK
   return (
     <div className="max-w-md mx-auto p-4 bg-white border rounded-md shadow-md mt-8">
       <label className="block mb-4 text-lg" htmlFor="databaseKeySelect">
-        <span className="text-blue-500 font-bold">Select Database Key:</span>
+        <span className="text-blue-500 font-bold">Select Database:</span>
         <div className="relative">
           <select
             id="databaseKeySelect"
@@ -20,11 +20,11 @@ const DatabaseSelection = ({ selectedDatabaseKey, handleDatabaseKeyChange, dataK
             </option>
             {filteredDataKeys.map((key) => (
               <option key={key} value={key} className="text-black">
-                {key}
+                {key.replace('_',' ')}
               </option>
             ))}
           </select>
-          <div className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400">
+          <div className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 mx-2">
             <FaDatabase />
           </div>
         </div>

@@ -5,8 +5,8 @@ const MfuDbData = ({
   handleMFUKeyChange,
   handleFileChange,
   mfuIds,
-  txt,
-  settxt,
+  userInput,
+  setUserInput,
   fileInputVisible,
   handleFileUpload,
   setFileInputVisible,
@@ -37,8 +37,8 @@ const MfuDbData = ({
             <input
               type="text"
               id="searchInput"
-              value={txt}
-              onChange={(e) => settxt(e.target.value)}
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
               className="w-full p-2 border rounded"
             />
           </label>

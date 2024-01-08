@@ -43,8 +43,6 @@ const Home = () => {
     }, [mfuId, selectedDatabaseKey, userInput]);
 
     const handleDatabaseKeyChange = useCallback((e) => {
-        setFileInputVisible(false)
-        setSelectedMFUKey("")
         setSelectedDatabaseKey(e.target.value);
     }, []);
 
@@ -73,7 +71,8 @@ const Home = () => {
     }, [userInput, selectedMFUKey, selectedDatabaseKey]);
 
     // const serverUrl='http://localhost:5001';
-    const serverUrl = 'https://tempehtoday-f866c.web.app';
+    // const serverUrl = 'https://tempehtoday-f866c.web.app';
+    const serverUrl = 'http://localhost:5000/tempehtoday-f866c/us-central1/app';
 
     useEffect(() => {
         // Create a variable to track if the component is mounted
@@ -121,6 +120,17 @@ const Home = () => {
         }
     }, [selectedDatabaseKey]);
 
+    const ColorMapping = {
+        "Green": '34AB83',
+        "Red": 'F5692B',
+        "Orange": 'F7A81C',
+        "White": 'FDFFFD',
+        "Light Green": 'AB9F34',
+        "Blue": '3634AB',
+        "Brown": 'AB3449',
+        "Purple": 'AB34A6',
+        "Yellow": 'D4D400',
+    };
 
     const handleFileUpload = async () => {
         if (file) {
@@ -160,116 +170,123 @@ const Home = () => {
                                 try {
                                     const excelData = utils.sheet_to_json(sheet, { raw: false });
                                     console.log(`Processing sheet "${sheetName}" with ${excelData.length} rows`);
+                                    if (excelData.length == 0) {
+                                        setErrorMessage('No data in Excel');
+                                        console.log('No data in Excel');
 
-                                    excelData.forEach(row => {
-                                        const { GB_ID, SB_ID, 'GENERAL-BATCH DATE': GB_DATE, 'GENERAL-BATCH TIME': GB_TIME, 'SUB-BATCH DATE': SB_DATE, 'SUB-BATCH TIME': SB_TIME, 'OPERATOR': OPERATOR_ID, STATUS, COLOR, 'SOAKING START': SOAKING_START, 'SOAKING STOP': SOAKING_STOP, 'BOILING START': BOILING_START, 'BOILING Reboil': BOILING_Reboil, 'BOILING STOP ': BOILING_STOP, 'MFU START': MFU_START, 'MFU STOP': MFU_STOP, 'COOLING TEMPERATURE': INOCULATION_TEMPERATURE, 'SOAKING PH': SOAKING_PH } = row;
+                                    }
+                                    else {
+                                        excelData.forEach(row => {
+                                            const { GB_ID, SB_ID, 'GENERAL-BATCH DATE': GB_DATE, 'GENERAL-BATCH TIME': GB_TIME, 'SUB-BATCH DATE': SB_DATE, 'SUB-BATCH TIME': SB_TIME, 'OPERATOR': OPERATOR_ID, STATUS, COLOR, 'SOAKING START': SOAKING_START, 'SOAKING STOP': SOAKING_STOP, 'BOILING START': BOILING_START, 'BOILING Reboil': BOILING_Reboil, 'BOILING STOP': BOILING_STOP, 'MFU START': MFU_START, 'MFU STOP': MFU_STOP, 'COOLING TEMPERATURE': INOCULATION_TEMPERATURE, 'SOAKING PH': SOAKING_PH } = row;
 
-                                        if (!GBNode[GB_ID]) {
-                                            GBNode[GB_ID] = {
-                                                DATE: GB_DATE || null,
-                                                TIME: GB_TIME || null,
-                                                operatorId: OPERATOR_ID || null
-                                            };
-                                        }
+                                            if (!GBNode[GB_ID]) {
+                                                GBNode[GB_ID] = {
+                                                    DATE: GB_DATE || null,
+                                                    TIME: GB_TIME || null,
+                                                    operatorId: OPERATOR_ID || null
+                                                };
+                                            }
 
-                                        if (!GBNode[GB_ID][SB_ID]) {
-                                            GBNode[GB_ID][SB_ID] = {
-                                                BOILING: {
-                                                    Reboil: {
-                                                        Time: BOILING_Reboil || null,
-                                                        Operator_ID: OPERATOR_ID || null,
+                                            if (!GBNode[GB_ID][SB_ID]) {
+                                                GBNode[GB_ID][SB_ID] = {
+                                                    BOILING: {
+                                                        REBOIL: {
+                                                            ReboilTime: BOILING_Reboil || null,
+                                                            Operator_ID: OPERATOR_ID || null,
+                                                        },
+                                                        STOP: {
+                                                            StopTime: BOILING_STOP || null,
+                                                            Operator_ID: OPERATOR_ID || null,
+                                                        },
+                                                        START: {
+                                                            StartTime: BOILING_START || null,
+                                                            Operator_ID: OPERATOR_ID || null,
+                                                        }
                                                     },
-                                                    STOP: {
-                                                        Time: BOILING_STOP || null,
+                                                    DATE: SB_DATE || null,
+                                                    COLOR: ColorMapping[COLOR] || null,
+                                                    INOCULATION: {
                                                         Operator_ID: OPERATOR_ID || null,
+                                                        temperature: INOCULATION_TEMPERATURE || null,
                                                     },
-                                                    START: {
-                                                        Time: BOILING_START || null,
-                                                        Operator_ID: OPERATOR_ID || null,
-                                                    }
-                                                },
-                                                DATE: SB_DATE || null,
-                                                COLOR: COLOR || null,
-                                                INOCULATION: {
-                                                    Operator_ID: OPERATOR_ID || null,
-                                                    temperature: INOCULATION_TEMPERATURE || null,
-                                                },
-                                                MFU: {
-                                                    START: {
-                                                        StartTime: MFU_START || null,
-                                                        Operator_ID: OPERATOR_ID || null,
+                                                    MFU: {
+                                                        START: {
+                                                            StartTime: MFU_START || null,
+                                                            Operator_ID: OPERATOR_ID || null,
+                                                        },
+                                                        STOP: {
+                                                            StopTime: MFU_STOP || null,
+                                                            Operator_ID: OPERATOR_ID || null,
+                                                        }
                                                     },
-                                                    STOP: {
-                                                        StopTime: MFU_STOP || null,
-                                                        Operator_ID: OPERATOR_ID || null,
-                                                    }
-                                                },
-                                                SOAKING: {
-                                                    START: {
-                                                        StartTime: SOAKING_START || null,
-                                                        Operator_ID: OPERATOR_ID || null,
+                                                    SOAKING: {
+                                                        START: {
+                                                            StartTime: SOAKING_START || null,
+                                                            Operator_ID: OPERATOR_ID || null,
+                                                        },
+                                                        STOP: {
+                                                            StopTime: SOAKING_STOP || null,
+                                                            Operator_ID: OPERATOR_ID || null,
+                                                        },
+                                                        ph: SOAKING_PH || null,
                                                     },
-                                                    STOP: {
-                                                        StopTime: SOAKING_STOP || null,
-                                                        Operator_ID: OPERATOR_ID || null,
+                                                    status: STATUS || null,
+                                                    TIME: SB_TIME || null,
+                                                    operatorId: OPERATOR_ID || null,
+                                                };
+                                            } else {
+                                                // Update existing data if GB_ID and SB_ID already exist
+                                                GBNode[GB_ID][SB_ID] = {
+                                                    BOILING: {
+                                                        REBOIL: {
+                                                            ReboilTime: BOILING_Reboil || null,
+                                                            Operator_ID: OPERATOR_ID || null,
+                                                        },
+                                                        STOP: {
+                                                            StopTime: BOILING_STOP || null,
+                                                            Operator_ID: OPERATOR_ID || null,
+                                                        },
+                                                        START: {
+                                                            StartTime: BOILING_START || null,
+                                                            Operator_ID: OPERATOR_ID || null,
+                                                        }
                                                     },
-                                                    ph: SOAKING_PH || null,
-                                                },
-                                                status: STATUS || null,
-                                                TIME: SB_TIME || null,
-                                                operatorId: OPERATOR_ID || null,
-                                            };
-                                        } else {
-                                            // Update existing data if GB_ID and SB_ID already exist
-                                            GBNode[GB_ID][SB_ID] = {
-                                                BOILING: {
-                                                    Reboil: {
-                                                        Time: BOILING_Reboil || null,
+                                                    DATE: SB_DATE || null,
+                                                    COLOR: ColorMapping[COLOR] || null,
+                                                    INOCULATION: {
                                                         Operator_ID: OPERATOR_ID || null,
+                                                        temperature: INOCULATION_TEMPERATURE || null,
                                                     },
-                                                    STOP: {
-                                                        Time: BOILING_STOP || null,
-                                                        Operator_ID: OPERATOR_ID || null,
+                                                    MFU: {
+                                                        START: {
+                                                            StartTime: MFU_START || null,
+                                                            Operator_ID: OPERATOR_ID || null,
+                                                        },
+                                                        STOP: {
+                                                            StopTime: MFU_STOP || null,
+                                                            Operator_ID: OPERATOR_ID || null,
+                                                        }
                                                     },
-                                                    START: {
-                                                        Time: BOILING_START || null,
-                                                        Operator_ID: OPERATOR_ID || null,
-                                                    }
-                                                },
-                                                DATE: SB_DATE || null,
-                                                COLOR: COLOR || null,
-                                                INOCULATION: {
-                                                    Operator_ID: OPERATOR_ID || null,
-                                                    temperature: INOCULATION_TEMPERATURE || null,
-                                                },
-                                                MFU: {
-                                                    START: {
-                                                        StartTime: MFU_START || null,
-                                                        Operator_ID: OPERATOR_ID || null,
+                                                    SOAKING: {
+                                                        START: {
+                                                            StartTime: SOAKING_START || null,
+                                                            Operator_ID: OPERATOR_ID || null,
+                                                        },
+                                                        STOP: {
+                                                            StopTime: SOAKING_STOP || null,
+                                                            Operator_ID: OPERATOR_ID || null,
+                                                        },
+                                                        ph: SOAKING_PH || null,
                                                     },
-                                                    STOP: {
-                                                        StopTime: MFU_STOP || null,
-                                                        Operator_ID: OPERATOR_ID || null,
-                                                    }
-                                                },
-                                                SOAKING: {
-                                                    START: {
-                                                        StartTime: SOAKING_START || null,
-                                                        Operator_ID: OPERATOR_ID || null,
-                                                    },
-                                                    STOP: {
-                                                        StopTime: SOAKING_STOP || null,
-                                                        Operator_ID: OPERATOR_ID || null,
-                                                    },
-                                                    ph: SOAKING_PH || null,
-                                                },
-                                                status: STATUS || null,
-                                                TIME: SB_TIME || null,
-                                                operatorId: OPERATOR_ID || null,
-                                            };
-                                        }
-                                    });
-
+                                                    status: STATUS || null,
+                                                    TIME: SB_TIME || null,
+                                                    operatorId: OPERATOR_ID || null,
+                                                };
+                                            }
+                                        });
+                                        setMessage('File uploaded successfully');
+                                        console.log('File uploaded successfully');
+                                    }
                                 } catch (sheetError) {
                                     console.error(`Error processing sheet "${sheetName}":`, sheetError);
                                     // Handle the error, set an appropriate error message, or skip the sheet
@@ -279,8 +296,7 @@ const Home = () => {
                             console.log('Data processing complete. Uploading to the database.');
                             // Set the value in the database
                             await set(refNode, result);
-                            setMessage('File uploaded successfully');
-                            console.log('File uploaded successfully');
+
                         } else {
                             console.error('Workbook does not contain any sheets.');
                             // Handle the case where the workbook is empty
@@ -415,7 +431,13 @@ const Home = () => {
 
             } else {
                 setData('');
-                setErrorMessage('MFU_ID is required');
+                if (selectedDatabaseKey === "MFU_DB") {
+                    setErrorMessage('MFU_ID is required');
+
+                } else {
+                    setErrorMessage('SFU_ID is required');
+
+                }
                 console.error('Enter the ID');
             }
         } catch (error) {
@@ -674,6 +696,8 @@ const Home = () => {
                 return null;
         }
     };
+
+
     return (
         <>
             {loading && (
@@ -682,16 +706,17 @@ const Home = () => {
                         <img
                             src={AppIcon}
                             alt="App Logo"
-                            className="animate-spin  h-12 w-12 "
+                            className="animate-spin h-12 w-12"
                         />
                     </div>
                 </div>
             )}
-            <div className="container mx-auto my-8 flex flex-col items-center lg:flex-row lg:justify-between flex-grow">
+            <div className="container mx-auto my-8 p-4 lg:p-0 flex flex-col items-center lg:flex-row lg:justify-between flex-grow">
                 <DatabaseSelection
                     dataKeys={dataKeys}
                     handleDatabaseKeyChange={handleDatabaseKeyChange}
                     selectedDatabaseKey={selectedDatabaseKey}
+                    className="mb-4 lg:mb-0" // Add margin-bottom for small screens
                 />
                 {renderDatabaseData()}
             </div>
@@ -704,12 +729,14 @@ const Home = () => {
                     handleGetData={handleGetData}
                 />
             )}
-            {errorMessage && (
-                <p className="text-center font-bold text-red-600 text-2xl my-4">{errorMessage}</p>
-            )}
-            {Message && (
-                <p className="text-center font-bold text-black text-2xl my-4">{Message}</p>
-            )}
+            <div className="container mx-auto mt-4 lg:mt-8"> {/* Adjusted top margin */}
+                {errorMessage && (
+                    <p className="text-center font-bold text-red-600 text-2xl my-4">{errorMessage}</p>
+                )}
+                {Message && (
+                    <p className="text-center font-bold text-black text-2xl my-4">{Message}</p>
+                )}
+            </div>
         </>
     );
 };

@@ -10,6 +10,7 @@ const CreateUser = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
+  const [error, setError] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
 
   const onSignUp = async (e) => {
@@ -27,6 +28,7 @@ const CreateUser = () => {
       console.log('Data set successfully');
       navigate('/home');
     } catch (error) {
+      setError("User already added");
       console.error('Error signing up:', error.message);
     }
   };
@@ -98,7 +100,9 @@ const CreateUser = () => {
               </button>
             </div>
           </form>
-
+          {error && (
+            <p className="text-red-600 font-bold">{error}</p>
+          )}
         </div>
       </section>
     </main>

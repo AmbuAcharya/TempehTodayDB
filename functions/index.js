@@ -6,6 +6,7 @@ const admin = require("firebase-admin");
 const xlsx = require("xlsx");
 const bodyParser = require("body-parser");
 const busboy = require("connect-busboy");
+const ExcelJS = require('exceljs');
 
 const serviceAccount = require("./tempehtoday-f866c-firebase-adminsdk-t0ceu-890bf43bd6.json");
 
@@ -244,9 +245,11 @@ app.get("/downloadExcel", async (req, res) => {
       }
 
       excelData = transformDatamfu(sheetData, userProvidedDocumentId);
-    }
-    const excelBuffer = generateExcelBuffer(excelData, userProvidedDocumentId);
 
+      // console.log("Data:",excelData)
+    }
+    const excelBuffer = await generateExcelBuffer(excelData, userProvidedDocumentId);
+    console.log(excelBuffer);
     res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
     res.setHeader("Content-Disposition", `attachment; filename=${userProvidedDocumentId}.xlsx`);
     res.send(excelBuffer);
@@ -343,18 +346,51 @@ function transformDatamfu(sheetData, userProvidedDocumentId) {
   return result;
 }
 
+async function generateExcelBuffer(data, userProvidedDocumentId) {
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet(userProvidedDocumentId);
 
-function generateExcelBuffer(data, userProvidedDocumentId) {
-  const worksheet = xlsx.utils.json_to_sheet(data);
-  const workbook = xlsx.utils.book_new();
-  xlsx.utils.book_append_sheet(workbook, worksheet,userProvidedDocumentId);
+  // Define columns based on the keys in the data
+  const keys = Object.keys(data[0]);
+  const columnWidths = {};
+  worksheet.columns = keys.map((key) => {
+    const columnData = { header: key, key, width: 15 };
+    columnWidths[key] = columnData.width;
+    return columnData;
+  });
 
-  const excelBuffer = xlsx.write(workbook, { bookType: 'xlsx', bookSST: true, type: 'buffer' });
+  // Load the data into the worksheet
+  worksheet.addRows(data);
+
+  // Style headers to be bold and center-aligned
+  worksheet.getRow(1).font = { bold: true, horizontal: 'center' };
+
+  // Set alignment for all cells to center and adjust spacing based on max word length
+  worksheet.eachRow((row) => {
+    row.eachCell((cell, colNumber) => {
+      cell.alignment = { horizontal: 'center' };
+      const columnKey = keys[colNumber - 1];
+      const cellLength = cell.value ? cell.value.toString().length : 0;
+      const columnWidth = Math.max(columnWidths[columnKey], cellLength);
+      worksheet.getColumn(colNumber).width = columnWidth + 2; // Add spacing
+    });
+  });
+
+  // Add table borders to all cells
+  worksheet.eachRow((row, rowNum) => {
+    row.eachCell((cell, colNumber) => {
+      cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } };
+    });
+  });
+
+  // Generate buffer
+  const excelBuffer = await workbook.xlsx.writeBuffer();
 
   return excelBuffer;
 }
 
-// exports.api = functions.https.onRequest(app);
+
+// exports.app = functions.https.onRequest(app);
 exports.fetchDatabaseKeys = functions.https.onRequest(app);
 exports.fetchIds = functions.https.onRequest(app);
 exports.SFUupload = functions.https.onRequest(app);
