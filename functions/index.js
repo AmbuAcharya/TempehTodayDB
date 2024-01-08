@@ -350,16 +350,23 @@ async function generateExcelBuffer(data, userProvidedDocumentId) {
   const workbook = new ExcelJS.Workbook();
   const worksheet = workbook.addWorksheet(userProvidedDocumentId);
 
-  // Define columns based on the keys in the data
+  worksheet.pageSetup.orientation = 'landscape';
+  worksheet.pageSetup.fitToPage = true;
+  worksheet.pageSetup.fitToWidth = 1; // Number of pages to fit to (1 means fit to 1 page wide)
+  worksheet.pageSetup.fitToHeight = 0; // Number of pages to fit to (0 means auto-adjust height)
+  worksheet.pageSetup.printTitlesRow = '1'; // Repeat the first row on each printed page
+
   const keys = Object.keys(data[0]);
   const columnWidths = {};
   worksheet.columns = keys.map((key) => {
-    const columnData = { header: key, key, width: 15 };
-    columnWidths[key] = columnData.width;
+    const headerText = key.replace(/ /g, '\n'); // Use line break instead of space for multi-line header
+    const headerLength = headerText.length;
+    const initialWidth = Math.max(headerLength, 15); 
+    const columnData = { header: headerText, key, width: initialWidth };
+    columnWidths[key] = initialWidth;
     return columnData;
   });
 
-  // Load the data into the worksheet
   worksheet.addRows(data);
 
   // Style headers to be bold and center-aligned
@@ -388,7 +395,6 @@ async function generateExcelBuffer(data, userProvidedDocumentId) {
 
   return excelBuffer;
 }
-
 
 // exports.app = functions.https.onRequest(app);
 exports.fetchDatabaseKeys = functions.https.onRequest(app);
