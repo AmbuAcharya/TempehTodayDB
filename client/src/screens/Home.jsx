@@ -71,8 +71,8 @@ const Home = () => {
     }, [userInput, selectedMFUKey, selectedDatabaseKey]);
 
     // const serverUrl='http://localhost:5001';
-    // const serverUrl = 'https://tempehtoday-f866c.web.app';
-    const serverUrl = 'http://localhost:5000/tempehtoday-f866c/us-central1/app';
+    const serverUrl = 'https://tempehtoday-f866c.web.app';
+    // const serverUrl = 'http://localhost:5000/tempehtoday-f866c/us-central1/app';
 
     useEffect(() => {
         // Create a variable to track if the component is mounted

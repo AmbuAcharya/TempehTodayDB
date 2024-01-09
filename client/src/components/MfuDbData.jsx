@@ -45,7 +45,7 @@ const MfuDbData = ({
         </>
       ) : (
         <label htmlFor="mfuInput" className="block mb-4">
-          <b>Enter MFU_ID:</b>
+          <b>Select MFU_ID:</b>
           <input
             type="text"
             id="mfuInput"

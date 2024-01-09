@@ -246,10 +246,10 @@ app.get("/downloadExcel", async (req, res) => {
 
       excelData = transformDatamfu(sheetData, userProvidedDocumentId);
 
-      // console.log("Data:",excelData)
+
     }
     const excelBuffer = await generateExcelBuffer(excelData, userProvidedDocumentId);
-    console.log(excelBuffer);
+    
     res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
     res.setHeader("Content-Disposition", `attachment; filename=${userProvidedDocumentId}.xlsx`);
     res.send(excelBuffer);

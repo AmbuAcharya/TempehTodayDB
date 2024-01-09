@@ -33,7 +33,7 @@ const SfuDbData = ({
         </>
       ) : (
         <label htmlFor="mfuInput" className="block mb-4">
-          <b>Enter SFU_ID:</b>
+          <b>Select SFU_ID:</b>
           <input
             type="text"
             id="mfuInput"

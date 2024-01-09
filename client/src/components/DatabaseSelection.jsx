@@ -16,7 +16,7 @@ const DatabaseSelection = ({ selectedDatabaseKey, handleDatabaseKeyChange, dataK
             className="w-full p-2 border rounded focus:outline-none focus:border-blue-700"
           >
             <option value="" className="text-gray-500">
-              Select a key
+              Select Database
             </option>
             {filteredDataKeys.map((key) => (
               <option key={key} value={key} className="text-black">
