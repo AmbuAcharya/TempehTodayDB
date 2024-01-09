@@ -15,14 +15,14 @@ const SfuDbData = ({
       {!fileInputVisible ? (
         <>
           <label htmlFor="mfuSelect" className="block mb-4">
-            <span className="font-bold text-blue-500">Select MFU_ID:</span>
+            <span className="font-bold text-blue-500">Select SFU ID:</span>
             <select
               id="mfuSelect"
               value={selectedMFUKey}
               onChange={handleMFUKeyChange}
               className="w-full p-2 border rounded"
             >
-              <option value="">Select SFU_ID</option>
+              <option value="">Select SFU ID</option>
               {mfuIds.map((key) => (
                 <option key={key} value={key}>
                   {key}
