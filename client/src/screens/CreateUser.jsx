@@ -1,9 +1,9 @@
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { ref, set } from 'firebase/database';
 import React, { useState } from 'react';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../firebaseConfig';
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 const CreateUser = () => {
   const navigate = useNavigate();

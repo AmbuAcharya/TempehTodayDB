@@ -1,11 +1,11 @@
-import { useCallback } from "react";
-import SfuDbData from "./SfuDbData";
 import { get, push, ref, set } from "firebase/database";
-import { db } from "../firebaseConfig";
+import { useCallback } from "react";
 import { read, utils } from "xlsx";
+import { db } from "../firebaseConfig";
 import MfuDbData from "./MfuDbData";
+import SfuDbData from "./SfuDbData";
 
-const RenderDatabaseData = ({ selectedDatabaseKey,  fileInputVisible, handleGetData, handleMFUKeyChange, mfuIds, setFileInputVisible, selectedMFUKey, setUserInput, userInput, setFile, file, setLoading,
+const RenderDatabaseData = ({ selectedDatabaseKey, fileInputVisible, handleGetData, handleMFUKeyChange, mfuIds, setFileInputVisible, selectedMFUKey, setUserInput, userInput, setFile, file, setLoading,
     setErrorMessage, setMessage }) => {
 
     const ColorMapping = {

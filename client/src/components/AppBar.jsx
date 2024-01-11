@@ -1,9 +1,9 @@
 // AppBar.js
-import React, { useEffect, useState } from 'react';
-import { auth } from '../firebaseConfig';
 import { signOut } from 'firebase/auth';
+import React, { useEffect, useState } from 'react';
+import { FaSignOutAlt, FaUserPlus } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaUserPlus, FaSignOutAlt } from 'react-icons/fa';
+import { auth } from '../firebaseConfig';
 
 const AppBar = ({ isUserLoggedIn, isAdmin }) => {
   const navigate = useNavigate();

@@ -1,9 +1,9 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { auth } from '../firebaseConfig';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 import AppIcon from "../app_icon.png";
+import { auth } from '../firebaseConfig';
 
 const Login = () => {
   const navigate = useNavigate();
