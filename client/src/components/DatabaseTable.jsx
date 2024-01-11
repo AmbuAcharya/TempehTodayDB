@@ -1,6 +1,27 @@
 import React from 'react';
 
-const DatabaseTable = ({ data, handleDownloadExcel, userInput, handleOperatorOrBatchIdClick }) => {
+const DatabaseTable = ({ data, userInput, handleOperatorOrBatchIdClick, selectedMFUKey, serverUrl, selectedDatabaseKey, setMessage }) => {
+  const handleDownloadExcel = async () => {
+    if (selectedMFUKey) {
+      try {
+        const response = await fetch(`${serverUrl}/downloadExcel?MFU_ID=${selectedMFUKey}&databaseKey=${selectedDatabaseKey}`);
+        const blob = await response.blob();
+
+        // Create a link element and trigger a download
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(new Blob([blob]));
+        link.download = `${selectedMFUKey}.xlsx`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setMessage('Downloaded Successfully');
+      } catch (error) {
+        console.error('Error downloading Excel file:', error);
+      }
+    } else {
+      console.error('MFU_ID is required');
+    }
+  };
   return (
     <>
       {data && (

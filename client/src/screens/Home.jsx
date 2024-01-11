@@ -664,27 +664,6 @@ const Home = () => {
         setData(null);
     }, [file]);
 
-    const handleDownloadExcel = async () => {
-        if (selectedMFUKey) {
-            try {
-                const response = await fetch(`${serverUrl}/downloadExcel?MFU_ID=${selectedMFUKey}&databaseKey=${selectedDatabaseKey}`);
-                const blob = await response.blob();
-
-                // Create a link element and trigger a download
-                const link = document.createElement('a');
-                link.href = window.URL.createObjectURL(new Blob([blob]));
-                link.download = `${selectedMFUKey}.xlsx`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                setMessage('Downloaded Successfully');
-            } catch (error) {
-                console.error('Error downloading Excel file:', error);
-            }
-        } else {
-            console.error('MFU_ID is required');
-        }
-    };
 
     const renderDatabaseData = () => {
         switch (selectedDatabaseKey) {
@@ -745,8 +724,11 @@ const Home = () => {
             </div>
             {data && (
                 <DatabaseTable
+                    selectedDatabaseKey={selectedDatabaseKey}
+                    selectedMFUKey={selectedMFUKey}
+                    serverUrl={serverUrl}
+                    setMessage={setMessage}
                     data={data[0] != null ? data : null}
-                    handleDownloadExcel={handleDownloadExcel}
                     userInput={userInput}
                     handleOperatorOrBatchIdClick={handleOperatorOrBatchIdClick}
                     handleGetData={handleGetData}
