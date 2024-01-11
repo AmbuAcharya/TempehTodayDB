@@ -1,3 +1,4 @@
+// AppBar.js
 import React, { useEffect, useState } from 'react';
 import { auth } from '../firebaseConfig';
 import { signOut } from 'firebase/auth';
@@ -8,7 +9,7 @@ const AppBar = ({ isUserLoggedIn, isAdmin }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const isCreateRoute = location.pathname === '/create';
-  const [showButtons, setShowButtons] = useState(isAdmin || isUserLoggedIn && !isCreateRoute);
+  const [showButtons, setShowButtons] = useState(isAdmin || (isUserLoggedIn && !isCreateRoute));
 
   useEffect(() => {
     setShowButtons((isAdmin || (isUserLoggedIn && !isCreateRoute)) && location.pathname !== '/login');
@@ -31,7 +32,7 @@ const AppBar = ({ isUserLoggedIn, isAdmin }) => {
   const logoClass = showButtons ? 'ml-4' : 'mx-auto';
 
   return (
-    <header className="bg-slate-100 py-2 shadow-md text-center">
+    <header className="bg-slate-100 py-2 shadow-md text-center fixed w-full top-0">
       <div className={`container mx-auto flex items-center ${showButtons ? 'justify-between' : 'justify-center'}`}>
         <Link to="/">
           <img

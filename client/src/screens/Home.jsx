@@ -4,7 +4,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import AppIcon from "../app_icon.png";
 import DatabaseSelection from '../components/DatabaseSelection';
 import DatabaseTable from '../components/DatabaseTable';
-import MfuDbData from '../components/MfuDbData';
 import RenderDatabaseData from '../components/RenderDatabaseData';
 import { db } from '../firebaseConfig';
 
@@ -394,7 +393,7 @@ const Home = () => {
 
 
     return (
-        <main className="flex-grow flex flex-col items-center justify-center overflow-y-auto">
+        <main className={`flex-grow flex flex-col items-center justify-center mt-16 space-y-8 ${(data && data[0] != null) ? "mt-20" : ""}`}>
             {loading && (
                 <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-700 bg-opacity-50">
                     <div className="bg-white p-4 rounded-md flex items-center justify-center">
@@ -406,27 +405,43 @@ const Home = () => {
                     </div>
                 </div>
             )}
-            <div className="container mx-auto my-8 p-4 lg:p-0 flex flex-col items-center lg:flex-row lg:justify-between flex-grow">
+            <div className="container mx-auto my-8 p-4 lg:p-0 flex flex-col items-center lg:flex-row lg:justify-between flex-grow ">
                 <DatabaseSelection
                     dataKeys={dataKeys}
                     handleDatabaseKeyChange={handleDatabaseKeyChange}
                     selectedDatabaseKey={selectedDatabaseKey}
                     className="mb-4 lg:mb-0" // Add margin-bottom for small screens
                 />
-                {<RenderDatabaseData MfuDbData={MfuDbData} fileInputVisible={fileInputVisible} handleGetData={handleGetData} handleMFUKeyChange={handleMFUKeyChange} mfuIds={mfuIds} selectedDatabaseKey={selectedDatabaseKey}
-                    selectedMFUKey={selectedMFUKey} setFileInputVisible={setFileInputVisible} setUserInput={setUserInput} userInput={userInput} setFile={setFile} file={file} setErrorMessage={setErrorMessage} setLoading={setLoading} setMessage={setMessage} />}
-            </div>
-            {data && (
-                <DatabaseTable
+                <RenderDatabaseData
+                    fileInputVisible={fileInputVisible}
+                    handleGetData={handleGetData}
+                    handleMFUKeyChange={handleMFUKeyChange}
+                    mfuIds={mfuIds}
                     selectedDatabaseKey={selectedDatabaseKey}
                     selectedMFUKey={selectedMFUKey}
-                    serverUrl={serverUrl}
-                    setMessage={setMessage}
-                    data={data[0] != null ? data : null}
+                    setFileInputVisible={setFileInputVisible}
+                    setUserInput={setUserInput}
                     userInput={userInput}
-                    handleOperatorOrBatchIdClick={handleOperatorOrBatchIdClick}
-                    handleGetData={handleGetData}
+                    setFile={setFile}
+                    file={file}
+                    setErrorMessage={setErrorMessage}
+                    setLoading={setLoading}
+                    setMessage={setMessage}
                 />
+            </div>
+            {data && (
+                <div className="container mx-auto mt-4 lg:mt-8">
+                    <DatabaseTable
+                        selectedDatabaseKey={selectedDatabaseKey}
+                        selectedMFUKey={selectedMFUKey}
+                        serverUrl={serverUrl}
+                        setMessage={setMessage}
+                        data={data[0] != null ? data : null}
+                        userInput={userInput}
+                        handleOperatorOrBatchIdClick={handleOperatorOrBatchIdClick}
+                        handleGetData={handleGetData}
+                    />
+                </div>
             )}
             <div className="container mx-auto mt-4 lg:mt-8">
                 {errorMessage && (

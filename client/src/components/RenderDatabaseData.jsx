@@ -3,8 +3,9 @@ import SfuDbData from "./SfuDbData";
 import { get, push, ref, set } from "firebase/database";
 import { db } from "../firebaseConfig";
 import { read, utils } from "xlsx";
+import MfuDbData from "./MfuDbData";
 
-const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, handleGetData, handleMFUKeyChange, mfuIds, setFileInputVisible, selectedMFUKey, setUserInput, userInput, setFile, file, setLoading,
+const RenderDatabaseData = ({ selectedDatabaseKey,  fileInputVisible, handleGetData, handleMFUKeyChange, mfuIds, setFileInputVisible, selectedMFUKey, setUserInput, userInput, setFile, file, setLoading,
     setErrorMessage, setMessage }) => {
 
     const ColorMapping = {
