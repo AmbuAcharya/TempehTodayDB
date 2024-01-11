@@ -22,9 +22,9 @@ const SfuDbData = ({
               onChange={handleMFUKeyChange}
               className="w-full p-2 border rounded"
             >
-              <option value="">Select SFU ID</option>
+              <option disabled className="bg-yellow-100" value="">Select SFU ID</option>
               {mfuIds.map((key) => (
-                <option key={key} value={key}>
+                <option className="bg-yellow-100" key={key} value={key}>
                   {key}
                 </option>
               ))}

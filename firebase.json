@@ -20,14 +20,6 @@
     ],
     "rewrites": [
       {
-        "source": "/fetchDatabaseKeys",
-        "function": "fetchDatabaseKeys"
-      },
-      {
-        "source": "/fetchIds",
-        "function": "fetchIds"
-      },
-      {
         "source": "/fetchData",
         "function": "fetchData"
       },

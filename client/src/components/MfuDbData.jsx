@@ -24,9 +24,9 @@ const MfuDbData = ({
               onChange={handleMFUKeyChange}
               className="w-full p-2 border rounded"
             >
-              <option value="">Select MFU ID</option>
+              <option disabled className="bg-yellow-100" value="">Select MFU ID</option>
               {mfuIds.map((key) => (
-                <option key={key} value={key}>
+                <option className="bg-yellow-100" key={key} value={key}>
                   {key}
                 </option>
               ))}

@@ -33,80 +33,6 @@ app.use(busboy({
   },
 }));
 
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-
-app.get("/fetchDatabaseKeys", async (req, res) => {
-  try {
-    const sheetsSnapshot = await db.ref().once("value");
-    const sheetNames = Object.keys(sheetsSnapshot.val());
-    res.status(200).json(sheetNames);
-  } catch (error) {
-    console.error("Error fetching database keys:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-app.get("/fetchIds", async (req, res) => {
-  const selectedDatabaseKey = req.query.databaseKey;
-  try {
-    let mfuDataSnapshot;
-
-    if (selectedDatabaseKey === "MFU_DB") {
-      mfuDataSnapshot = await db.ref(selectedDatabaseKey + "/MFU").once("value");
-    } else {
-      mfuDataSnapshot = await db.ref(selectedDatabaseKey).once("value");
-    }
-
-    const mfuNodes = mfuDataSnapshot.val();
-
-    // Extract MFU_IDs from the nodes
-    const mfuIds = Object.keys(mfuNodes || {});
-
-    res.status(200).json(mfuIds);
-  } catch (error) {
-    console.error("Error fetching MFU_IDs:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-app.post("/createProfile", upload.single("Operator_image"), async (req, res) => {
-  try {
-    const { selectedDatabaseKey, mfuId, Operator_ID, Operator_name } = req.body;
-
-    // Ensure req.file is present
-    if (!req.file) {
-      return res.status(400).json({ success: false, message: "No file provided" });
-    }
-
-    const imageBuffer = req.file.buffer;
-
-    // Upload the image to Firebase Storage
-    const bucket = opimg.bucket();  // Updated this line
-    const imageFile = bucket.file(`Operators_image/${mfuId}/${Operator_ID}.jpg`);
-    await imageFile.save(imageBuffer);
-    await imageFile.makePublic();
-
-    // Get the download URL of the uploaded image
-    const imageURL = `https://storage.googleapis.com/${bucket.name}/${imageFile.name}`;
-    // const imageURL = await imageFile.getSignedUrl({ action: "read", expires: "01-01-2100" });
-
-    // Save profile data to the database
-    const databaseRef = db.ref(`${selectedDatabaseKey}/${mfuId}/Operator`);
-    const newProfileRef = databaseRef.child(Operator_ID);
-    await newProfileRef.set({
-      Operator_ID,
-      Operator_name,
-      Operator_image: imageURL,
-    });
-
-    res.status(200).json({ success: true, message: "Profile created successfully" });
-  } catch (error) {
-    console.error("Error creating profile:", error);
-    res.status(500).json({ success: false, message: "Internal server error" });
-  }
-});
-
 app.get("/fetchData", async (req, res) => {
   try {
     const userProvidedDocumentId = req.query.MFU_ID;
@@ -249,7 +175,7 @@ app.get("/downloadExcel", async (req, res) => {
 
     }
     const excelBuffer = await generateExcelBuffer(excelData, userProvidedDocumentId);
-    
+
     res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
     res.setHeader("Content-Disposition", `attachment; filename=${userProvidedDocumentId}.xlsx`);
     res.send(excelBuffer);
@@ -320,8 +246,8 @@ function transformDatamfu(sheetData, userProvidedDocumentId) {
 
       const row = {
         GB_ID: gbID || '',
-        'GENERAL-BATCH DATE': gbData.DATE || '', 
-        'GENERAL-BATCH TIME': gbData.TIME || '', 
+        'GENERAL-BATCH DATE': gbData.DATE || '',
+        'GENERAL-BATCH TIME': gbData.TIME || '',
         SB_ID: sbID || '',
         'SUB-BATCH DATE': sbData.DATE || '',
         'SUB-BATCH TIME': sbData.TIME || '',
@@ -361,7 +287,7 @@ async function generateExcelBuffer(data, userProvidedDocumentId) {
   worksheet.columns = keys.map((key) => {
     const headerText = key.replace(/ /g, '\n'); // Use line break instead of space for multi-line header
     const headerLength = headerText.length;
-    const initialWidth = Math.max(headerLength, 15); 
+    const initialWidth = Math.max(headerLength, 15);
     const columnData = { header: headerText, key, width: initialWidth };
     columnWidths[key] = initialWidth;
     return columnData;
@@ -396,10 +322,5 @@ async function generateExcelBuffer(data, userProvidedDocumentId) {
   return excelBuffer;
 }
 
-// exports.app = functions.https.onRequest(app);
-exports.fetchDatabaseKeys = functions.https.onRequest(app);
-exports.fetchIds = functions.https.onRequest(app);
-exports.SFUupload = functions.https.onRequest(app);
-exports.uploadMFU = functions.https.onRequest(app);
 exports.fetchData = functions.https.onRequest(app);
 exports.downloadExcel = functions.https.onRequest(app);

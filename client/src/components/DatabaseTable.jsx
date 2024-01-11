@@ -4,7 +4,7 @@ const DatabaseTable = ({ data, handleDownloadExcel, userInput, handleOperatorOrB
   return (
     <>
       {data && (
-        <div className="container mx-auto mb-20 bg-gray-100">
+        <div className="container mx-auto mb-20 bg-yellow-200">
           <div className="overflow-x-auto">
             <table className="w-full bg-white shadow-md rounded-md table-auto">
               <thead className="bg-blue-500 text-white">

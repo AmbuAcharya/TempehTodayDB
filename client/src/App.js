@@ -48,7 +48,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className="App bg-gray-100 min-h-screen flex flex-col">
+      <div className="App bg-yellow-200 min-h-screen flex flex-col">
         <AppBar isUserLoggedIn={isUserLoggedIn} isAdmin={isAdmin} />
         <Routes>
           <Route

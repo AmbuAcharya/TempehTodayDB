@@ -13,13 +13,13 @@ const DatabaseSelection = ({ selectedDatabaseKey, handleDatabaseKeyChange, dataK
             id="databaseKeySelect"
             value={selectedDatabaseKey}
             onChange={handleDatabaseKeyChange}
-            className="w-full p-2 border rounded focus:outline-none focus:border-blue-700"
+            className="w-full p-2 border rounded focus:outline-none focus:border-blue-700 mr-12"
           >
-            <option value="" className="text-gray-500">
+            <option disabled value="" className="bg-yellow-100">
               Select Database
             </option>
             {filteredDataKeys.map((key) => (
-              <option key={key} value={key} className="text-black">
+              <option key={key} value={key} className="text-black bg-yellow-100">
                 {key.replace('_',' ')}
               </option>
             ))}

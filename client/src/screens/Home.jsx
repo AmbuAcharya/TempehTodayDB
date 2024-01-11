@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { get, push, ref, set } from 'firebase/database';
+import { get, off, onValue, push, ref, set } from 'firebase/database';
 import React, { useCallback, useEffect, useState } from 'react';
 import { read, utils } from 'xlsx';
 import AppIcon from "../app_icon.png";
@@ -76,49 +76,73 @@ const Home = () => {
 
     useEffect(() => {
         // Create a variable to track if the component is mounted
-        let isMounted = true;
-
-        // Fetch database keys when the component mounts
-        const fetchDatabaseKeys = async () => {
-            try {
-                const keysResponse = await axios.get(`${serverUrl}/fetchDatabaseKeys`);
-
-                // Check if the component is still mounted before updating the state
-                if (isMounted) {
-                    const databaseKeys = keysResponse.data;
-                    setDataKeys(databaseKeys);
-                }
-            } catch (error) {
-                console.error('Error fetching database keys:', error);
+        const databaseRef = ref(db);
+        const onDataChange = (snapshot) => {
+            const existingData = snapshot.val();
+            if (existingData != null) {
+                const databaseKeys = Object.keys(existingData);
+                console.log(databaseKeys);
+                setDataKeys(databaseKeys);
             }
         };
+        // Listen for changes in the data
+        const unsubscribe = onValue(databaseRef, onDataChange);
+        // Fetch initial data
+        const getData = async () => {
+            const existingDataSnapshot = await get(databaseRef);
+            onDataChange(existingDataSnapshot);
+        };
 
-        // Call the fetchDatabaseKeys function
-        fetchDatabaseKeys();
+        // Call getData to fetch initial data
+        getData();
 
-        // Cleanup function to set isMounted to false when the component is unmounted
+        // Clean up the listener when the component unmounts or when the selectedDatabaseKey changes
         return () => {
-            isMounted = false;
+            off(databaseRef, onDataChange);
+            unsubscribe();
         };
     }, []);
 
-
     useEffect(() => {
-        // Fetch MFU_IDs from Firebase based on the selectedDatabaseKey
-        const fetchMfuIdsFromFirebase = async () => {
-            try {
-                const response = await axios.get(`${serverUrl}/fetchIds?databaseKey=${selectedDatabaseKey}`);
-                const mfuIds = response.data;
+        // Specify the path in the Realtime Database
+        console.log(selectedDatabaseKey);
+        var databasePath = `${selectedDatabaseKey}/MFU`;
+        if (selectedDatabaseKey === "SFU") {
+            databasePath = selectedDatabaseKey;
+        }
+
+        // Create a reference to the specified path
+        const databaseRef = ref(db, databasePath);
+
+        // Attach an asynchronous callback to read the data
+        const onDataChange = (snapshot) => {
+            const existingData = snapshot.val();
+            if (existingData != null) {
+                const mfuIds = Object.keys(existingData);
+                console.log(mfuIds);
                 setMfuIds(mfuIds);
-            } catch (error) {
-                console.error('Error fetching MFU_IDs from Firebase:', error);
             }
         };
 
-        if (selectedDatabaseKey) {
-            fetchMfuIdsFromFirebase();
-        }
+        // Listen for changes in the data
+        const unsubscribe = onValue(databaseRef, onDataChange);
+
+        // Fetch initial data
+        const getData = async () => {
+            const existingDataSnapshot = await get(databaseRef);
+            onDataChange(existingDataSnapshot);
+        };
+
+        // Call getData to fetch initial data
+        getData();
+
+        // Clean up the listener when the component unmounts or when the selectedDatabaseKey changes
+        return () => {
+            off(databaseRef, onDataChange);
+            unsubscribe();
+        };
     }, [selectedDatabaseKey]);
+
 
     const ColorMapping = {
         "Green": '34AB83',
@@ -170,7 +194,7 @@ const Home = () => {
                                 try {
                                     const excelData = utils.sheet_to_json(sheet, { raw: false });
                                     console.log(`Processing sheet "${sheetName}" with ${excelData.length} rows`);
-                                    if (excelData.length == 0) {
+                                    if (excelData.length === 0) {
                                         setErrorMessage('No data in Excel');
                                         console.log('No data in Excel');
 
@@ -697,9 +721,8 @@ const Home = () => {
         }
     };
 
-
     return (
-        <>
+        <main className="flex-grow flex flex-col items-center justify-center overflow-y-auto">
             {loading && (
                 <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-700 bg-opacity-50">
                     <div className="bg-white p-4 rounded-md flex items-center justify-center">
@@ -729,7 +752,7 @@ const Home = () => {
                     handleGetData={handleGetData}
                 />
             )}
-            <div className="container mx-auto mt-4 lg:mt-8"> {/* Adjusted top margin */}
+            <div className="container mx-auto mt-4 lg:mt-8">
                 {errorMessage && (
                     <p className="text-center font-bold text-red-600 text-2xl my-4">{errorMessage}</p>
                 )}
@@ -737,8 +760,8 @@ const Home = () => {
                     <p className="text-center font-bold text-black text-2xl my-4">{Message}</p>
                 )}
             </div>
-        </>
+        </main>
     );
 };
 
-export default Home
+export default Home;

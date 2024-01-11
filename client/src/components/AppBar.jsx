@@ -31,7 +31,7 @@ const AppBar = ({ isUserLoggedIn, isAdmin }) => {
   const logoClass = showButtons ? 'ml-4' : 'mx-auto';
 
   return (
-    <header className="bg-gradient-to-r from-yellow-700 via-orange-400 to-yellow-700 py-2 shadow-md text-center">
+    <header className="bg-slate-100 py-2 shadow-md text-center">
       <div className={`container mx-auto flex items-center ${showButtons ? 'justify-between' : 'justify-center'}`}>
         <Link to="/">
           <img
@@ -44,7 +44,7 @@ const AppBar = ({ isUserLoggedIn, isAdmin }) => {
           <div className="flex items-center space-x-4 ml-auto">
             {!isCreateRoute && isAdmin && isUserLoggedIn && (
               <button
-                className="text-white font-semibold px-4 py-2 border rounded border-white flex items-center"
+                className="text-red-500 font-semibold px-4 py-2 border rounded border-red-500 flex items-center"
                 onClick={handleCreateUser}
               >
                 <FaUserPlus className="mr-2" />
@@ -53,7 +53,7 @@ const AppBar = ({ isUserLoggedIn, isAdmin }) => {
             )}
             {isUserLoggedIn && (
               <button
-                className="text-white font-semibold px-4 py-2 border rounded border-white flex items-center"
+                className="text-white bg-red-500 font-semibold px-4 py-2 border rounded border-red-500 flex items-center"
                 onClick={handleSignOut}
               >
                 <FaSignOutAlt className="mr-2" />
