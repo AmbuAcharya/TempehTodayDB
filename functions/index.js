@@ -145,12 +145,15 @@ app.get("/downloadExcel", async (req, res) => {
   try {
     const userProvidedDocumentId = req.query.MFU_ID;
     const selectedDatabaseKey = req.query.databaseKey;
+    console.log("ID:",userProvidedDocumentId);
 
     let excelData = null;
 
     if (selectedDatabaseKey == "SFU") {
       const sheetsSnapshot = await db.ref(selectedDatabaseKey).child(userProvidedDocumentId).once("value");
       const sheetData = sheetsSnapshot.val();
+      console.log("sheetData:",sheetData);
+
 
       if (!sheetData) {
         console.error("No data found");
@@ -185,30 +188,73 @@ app.get("/downloadExcel", async (req, res) => {
   }
 });
 
-const transformDatasfu = (jsonData) => {
-  const tableData = [];
+function transformDatasfu(jsonData,selectedDatabaseKey) {
+  const result = [];
+  
+  const selectedData = jsonData;
 
-  // Iterate through the JSON data
-  for (const date in jsonData) {
-    const timeData = jsonData[date];
-
-    for (const time in timeData) {
-      const rowData = {
-        Date: date.replace(/(\d{2})-(\d{2})-(\d{2})/, "$2-$1-$3"), // Change date format
-        Time: time,
-      };
-
-      // Add the key-value pairs from the nested object
-      for (const key in timeData[time]) {
-        rowData[key] = timeData[time][key];
+  // Iterate over batches
+  Object.keys(selectedData).forEach(batchId => {
+      if (batchId === 'DATE' || batchId === 'TIME' || batchId === 'operatorId') {
+          return; // Skip unnecessary rows
       }
 
-      tableData.push(rowData);
-    }
-  }
+      const batchData = selectedData[batchId];
 
-  return tableData;
-};
+      // Iterate over sub-batches
+      Object.keys(batchData).forEach(subBatchId => {
+          if (subBatchId === 'DATE' || subBatchId === 'TIME' || subBatchId === 'operatorId') {
+              return; // Skip unnecessary rows
+          }
+
+          const subBatchData = batchData[subBatchId];
+
+          Object.keys(subBatchData).forEach(ssubBatchId => {
+              console.log('subBatchData:',ssubBatchId);
+
+              if (ssubBatchId === 'DATE' || ssubBatchId === 'TIME' || ssubBatchId === 'operatorId') {
+                  return; // Skip unnecessary rows
+              }
+              const ssubBatchData = subBatchData[ssubBatchId];
+
+              Object.keys(ssubBatchData).forEach(sssubBatchId => {
+                  console.log('subBatchData:',sssubBatchId);
+
+                  if (sssubBatchId === 'DATE' || sssubBatchId === 'TIME' || sssubBatchId === 'operatorId') {
+                      return; // Skip unnecessary rows
+                  }
+                  const sssubBatchData = ssubBatchData[sssubBatchId];
+
+          const row = {
+              'LOCATION': selectedDatabaseKey||'',
+              'SFU': batchId || '',
+              GB_ID: ssubBatchId || '',
+              'GENERAL-BATCH DATE': ssubBatchData.DATE || '',
+              'GENERAL-BATCH TIME': ssubBatchData.TIME || '',
+              SB_ID: sssubBatchId || '',
+              'SUB-BATCH DATE': sssubBatchData.DATE || '',
+              'SUB-BATCH TIME': sssubBatchData.TIME || '',
+              OPERATOR: ssubBatchData.operatorId || '',
+              'SOAKING PH': sssubBatchData.SOAKING?.ph || '',
+              'SOAKING START': sssubBatchData.SOAKING?.START?.StartTime || '',
+              'SOAKING STOP': sssubBatchData.SOAKING?.STOP?.StopTime || '',
+              'BOILING START': sssubBatchData.BOILING?.START?.StartTime || '',
+              'BOILING Reboil': sssubBatchData.BOILING?.REBOIL?.ReboilTime || '',
+              'BOILING STOP': sssubBatchData.BOILING?.STOP?.StopTime || '',
+              'COOLING TEMPERATURE': sssubBatchData.INOCULATION?.temperature || '',
+              'SFU START': sssubBatchData.SFU?.START?.StartTime || '',
+              'SFU STOP': sssubBatchData.SFU?.STOP?.StopTime || '',
+          };
+
+          result.push(row);
+      });
+      });
+      });
+  });
+
+  return result;
+}
+
 const colorMapping = {
   "34AB83": "Green",
   "F5692B": "Red",
@@ -321,6 +367,7 @@ async function generateExcelBuffer(data, userProvidedDocumentId) {
 
   return excelBuffer;
 }
+exports.app = functions.https.onRequest(app)
 
-exports.fetchData = functions.https.onRequest(app);
-exports.downloadExcel = functions.https.onRequest(app);
+// exports.fetchData = functions.https.onRequest(app);
+// exports.downloadExcel = functions.https.onRequest(app);

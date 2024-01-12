@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import AppIcon from "../app_icon.png";
 import DatabaseSelection from '../components/DatabaseSelection';
 import DatabaseTable from '../components/DatabaseTable';
+import MfuDbData from '../components/MfuDbData';
 import RenderDatabaseData from '../components/RenderDatabaseData';
 import { db } from '../firebaseConfig';
 
@@ -69,8 +70,8 @@ const Home = () => {
     }, [userInput, selectedMFUKey, selectedDatabaseKey]);
 
     // const serverUrl='http://localhost:5001';
-    const serverUrl = 'https://tempehtoday-f866c.web.app';
-    // const serverUrl = 'http://localhost:5000/tempehtoday-f866c/us-central1/app';
+    // const serverUrl = 'https://tempehtoday-f866c.web.app';
+    const serverUrl = 'http://localhost:5000/tempehtoday-f866c/us-central1/app';
 
     useEffect(() => {
         // Create a variable to track if the component is mounted
@@ -159,7 +160,7 @@ const Home = () => {
                         setErrorMessage(`No Data found for ${selectedMFUKey}`);
                     }
                     else {
-                        const transformedData = transformDatasfu(rawData);
+                        const transformedData = transformDatasfu(rawData,selectedMFUKey);
                         setData(transformedData);
                     }
                 }
@@ -362,38 +363,84 @@ const Home = () => {
 
     }
 
-    const transformDatasfu = (jsonData) => {
-        const tableData = [];
-
-        // Iterate through the JSON data
-        for (const date in jsonData) {
-            const timeData = jsonData[date];
-
-            for (const time in timeData) {
-                const rowData = {
-                    Date: date.replace(/(\d{2})-(\d{2})-(\d{2})/, '$2-$1-$3'), // Change date format
-                    Time: time,
-                };
-
-                // Add the key-value pairs from the nested object
-                for (const key in timeData[time]) {
-                    rowData[key] = timeData[time][key];
-                }
-
-                tableData.push(rowData);
+    function transformDatasfu(jsonData,selectedDatabaseKey) {
+        const result = [];
+        
+        const selectedData = jsonData;
+    
+        // Iterate over batches
+        Object.keys(selectedData).forEach(batchId => {
+            if (batchId === 'DATE' || batchId === 'TIME' || batchId === 'operatorId') {
+                return; // Skip unnecessary rows
             }
-        }
+    
+            const batchData = selectedData[batchId];
+    
+            // Iterate over sub-batches
+            Object.keys(batchData).forEach(subBatchId => {
+                if (subBatchId === 'DATE' || subBatchId === 'TIME' || subBatchId === 'operatorId') {
+                    return; // Skip unnecessary rows
+                }
+    
+                const subBatchData = batchData[subBatchId];
 
-        return tableData;
-    };
+                Object.keys(subBatchData).forEach(ssubBatchId => {
+                    console.log('subBatchData:',ssubBatchId);
 
+                    if (ssubBatchId === 'DATE' || ssubBatchId === 'TIME' || ssubBatchId === 'operatorId') {
+                        return; // Skip unnecessary rows
+                    }
+                    const ssubBatchData = subBatchData[ssubBatchId];
+
+                    Object.keys(ssubBatchData).forEach(sssubBatchId => {
+                        console.log('subBatchData:',sssubBatchId);
+    
+                        if (sssubBatchId === 'DATE' || sssubBatchId === 'TIME' || sssubBatchId === 'operatorId' || sssubBatchId === 'SC_ID' || sssubBatchId === 'SCp' || sssubBatchId === 'VIN_ID' || sssubBatchId === 'VTBL_ID') {
+                            return; // Skip unnecessary rows
+                        }
+                        const sssubBatchData = ssubBatchData[sssubBatchId];
+    
+                const row = {
+                    'LOCATION': selectedDatabaseKey||'',
+                    'SFU': batchId || '',
+                    GB_ID: ssubBatchId || '',
+                    'GENERAL-BATCH DATE': ssubBatchData.DATE || '',
+                    'GENERAL-BATCH TIME': ssubBatchData.TIME || '',
+                    SB_ID: sssubBatchId || '',
+                    'SUB-BATCH DATE': sssubBatchData.DATE || '',
+                    'SUB-BATCH TIME': sssubBatchData.TIME || '',
+                    'SC_ID': sssubBatchData.SC_ID || '',
+                    '%SC': sssubBatchData.SCp || '',
+                    'VIN_ID': sssubBatchData.VIN_ID || '',
+                    'VTBL_ID':sssubBatchData.VTBL_ID || '',
+                    OPERATOR: ssubBatchData.operatorId || '',
+                    'SOAKING PH': sssubBatchData.SOAKING?.ph || '',
+                    'SOAKING START': sssubBatchData.SOAKING?.START?.StartTime || '',
+                    'SOAKING STOP': sssubBatchData.SOAKING?.STOP?.StopTime || '',
+                    'BOILING START': sssubBatchData.BOILING?.START?.StartTime || '',
+                    'BOILING Reboil': sssubBatchData.BOILING?.REBOIL?.ReboilTime || '',
+                    'BOILING STOP': sssubBatchData.BOILING?.STOP?.StopTime || '',
+                    'COOLING TEMPERATURE': sssubBatchData.INOCULATION?.temperature || '',
+                    'SFU START': sssubBatchData.SFU?.START?.StartTime || '',
+                    'SFU STOP': sssubBatchData.SFU?.STOP?.StopTime || '',
+                };
+    
+                result.push(row);
+            });
+            });
+            });
+        });
+    
+        return result;
+    }
+    
     useEffect(() => {
         setData(null);
     }, [file]);
 
 
     return (
-        <main className={`flex-grow flex flex-col items-center justify-center mt-16 space-y-8 ${(data && data[0] != null) ? "mt-20" : ""}`}>
+        <main className="flex-grow flex flex-col items-center justify-center overflow-y-auto">
             {loading && (
                 <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-700 bg-opacity-50">
                     <div className="bg-white p-4 rounded-md flex items-center justify-center">
@@ -405,43 +452,27 @@ const Home = () => {
                     </div>
                 </div>
             )}
-            <div className="container mx-auto my-8 p-4 lg:p-0 flex flex-col items-center lg:flex-row lg:justify-between flex-grow ">
+            <div className="container mx-auto my-8 p-4 lg:p-0 flex flex-col items-center lg:flex-row lg:justify-between flex-grow">
                 <DatabaseSelection
                     dataKeys={dataKeys}
                     handleDatabaseKeyChange={handleDatabaseKeyChange}
                     selectedDatabaseKey={selectedDatabaseKey}
                     className="mb-4 lg:mb-0" // Add margin-bottom for small screens
                 />
-                <RenderDatabaseData
-                    fileInputVisible={fileInputVisible}
-                    handleGetData={handleGetData}
-                    handleMFUKeyChange={handleMFUKeyChange}
-                    mfuIds={mfuIds}
-                    selectedDatabaseKey={selectedDatabaseKey}
-                    selectedMFUKey={selectedMFUKey}
-                    setFileInputVisible={setFileInputVisible}
-                    setUserInput={setUserInput}
-                    userInput={userInput}
-                    setFile={setFile}
-                    file={file}
-                    setErrorMessage={setErrorMessage}
-                    setLoading={setLoading}
-                    setMessage={setMessage}
-                />
+                {<RenderDatabaseData MfuDbData={MfuDbData} fileInputVisible={fileInputVisible} handleGetData={handleGetData} handleMFUKeyChange={handleMFUKeyChange} mfuIds={mfuIds} selectedDatabaseKey={selectedDatabaseKey}
+                    selectedMFUKey={selectedMFUKey} setFileInputVisible={setFileInputVisible} setUserInput={setUserInput} userInput={userInput} setFile={setFile} file={file} setErrorMessage={setErrorMessage} setLoading={setLoading} setMessage={setMessage} />}
             </div>
             {data && (
-                <div className="container mx-auto mt-4 lg:mt-8">
-                    <DatabaseTable
-                        selectedDatabaseKey={selectedDatabaseKey}
-                        selectedMFUKey={selectedMFUKey}
-                        serverUrl={serverUrl}
-                        setMessage={setMessage}
-                        data={data[0] != null ? data : null}
-                        userInput={userInput}
-                        handleOperatorOrBatchIdClick={handleOperatorOrBatchIdClick}
-                        handleGetData={handleGetData}
-                    />
-                </div>
+                <DatabaseTable
+                    selectedDatabaseKey={selectedDatabaseKey}
+                    selectedMFUKey={selectedMFUKey}
+                    serverUrl={serverUrl}
+                    setMessage={setMessage}
+                    data={data[0] != null ? data : null}
+                    userInput={userInput}
+                    handleOperatorOrBatchIdClick={handleOperatorOrBatchIdClick}
+                    handleGetData={handleGetData}
+                />
             )}
             <div className="container mx-auto mt-4 lg:mt-8">
                 {errorMessage && (
