@@ -45,9 +45,11 @@ const DatabaseTable = ({ data, userInput, handleOperatorOrBatchIdClick, selected
                   <tr key={rowIndex} className="hover:bg-gray-100 transition duration-300">
                     {Object.keys(data[0]).map((columnName, colIndex) => {
                       const isClickableColumn =
-                        columnName === 'OPERATOR' ||
+                        (selectedDatabaseKey === "MFU_DB" && columnName === 'OPERATOR') ||
                         columnName === 'SB_ID' ||
-                        columnName === 'GB_ID';
+                        columnName === 'GB_ID' ||
+                        columnName === 'SFU' ||
+                        columnName === 'LOCATION';
 
                       const cellContent =
                         columnName === 'Operator_image' && rowData[columnName] ? (

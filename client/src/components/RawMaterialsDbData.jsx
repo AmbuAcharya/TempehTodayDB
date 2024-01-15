@@ -1,12 +1,10 @@
 import React from 'react';
 
-const SfuDbData = ({
+const RawMaterialsDbData = ({
   selectedMFUKey,
   handleMFUKeyChange,
   handleFileChange,
   mfuIds,
-  userInput,
-  setUserInput,
   fileInputVisible,
   handleFileUpload,
   setFileInputVisible,
@@ -17,30 +15,20 @@ const SfuDbData = ({
       {!fileInputVisible ? (
         <>
           <label htmlFor="mfuSelect" className="block mb-4">
-            <span className="font-bold text-blue-500">Select SFU ID:</span>
+            <span className="font-bold text-blue-500">Select Raw Material:</span>
             <select
               id="mfuSelect"
               value={selectedMFUKey}
               onChange={handleMFUKeyChange}
               className="w-full p-2 border rounded"
             >
-              <option disabled className="bg-yellow-100" value="">Select SFU ID</option>
+              <option disabled className="bg-yellow-100" value="">Select Raw Material</option>
               {mfuIds.map((key) => (
                 <option className="bg-yellow-100" key={key} value={key}>
                   {key}
                 </option>
               ))}
             </select>
-          </label>
-          <label htmlFor="searchInput" className="block mb-4">
-            <span className="font-bold text-blue-500">Find Batch or Operator:</span>
-            <input
-              type="text"
-              id="searchInput"
-              value={userInput}
-              onChange={(e) => setUserInput(e.target.value)}
-              className="w-full p-2 border rounded"
-            />
           </label>
         </>
       ) : (
@@ -93,4 +81,4 @@ const SfuDbData = ({
   );
 };
 
-export default SfuDbData;
+export default RawMaterialsDbData;

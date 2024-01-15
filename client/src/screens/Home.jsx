@@ -70,8 +70,8 @@ const Home = () => {
     }, [userInput, selectedMFUKey, selectedDatabaseKey]);
 
     // const serverUrl='http://localhost:5001';
-    // const serverUrl = 'https://tempehtoday-f866c.web.app';
-    const serverUrl = 'http://localhost:5000/tempehtoday-f866c/us-central1/app';
+    const serverUrl = 'https://tempehtoday-f866c.web.app';
+    // const serverUrl = 'http://localhost:5000/tempehtoday-f866c/us-central1/app';
 
     useEffect(() => {
         // Create a variable to track if the component is mounted
@@ -160,7 +160,7 @@ const Home = () => {
                         setErrorMessage(`No Data found for ${selectedMFUKey}`);
                     }
                     else {
-                        const transformedData = transformDatasfu(rawData,selectedMFUKey);
+                        const transformedData = transformDatasfu(rawData, selectedMFUKey);
                         setData(transformedData);
                     }
                 }
@@ -224,7 +224,7 @@ const Home = () => {
         "3634AB": "Blue",
         "AB34A6": "Purple",
         "D4D400": "Yellow",
-        "FF000000": "Black",
+        "000000": "Black",
         "AB3449": "Pink",
         "FDFFFD": "White",
     };
@@ -363,29 +363,29 @@ const Home = () => {
 
     }
 
-    function transformDatasfu(jsonData,selectedDatabaseKey) {
+    function transformDatasfu(jsonData, selectedDatabaseKey) {
         const result = [];
-        
+
         const selectedData = jsonData;
-    
+
         // Iterate over batches
         Object.keys(selectedData).forEach(batchId => {
             if (batchId === 'DATE' || batchId === 'TIME' || batchId === 'operatorId') {
                 return; // Skip unnecessary rows
             }
-    
+
             const batchData = selectedData[batchId];
-    
+
             // Iterate over sub-batches
             Object.keys(batchData).forEach(subBatchId => {
                 if (subBatchId === 'DATE' || subBatchId === 'TIME' || subBatchId === 'operatorId') {
                     return; // Skip unnecessary rows
                 }
-    
+
                 const subBatchData = batchData[subBatchId];
 
                 Object.keys(subBatchData).forEach(ssubBatchId => {
-                    console.log('subBatchData:',ssubBatchId);
+                    console.log('subBatchData:', ssubBatchId);
 
                     if (ssubBatchId === 'DATE' || ssubBatchId === 'TIME' || ssubBatchId === 'operatorId') {
                         return; // Skip unnecessary rows
@@ -393,47 +393,47 @@ const Home = () => {
                     const ssubBatchData = subBatchData[ssubBatchId];
 
                     Object.keys(ssubBatchData).forEach(sssubBatchId => {
-                        console.log('subBatchData:',sssubBatchId);
-    
+                        console.log('subBatchData:', sssubBatchId);
+
                         if (sssubBatchId === 'DATE' || sssubBatchId === 'TIME' || sssubBatchId === 'operatorId' || sssubBatchId === 'SC_ID' || sssubBatchId === 'SCp' || sssubBatchId === 'VIN_ID' || sssubBatchId === 'VTBL_ID') {
                             return; // Skip unnecessary rows
                         }
                         const sssubBatchData = ssubBatchData[sssubBatchId];
-    
-                const row = {
-                    'LOCATION': selectedDatabaseKey||'',
-                    'SFU': batchId || '',
-                    GB_ID: ssubBatchId || '',
-                    'GENERAL-BATCH DATE': ssubBatchData.DATE || '',
-                    'GENERAL-BATCH TIME': ssubBatchData.TIME || '',
-                    SB_ID: sssubBatchId || '',
-                    'SUB-BATCH DATE': sssubBatchData.DATE || '',
-                    'SUB-BATCH TIME': sssubBatchData.TIME || '',
-                    'SC_ID': sssubBatchData.SC_ID || '',
-                    '%SC': sssubBatchData.SCp || '',
-                    'VIN_ID': sssubBatchData.VIN_ID || '',
-                    'VTBL_ID':sssubBatchData.VTBL_ID || '',
-                    OPERATOR: ssubBatchData.operatorId || '',
-                    'SOAKING PH': sssubBatchData.SOAKING?.ph || '',
-                    'SOAKING START': sssubBatchData.SOAKING?.START?.StartTime || '',
-                    'SOAKING STOP': sssubBatchData.SOAKING?.STOP?.StopTime || '',
-                    'BOILING START': sssubBatchData.BOILING?.START?.StartTime || '',
-                    'BOILING Reboil': sssubBatchData.BOILING?.REBOIL?.ReboilTime || '',
-                    'BOILING STOP': sssubBatchData.BOILING?.STOP?.StopTime || '',
-                    'COOLING TEMPERATURE': sssubBatchData.INOCULATION?.temperature || '',
-                    'SFU START': sssubBatchData.SFU?.START?.StartTime || '',
-                    'SFU STOP': sssubBatchData.SFU?.STOP?.StopTime || '',
-                };
-    
-                result.push(row);
-            });
-            });
+
+                        const row = {
+                            'LOCATION': selectedDatabaseKey || '',
+                            'SFU': batchId || '',
+                            GB_ID: ssubBatchId || '',
+                            'GENERAL-BATCH DATE': ssubBatchData.DATE || '',
+                            'GENERAL-BATCH TIME': ssubBatchData.TIME || '',
+                            SB_ID: sssubBatchId || '',
+                            'SUB-BATCH DATE': sssubBatchData.DATE || '',
+                            'SUB-BATCH TIME': sssubBatchData.TIME || '',
+                            'SC_ID': sssubBatchData.SC_ID || '',
+                            '%SC': sssubBatchData.SCp || '',
+                            'VIN_ID': sssubBatchData.VIN_ID || '',
+                            'VTBL_ID': sssubBatchData.VTBL_ID || '',
+                            OPERATOR: ssubBatchData.operatorId || '',
+                            'SOAKING PH': sssubBatchData.SOAKING?.ph || '',
+                            'SOAKING START': sssubBatchData.SOAKING?.START?.StartTime || '',
+                            'SOAKING STOP': sssubBatchData.SOAKING?.STOP?.StopTime || '',
+                            'BOILING START': sssubBatchData.BOILING?.START?.StartTime || '',
+                            'BOILING Reboil': sssubBatchData.BOILING?.REBOIL?.ReboilTime || '',
+                            'BOILING STOP': sssubBatchData.BOILING?.STOP?.StopTime || '',
+                            'COOLING TEMPERATURE': sssubBatchData.INOCULATION?.temperature || '',
+                            'SFU START': sssubBatchData.SFU?.START?.StartTime || '',
+                            'SFU STOP': sssubBatchData.SFU?.STOP?.StopTime || '',
+                        };
+
+                        result.push(row);
+                    });
+                });
             });
         });
-    
+
         return result;
     }
-    
+
     useEffect(() => {
         setData(null);
     }, [file]);
@@ -452,7 +452,7 @@ const Home = () => {
                     </div>
                 </div>
             )}
-            <div className="container mx-auto my-8 p-4 lg:p-0 flex flex-col items-center lg:flex-row lg:justify-between flex-grow">
+            <div className={`container mx-auto my-8 p-4 lg:p-0 flex flex-col items-center lg:flex-row lg:justify-between flex-grow ${data && "mt-32"}`}>
                 <DatabaseSelection
                     dataKeys={dataKeys}
                     handleDatabaseKeyChange={handleDatabaseKeyChange}
