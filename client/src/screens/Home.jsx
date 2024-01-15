@@ -218,15 +218,15 @@ const Home = () => {
     };
 
     const colorMapping = {
-        "34AB83": 'Green',
-        "F5692B": 'Red',
-        "F7A81C": 'Orange',
-        "FDFFFD": 'White',
-        "AB9F34": 'Light Green',
-        "3634AB": 'Blue',
-        "AB3449": 'Brown',
-        "AB34A6": 'Purple',
-        "D4D400": 'Yellow',
+        "34AB83": "Green",
+        "F5692B": "Red",
+        "F7A81C": "Orange",
+        "3634AB": "Blue",
+        "AB34A6": "Purple",
+        "D4D400": "Yellow",
+        "FF000000": "Black",
+        "AB3449": "Pink",
+        "FDFFFD": "White",
     };
 
     function transformDatasb(sbData, userInput) {

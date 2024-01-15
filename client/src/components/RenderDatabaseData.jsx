@@ -8,15 +8,15 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
     setErrorMessage, setMessage }) => {
 
     const ColorMapping = {
-        "Green": '34AB83',
-        "Red": 'F5692B',
-        "Orange": 'F7A81C',
-        "White": 'FDFFFD',
-        "Light Green": 'AB9F34',
-        "Blue": '3634AB',
-        "Brown": 'AB3449',
-        "Purple": 'AB34A6',
-        "Yellow": 'D4D400',
+        "Green" : '34AB83',
+        "Red":'F5692B',
+        "Orange":'F7A81C',
+        "Blue":'3634AB',
+        "Purple":'AB34A6',
+        "Yellow":'D4D400',
+        "Black":'FF000000',
+        "Pink":'AB3449',
+        "White":'FDFFFD',
     };
     
     const handleFileUpload = async () => {
