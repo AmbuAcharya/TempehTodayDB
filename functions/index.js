@@ -220,7 +220,7 @@ function transformDatasfu(jsonData,selectedDatabaseKey) {
               Object.keys(ssubBatchData).forEach(sssubBatchId => {
                   console.log('subBatchData:',sssubBatchId);
 
-                  if (sssubBatchId === 'DATE' || sssubBatchId === 'TIME' || sssubBatchId === 'operatorId') {
+                  if (sssubBatchId === 'DATE' || sssubBatchId === 'TIME' || sssubBatchId === 'operatorId' || sssubBatchId === 'SC_ID' || sssubBatchId === 'SCp' || sssubBatchId === 'VIN_ID' || sssubBatchId === 'VTBL_ID') {
                       return; // Skip unnecessary rows
                   }
                   const sssubBatchData = ssubBatchData[sssubBatchId];
@@ -234,6 +234,10 @@ function transformDatasfu(jsonData,selectedDatabaseKey) {
               SB_ID: sssubBatchId || '',
               'SUB-BATCH DATE': sssubBatchData.DATE || '',
               'SUB-BATCH TIME': sssubBatchData.TIME || '',
+              'SC_ID': sssubBatchData.SC_ID || '',
+              '%SC': sssubBatchData.SCp || '',
+              'VIN_ID': sssubBatchData.VIN_ID || '',
+              'VTBL_ID':sssubBatchData.VTBL_ID || '',
               OPERATOR: ssubBatchData.operatorId || '',
               'SOAKING PH': sssubBatchData.SOAKING?.ph || '',
               'SOAKING START': sssubBatchData.SOAKING?.START?.StartTime || '',
@@ -330,14 +334,23 @@ async function generateExcelBuffer(data, userProvidedDocumentId) {
 
   const keys = Object.keys(data[0]);
   const columnWidths = {};
+  // worksheet.columns = keys.map((key) => {
+  //   const headerText = key.replace(/ /g, '\n'); // Use line break instead of space for multi-line header
+  //   const headerLength = headerText.length;
+  //   const initialWidth = Math.max(headerLength, 15);
+  //   const columnData = { header: headerText, key, width: initialWidth };
+  //   columnWidths[key] = initialWidth;
+  //   return columnData;
+  // });
+
   worksheet.columns = keys.map((key) => {
-    const headerText = key.replace(/ /g, '\n'); // Use line break instead of space for multi-line header
+    const headerText = key.replace(/ /g, '\n'); // Remove line break and spaces
     const headerLength = headerText.length;
     const initialWidth = Math.max(headerLength, 15);
     const columnData = { header: headerText, key, width: initialWidth };
     columnWidths[key] = initialWidth;
     return columnData;
-  });
+})
 
   worksheet.addRows(data);
 
