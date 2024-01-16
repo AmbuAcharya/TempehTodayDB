@@ -60,10 +60,11 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
         }
     }, [userInput, selectedMFUKey, selectedDatabaseKey]);
 
+    var serverUrl = ""
     // const serverUrl='http://localhost:5001';
     // const serverUrl = 'https://tempehtoday-f866c.web.app';
-    const serverUrl = window.location.origin;
-    // const serverUrl = 'http://localhost:5000/tempehtoday-f866c/us-central1/app';
+    serverUrl = window.location.origin;
+    serverUrl = 'http://localhost:5000/tempehtoday-f866c/us-central1/app';
 
     useEffect(() => {
         const databaseRef = ref(db);
@@ -148,8 +149,26 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
                 if (!rawData) {
                     setErrorMessage(`No Data found for ${selectedMFUKey}`);
                 } else {
+                    if (userInput.includes("SB")) {
+                        if (!rawData) {
+
+                            setErrorMessage(`No Data found for ${userInput}`);
+                        } else {
+                            const transformedData = transformDatasfusb(rawData, userInput);
+                            setData(transformedData);
+                        }
+                    }else if (userInput.includes('GB')) {
+                        if (!rawData) {
+                            setErrorMessage(`No Data found for ${userInput}`);
+                        } else {
+                            const transformedData = transformDatasfugb(rawData, userInput);
+                            setData(transformedData);
+                        }
+                    }
+                    else{
                     const transformedData = transformDatasfu(rawData, selectedMFUKey);
                     setData(transformedData);
+                    }
                 }
             } else {
                 if (userInput.includes('SB')) {
@@ -328,6 +347,82 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
                 });
             });
         }
+
+        return result;
+    }
+
+    const transformDatasfusb = (sbData, userInput) => {
+        if (!sbData || typeof sbData !== 'object') {
+            console.error('Invalid sbData structure');
+            return [];
+        }
+
+        const row = {
+            SB_ID: userInput || '',
+            'SUB-BATCH DATE': sbData.DATE || '',
+            'SUB-BATCH TIME': sbData.TIME || '',
+            'SC_ID': sbData.SC_ID || '',
+            '%SC': sbData.SCp || '',
+            'VIN_ID': sbData.VIN_ID || '',
+            'VTBL_ID': sbData.VTBL_ID || '',
+            OPERATOR: sbData.operatorId || '',
+            'SOAKING PH': sbData.SOAKING?.ph || '',
+            'SOAKING START': sbData.SOAKING?.START?.StartTime || '',
+            'SOAKING STOP': sbData.SOAKING?.STOP?.StopTime || '',
+            'BOILING START': sbData.BOILING?.START?.StartTime || '',
+            'BOILING Reboil': sbData.BOILING?.REBOIL?.ReboilTime || '',
+            'BOILING STOP': sbData.BOILING?.STOP?.StopTime || '',
+            'COOLING TEMPERATURE': sbData.INOCULATION?.temperature || '',
+            'SFU START': sbData.SFU?.START?.StartTime || '',
+            'SFU STOP': sbData.SFU?.STOP?.StopTime || '',
+        };
+
+        return [row];
+    }
+
+    const transformDatasfugb = (jsonData, userInput) => {
+        if (!jsonData || typeof jsonData !== 'object') {
+            console.error('Invalid jsonData structure');
+            return [];
+        }
+
+        const result = [];
+
+        Object.keys(jsonData).forEach(sbID => {
+            if (['DATE', 'TIME', 'operatorId'].includes(sbID)) {
+                return; // Skip unnecessary rows
+            }
+
+            const sbData = jsonData[sbID];
+
+            if (!sbData || typeof sbData !== 'object') {
+                console.error(`Invalid sbData structure for SB_ID: ${sbID}`);
+                return;
+            }
+
+            const row = {
+                GB_ID: userInput || '',
+                SB_ID: sbID || '',
+                'SUB-BATCH DATE': sbData.DATE || '',
+                'SUB-BATCH TIME': sbData.TIME || '',
+                'SC_ID': sbData.SC_ID || '',
+                '%SC': sbData.SCp || '',
+                'VIN_ID': sbData.VIN_ID || '',
+                'VTBL_ID': sbData.VTBL_ID || '',
+                OPERATOR: sbData.operatorId || '',
+                'SOAKING PH': sbData.SOAKING?.ph || '',
+                'SOAKING START': sbData.SOAKING?.START?.StartTime || '',
+                'SOAKING STOP': sbData.SOAKING?.STOP?.StopTime || '',
+                'BOILING START': sbData.BOILING?.START?.StartTime || '',
+                'BOILING Reboil': sbData.BOILING?.REBOIL?.ReboilTime || '',
+                'BOILING STOP': sbData.BOILING?.STOP?.StopTime || '',
+                'COOLING TEMPERATURE': sbData.INOCULATION?.temperature || '',
+                'SFU START': sbData.SFU?.START?.StartTime || '',
+                'SFU STOP': sbData.SFU?.STOP?.StopTime || '',
+            };
+
+            result.push(row);
+        });
 
         return result;
     }

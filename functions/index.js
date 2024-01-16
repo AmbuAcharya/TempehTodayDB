@@ -1,3 +1,4 @@
+
 const functions = require("firebase-functions");
 const express = require("express");
 const cors = require("cors");
@@ -53,7 +54,14 @@ app.get("/fetchData", async (req, res) => {
       const ref = db.ref(selectedDatabaseKey); // Use the selected database key in the reference
       const userNodeSnapshot = await ref.child(userProvidedDocumentId).once("value");
       userData = userNodeSnapshot.val();
+
+      if (enteredValue.startsWith("SB") || enteredValue.startsWith("GB")) {
+        const dt = displayContentsfu(enteredValue, userData);
+        res.status(200).json(dt);
+      }
+      else{
       res.status(200).json(userData);
+    }
     }
     else {
       if (enteredValue.includes("_OP")) {
@@ -96,6 +104,48 @@ app.get("/fetchData", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+
+function displayContentsfu(enteredValue, jsonData) {
+  if (enteredValue.startsWith("SB")) {
+      const sbID = enteredValue;
+
+      for (const sfuKey in jsonData) {
+          if (jsonData.hasOwnProperty(sfuKey) && jsonData[sfuKey]["GB"]) {
+              const sfuData = jsonData[sfuKey];
+              const gbIDs = Object.keys(sfuData.GB);
+
+              for (const gbID of gbIDs) {
+                  if (sbID in sfuData.GB[gbID]) {
+                      
+                      const sbData = sfuData.GB[gbID][sbID];
+                      
+                      return sbData;
+                  }
+              }
+          }
+      }
+
+      console.log(`${sbID} not found under any SFU`);
+      return null;
+  } else if (enteredValue.startsWith("GB")) {
+    const gbID = enteredValue;
+
+    for (const sfuKey in jsonData) {
+        if (jsonData.hasOwnProperty(sfuKey) && jsonData[sfuKey]["GB"]) {
+            const gbIDs = Object.keys(jsonData[sfuKey]["GB"]);
+            
+            if (gbIDs.includes(gbID)) {
+                return jsonData[sfuKey]["GB"][gbID];
+            }
+        }
+    }
+    return null;
+}
+ else {
+    // Invalid input
+    console.log("Invalid input. Please enter a valid SB or GB ID.");
+  }
+}
 
 function displayContent(enteredValue, jsonData, selectedDatabaseKey) {
   if (enteredValue.startsWith("SB")) {
@@ -380,7 +430,8 @@ async function generateExcelBuffer(data, userProvidedDocumentId) {
 
   return excelBuffer;
 }
-// exports.app = functions.https.onRequest(app)
 
-exports.fetchData = functions.https.onRequest(app);
-exports.downloadExcel = functions.https.onRequest(app);
+exports.app = functions.https.onRequest(app)
+
+// exports.fetchData = functions.https.onRequest(app);
+// exports.downloadExcel = functions.https.onRequest(app);
