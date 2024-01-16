@@ -35,7 +35,7 @@ const Login = () => {
   return (
     <>
       {loading && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-700 bg-opacity-50">
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-700 bg-opacity-50 z-10">
           <div className="bg-white p-4 rounded-md flex items-center justify-center">
             <img
               src={AppIcon}

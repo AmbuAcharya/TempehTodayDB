@@ -13,7 +13,7 @@ const DatabaseSelection = ({ selectedDatabaseKey, handleDatabaseKeyChange, dataK
             id="databaseKeySelect"
             value={selectedDatabaseKey}
             onChange={handleDatabaseKeyChange}
-            className="w-full p-2 border rounded focus:outline-none focus:border-blue-700 mr-12"
+            className="w-full p-2 border rounded focus:outline-none focus:border-blue-700 mr-12 relative"
           >
             <option disabled value="" className="bg-yellow-100">
               Select Database

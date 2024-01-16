@@ -32,7 +32,7 @@ const AppBar = ({ isUserLoggedIn, isAdmin }) => {
   const logoClass = showButtons ? 'ml-4' : 'mx-auto';
 
   return (
-    <header className="bg-slate-100 py-2 shadow-md text-center fixed w-full top-0">
+    <header className="bg-slate-100 py-2 shadow-md text-center fixed w-full top-0 z-10">
       <div className={`container mx-auto flex items-center ${showButtons ? 'justify-between' : 'justify-center'}`}>
         <Link to="/">
           <img

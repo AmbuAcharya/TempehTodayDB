@@ -42,6 +42,7 @@ const Home = () => {
     }, [mfuId, selectedDatabaseKey, userInput]);
 
     const handleDatabaseKeyChange = useCallback((e) => {
+        handleMFUKeyChange(null)
         setSelectedDatabaseKey(e.target.value);
     }, []);
 
@@ -106,7 +107,7 @@ const Home = () => {
         // Specify the path in the Realtime Database
         console.log(selectedDatabaseKey);
         var databasePath = `${selectedDatabaseKey}/MFU`;
-        if (selectedDatabaseKey === "SFU" ||selectedDatabaseKey === "RAW_MATERIALS") {
+        if (selectedDatabaseKey === "SFU" || selectedDatabaseKey === "RAW_MATERIALS") {
             databasePath = selectedDatabaseKey;
         }
 
