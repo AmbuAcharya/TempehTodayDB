@@ -106,7 +106,7 @@ const Home = () => {
         // Specify the path in the Realtime Database
         console.log(selectedDatabaseKey);
         var databasePath = `${selectedDatabaseKey}/MFU`;
-        if (selectedDatabaseKey === "SFU") {
+        if (selectedDatabaseKey === "SFU" ||selectedDatabaseKey === "RAW_MATERIALS") {
             databasePath = selectedDatabaseKey;
         }
 
