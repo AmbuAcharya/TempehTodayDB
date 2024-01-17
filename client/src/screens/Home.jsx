@@ -64,7 +64,7 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
     // const serverUrl='http://localhost:5001';
     // const serverUrl = 'https://tempehtoday-f866c.web.app';
     serverUrl = window.location.origin;
-    serverUrl = 'http://localhost:5000/tempehtoday-f866c/us-central1/app';
+    // serverUrl = 'http://localhost:5000/tempehtoday-f866c/us-central1/app';
 
     useEffect(() => {
         const databaseRef = ref(db);
@@ -577,185 +577,129 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
 
     const transformDataRawMaterials = (jsonData, selectedKey) => {
         const result = [];
+
+        const fieldMappings = {
+            "Product intake": {
+                "DATE OF INTAKE": "Date of intake",
+                "IN FREEZER": "In Freezer (hide?)",
+                "OPERATOR": "Operator",
+                "QUALITY APPROVED": "Quality approved (name)",
+                "TOTAL WEIGHT": "Total weight",
+                "USED IN BATCH": "Used in Batch"
+            },
+            "Rice flower": {
+                "EXPIRY DATE": "Expiry date",
+                "INVOICE NO": "Invoice No",
+                "LOT NR": "Lot nr",
+                "RECEIPT DATE": "Receipt date",
+                "RESIDUAL STOCK": "Residual stock",
+                "SUPPLIER": "Supplier"
+            },
+            "Soybean": {
+                "EXPIRY DATE": "Expiry date",
+                "HARVEST DATE": "Harvest date",
+                "INVOICE NO": "Invoice No",
+                "RECEIPT DATE": "Receipt date",
+                "RESIDUAL STOCK": "Residual stock",
+                "STRAIN": "Strain",
+                "SUPPLIER": "Supplier"
+            },
+            "Starter Culture": {
+                "EXPIRY DATE": "Expiry date",
+                "INVOICE NO": "Invoice No",
+                "LOT NR": "Lot nr",
+                "RECEIPT DATE": "Receipt date",
+                "STRAIN": "Strain",
+                "SUPPLIER": "Supplier"
+            },
+            "Vinegar": {
+                "BATCH ID": "Batch ID",
+                "EXPIRY DATE": "Expiry date",
+                "INVOICE NO": "Invoice No",
+                "LOT NR": "Lot nr",
+                "RECEIPT DATE": "Receipt date",
+                "RESIDUAL STOCK": "Residual stock",
+                "STRAIN": "Strain",
+                "SUPPLIER": "Supplier"
+            },
+            "Vitblend": {
+                "EXPIRY DATE": "Expiry date",
+                "INVOICE NO": "Invoice No",
+                "LOT NR": "Lot nr",
+                "PRODUCTION DATE": "Production date",
+                "RECEIPT DATE": "Receipt date",
+                "RESIDUAL STOCK": "Residual stock",
+                "SUPPLIER": "Supplier"
+            }
+        };
+
         if (!jsonData || typeof jsonData !== 'object') {
             console.error('Invalid jsonData structure');
             return [];
         }
-        if (selectedKey === "Product intake") {
-            Object.keys(jsonData).forEach(sbID => {
-                if (['DATE', 'TIME', 'operatorId'].includes(sbID)) {
-                    return; // Skip unnecessary rows
-                }
 
-                const sbData = jsonData[sbID];
-                const { "Date of intake": DateOfIntake, "In Freezer (hide?)": InFreezer, Operator, "Quality approved (name)": QualityApproved, "Total weight": TotalWeight, "Used in Batch": UsedInBatch } = sbData
-
-                if (!sbData || typeof sbData !== 'object') {
-                    console.error(`Invalid sbData structure for SB_ID: ${sbID}`);
-                    return;
-                }
-
-                const row = {
-                    "MFU SBID": sbID || '',
-                    'DATE OF INTAKE': DateOfIntake || '',
-                    'In Freezer (hide?)': InFreezer || '',
-                    'Operator': Operator || '',
-                    'Quality approved (name)': QualityApproved || '',
-                    "Total Weight": TotalWeight || '',
-                    "Used In Batch": UsedInBatch || ''
-
-                };
-
-                result.push(row);
-            });
-
-        } else if (selectedKey === "Rice flower") {
-            Object.keys(jsonData).forEach(sbID => {
-                if (['DATE', 'TIME', 'operatorId'].includes(sbID)) {
-                    return; // Skip unnecessary rows
-                }
-
-                const sbData = jsonData[sbID];
-                const { "Expiry date": ExpiryDate, "Invoice No": InvoiceNo, "Lot nr": LotNr, "Receipt date": ReceiptDate, "Residual stock": ResidualStock, "Supplier": Supplier } = sbData
-
-                if (!sbData || typeof sbData !== 'object') {
-                    console.error(`Invalid sbData structure for SB_ID: ${sbID}`);
-                    return;
-                }
-
-                const row = {
-                    "BatchID": sbID || '',
-                    "Expiry date": ExpiryDate || '',
-                    "Invoice No": InvoiceNo || '',
-                    "Lot nr": LotNr || '',
-                    "Receipt date": ReceiptDate || '',
-                    "Residual stock": ResidualStock || '',
-                    "Supplier": Supplier || ''
-
-                };
-
-                result.push(row);
-            });
-        } else if (selectedKey === "Soybean") {
-            Object.keys(jsonData).forEach(sbID => {
-                if (['DATE', 'TIME', 'operatorId'].includes(sbID)) {
-                    return; // Skip unnecessary rows
-                }
-
-                const sbData = jsonData[sbID];
-                const { "Expiry date": ExpiryDate, "Harvest date": HarvestDate, "Invoice No": InvoiceNo, "Receipt date": ReceiptDate, "Residual stock": ResidualStock, Strain, "Supplier": Supplier } = sbData
-
-                if (!sbData || typeof sbData !== 'object') {
-                    console.error(`Invalid sbData structure for SB_ID: ${sbID}`);
-                    return;
-                }
-
-                const row = {
-                    "SoyBID": sbID || '',
-                    "Expiry date": ExpiryDate || '',
-                    "Harvest date": HarvestDate,
-                    "Invoice No": InvoiceNo || '',
-                    "Receipt date": ReceiptDate || '',
-                    "Residual stock": ResidualStock || '',
-                    Strain: Strain || '',
-                    "Supplier": Supplier || ''
-
-                };
-
-                result.push(row);
-            });
-        } else if (selectedKey === "Starter Culture") {
-            Object.keys(jsonData).forEach(sbID => {
-                if (['DATE', 'TIME', 'operatorId'].includes(sbID)) {
-                    return; // Skip unnecessary rows
-                }
-
-                const sbData = jsonData[sbID];
-                const { "Expiry date": ExpiryDate, "Invoice No": InvoiceNo, "Lot nr": LotNr, "Receipt date": ReceiptDate, "Starter Culture_ID": StarterCulture_ID, Strain, "Supplier": Supplier } = sbData
-
-                if (!sbData || typeof sbData !== 'object') {
-                    console.error(`Invalid sbData structure for SB_ID: ${sbID}`);
-                    return;
-                }
-
-                const row = {
-                    "BatchID": sbID || '',
-                    "Expiry date": ExpiryDate || '',
-                    "Invoice No": InvoiceNo || '',
-                    "Lot nr": LotNr || '',
-                    "Receipt date": ReceiptDate || '',
-                    "Starter Culture_ID": StarterCulture_ID || '',
-                    Strain: Strain || '',
-                    "Supplier": Supplier || ''
-
-                };
-
-                result.push(row);
-            });
-        } else if (selectedKey === "Vinegar") {
-            Object.keys(jsonData).forEach(sbID => {
-                if (['DATE', 'TIME', 'operatorId'].includes(sbID)) {
-                    return; // Skip unnecessary rows
-                }
-
-                const sbData = jsonData[sbID];
-                const { "Batch ID": BatchID, "Expiry date": ExpiryDate, "Invoice No": InvoiceNo, "Lot nr": LotNr, "Receipt date": ReceiptDate, "Residual stock": ResidualStock, Strain, "Supplier": Supplier } = sbData
-
-                if (!sbData || typeof sbData !== 'object') {
-                    console.error(`Invalid sbData structure for SB_ID: ${sbID}`);
-                    return;
-                }
-
-                const row = {
-                    "VID": sbID || '',
-                    "Batch ID": BatchID,
-                    "Expiry Date": ExpiryDate || '',
-                    "Invoice No": InvoiceNo || '',
-                    "Lot nr": LotNr || '',
-                    "Receipt date": ReceiptDate || '',
-                    "Residual stock": ResidualStock,
-                    "Supplier": Supplier || ''
-
-                };
-
-                result.push(row);
-            });
-
-        } else if (selectedKey === "Vitblend") {
-            Object.keys(jsonData).forEach(sbID => {
-                if (['DATE', 'TIME', 'operatorId'].includes(sbID)) {
-                    return; // Skip unnecessary rows
-                }
-
-                const sbData = jsonData[sbID];
-                const { "Expiry date": ExpiryDate, "Invoice No": InvoiceNo, "Lot nr": LotNr, "Production date": ProductionDate, "Receipt date": ReceiptDate, "Residual stock": ResidualStock, Strain, "Supplier": Supplier } = sbData
-
-                if (!sbData || typeof sbData !== 'object') {
-                    console.error(`Invalid sbData structure for SB_ID: ${sbID}`);
-                    return;
-                }
-
-                const row = {
-                    "VitBl_ID": sbID || '',
-                    "Expiry Date": ExpiryDate || '',
-                    "Invoice No": InvoiceNo || '',
-                    "Lot nr": LotNr || '',
-                    "Production date": ProductionDate || '',
-                    "Receipt date": ReceiptDate || '',
-                    "Residual stock": ResidualStock,
-                    "Supplier": Supplier || ''
-
-                };
-
-                result.push(row);
-            });
-
+        if (!fieldMappings[selectedKey]) {
+            console.error(`Invalid selectedKey: ${selectedKey}`);
+            return [];
         }
 
+        Object.keys(jsonData).forEach(sbID => {
+            if (['DATE', 'TIME', 'operatorId'].includes(sbID)) {
+                return; // Skip unnecessary rows
+            }
+
+            const sbData = jsonData[sbID];
+            const mapping = fieldMappings[selectedKey];
+
+            if (!sbData || typeof sbData !== 'object') {
+                console.error(`Invalid sbData structure for SB_ID: ${sbID}`);
+                return;
+            }
+            var row = {};
+            row = selectedKey === "Product intake" ?
+                {
+                    "MFU SBID": sbID || '',
+                    ...Object.keys(mapping).reduce((acc, key) => {
+                        acc[key] = sbData[mapping[key]] || '';
+                        return acc;
+                    }, {})
+                } : selectedKey === "Rice flower" ? {
+                    "Batch ID": sbID || '',
+                    ...Object.keys(mapping).reduce((acc, key) => {
+                        acc[key] = sbData[mapping[key]] || '';
+                        return acc;
+                    }, {})
+                } : selectedKey === "Soybean" ? {
+                    SoyBID: sbID || '',
+                    ...Object.keys(mapping).reduce((acc, key) => {
+                        acc[key] = sbData[mapping[key]] || '';
+                        return acc;
+                    }, {})
+                } : selectedKey === "Starter Culture" ? {
+                    "Starter Culture ID": sbID || '',
+                    ...Object.keys(mapping).reduce((acc, key) => {
+                        acc[key] = sbData[mapping[key]] || '';
+                        return acc;
+                    }, {})
+                } : selectedKey === "Vinegar" ? {
+                    "VID": sbID || '',
+                    ...Object.keys(mapping).reduce((acc, key) => {
+                        acc[key] = sbData[mapping[key]] || '';
+                        return acc;
+                    }, {})
+                } : selectedKey === "Vitblend" ? {
+                    "VitBl_ID": sbID || '',
+                    ...Object.keys(mapping).reduce((acc, key) => {
+                        acc[key] = sbData[mapping[key]] || '';
+                        return acc;
+                    }, {})
+                } : {};
+
+            result.push(row);
+        });
 
         return result;
-    }
-
+    };
 
 
     return (
