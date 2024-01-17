@@ -55,7 +55,7 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
     }, []);
 
     useEffect(() => {
-        if (userInput !== '' && (userInput.includes('SB') || userInput.includes('GB') || userInput.includes('OP'))) {
+        if (userInput !== '' && (userInput.includes('SB') || userInput.includes('GB') || userInput.includes('OP') || userInput.includes('SFU'))) {
             handleGetData();
         }
     }, [userInput, selectedMFUKey, selectedDatabaseKey]);
@@ -164,6 +164,13 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
                             const transformedData = transformDatasfugb(rawData, userInput);
                             setData(transformedData);
                         }
+                    }else if (userInput.includes('SFU')) {
+                        if (!rawData) {
+                            setErrorMessage(`No Data found for ${userInput}`);
+                        } else {
+                            const transformedData = transformDatasfus(rawData, userInput);
+                            setData(transformedData);
+                        }
                     }
                     else{
                     const transformedData = transformDatasfu(rawData, selectedMFUKey);
@@ -266,6 +273,8 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
 
             const row = {
                 GB_ID: userInput || '',
+                'GENERAL-BATCH DATE': jsonData.DATE || '',
+                'GENERAL-BATCH TIME': jsonData.TIME || '',
                 SB_ID: sbID || '',
                 'SUB-BATCH DATE': sbData.DATE || '',
                 'SUB-BATCH TIME': sbData.TIME || '',
@@ -402,6 +411,8 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
 
             const row = {
                 GB_ID: userInput || '',
+                'GENERAL-BATCH DATE': jsonData.DATE || '',
+                'GENERAL-BATCH TIME': jsonData.TIME || '',
                 SB_ID: sbID || '',
                 'SUB-BATCH DATE': sbData.DATE || '',
                 'SUB-BATCH TIME': sbData.TIME || '',
@@ -424,6 +435,62 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
             result.push(row);
         });
 
+        return result;
+    }
+
+    const transformDatasfus = (jsonDatas, userInput) => {
+        if (!jsonDatas || typeof jsonDatas !== 'object') {
+            console.error('Invalid jsonData structure');
+            return [];
+        }
+    
+        const result = [];
+        
+        const jsonData=jsonDatas.GB;
+    
+        Object.keys(jsonData).forEach(gbID => {
+            const gbData = jsonData[gbID];
+            console.log("GBdta:",gbID);
+
+            Object.keys(gbData).forEach(sbID => {
+                if (['DATE', 'TIME', 'operatorId'].includes(sbID)) {
+                    return; // Skip unnecessary rows
+                }
+    
+                const sbData = gbData[sbID];
+    
+                if (!sbData || typeof sbData !== 'object') {
+                    console.error(`Invalid sbData structure for SB_ID: ${sbID}`);
+                    return;
+                }
+    
+                const row = {
+                    GB_ID: gbID || '',
+                    'GENERAL-BATCH DATE': gbData.DATE || '',
+                    'GENERAL-BATCH TIME': gbData.TIME || '',
+                    SB_ID: sbID || '',
+                    'SUB-BATCH DATE': sbData.DATE || '',
+                    'SUB-BATCH TIME': sbData.TIME || '',
+                    'SC_ID': sbData.SC_ID || '',
+                    '%SC': sbData.SCp || '',
+                    'VIN_ID': sbData.VIN_ID || '',
+                    'VTBL_ID': sbData.VTBL_ID || '',
+                    OPERATOR: sbData.operatorId || '',
+                    'SOAKING PH': sbData.SOAKING?.ph || '',
+                    'SOAKING START': sbData.SOAKING?.START?.StartTime || '',
+                    'SOAKING STOP': sbData.SOAKING?.STOP?.StopTime || '',
+                    'BOILING START': sbData.BOILING?.START?.StartTime || '',
+                    'BOILING Reboil': sbData.BOILING?.REBOIL?.ReboilTime || '',
+                    'BOILING STOP': sbData.BOILING?.STOP?.StopTime || '',
+                    'COOLING TEMPERATURE': sbData.INOCULATION?.temperature || '',
+                    'SFU START': sbData.SFU?.START?.StartTime || '',
+                    'SFU STOP': sbData.SFU?.STOP?.StopTime || '',
+                };
+    
+                result.push(row);
+            });
+        });
+    
         return result;
     }
 

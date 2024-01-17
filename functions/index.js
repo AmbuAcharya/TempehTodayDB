@@ -55,7 +55,7 @@ app.get("/fetchData", async (req, res) => {
       const userNodeSnapshot = await ref.child(userProvidedDocumentId).once("value");
       userData = userNodeSnapshot.val();
 
-      if (enteredValue.startsWith("SB") || enteredValue.startsWith("GB")) {
+      if (enteredValue.startsWith("SB") || enteredValue.startsWith("GB") || enteredValue.startsWith("SFU")) {
         const dt = displayContentsfu(enteredValue, userData);
         res.status(200).json(dt);
       }
@@ -140,6 +140,18 @@ function displayContentsfu(enteredValue, jsonData) {
         }
     }
     return null;
+} else if (enteredValue.startsWith("SFU")){
+  const sfuKey = enteredValue;
+
+    if (jsonData[sfuKey]) {
+        const sfuData = jsonData[sfuKey];
+        // Add your processing logic for SFU03 data here
+        console.log(`Data for ${sfuKey}:`, sfuData);
+        return sfuData;
+    } else {
+        console.log(`${sfuKey} not found in the JSON data.`);
+        return null;
+    }
 }
  else {
     // Invalid input

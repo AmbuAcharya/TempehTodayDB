@@ -48,8 +48,7 @@ const DatabaseTable = ({ data, userInput, handleOperatorOrBatchIdClick, selected
                         (selectedDatabaseKey === "MFU_DB" && columnName === 'OPERATOR') ||
                         columnName === 'SB_ID' ||
                         columnName === 'GB_ID' ||
-                        columnName === 'SFU' ||
-                        columnName === 'LOCATION';
+                        columnName === 'SFU';
 
                       const cellContent =
                         columnName === 'Operator_image' && rowData[columnName] ? (
