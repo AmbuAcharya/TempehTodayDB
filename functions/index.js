@@ -59,9 +59,14 @@ app.get("/fetchData", async (req, res) => {
         const dt = displayContentsfu(enteredValue, userData);
         res.status(200).json(dt);
       }
-      else{
-      res.status(200).json(userData);
-    }
+      else {
+        res.status(200).json(userData);
+      }
+    } else if (selectedDatabaseKey == "RAW_MATERIALS") {
+      const ref = db.ref(selectedDatabaseKey);
+      const userNodeSnapshot = await ref.child(userProvidedDocumentId).once("value");
+      userData = userNodeSnapshot.val();
+      res.status(200).json(userData)
     }
     else {
       if (enteredValue.includes("_OP")) {
@@ -107,53 +112,53 @@ app.get("/fetchData", async (req, res) => {
 
 function displayContentsfu(enteredValue, jsonData) {
   if (enteredValue.startsWith("SB")) {
-      const sbID = enteredValue;
+    const sbID = enteredValue;
 
-      for (const sfuKey in jsonData) {
-          if (jsonData.hasOwnProperty(sfuKey) && jsonData[sfuKey]["GB"]) {
-              const sfuData = jsonData[sfuKey];
-              const gbIDs = Object.keys(sfuData.GB);
+    for (const sfuKey in jsonData) {
+      if (jsonData.hasOwnProperty(sfuKey) && jsonData[sfuKey]["GB"]) {
+        const sfuData = jsonData[sfuKey];
+        const gbIDs = Object.keys(sfuData.GB);
 
-              for (const gbID of gbIDs) {
-                  if (sbID in sfuData.GB[gbID]) {
-                      
-                      const sbData = sfuData.GB[gbID][sbID];
-                      
-                      return sbData;
-                  }
-              }
+        for (const gbID of gbIDs) {
+          if (sbID in sfuData.GB[gbID]) {
+
+            const sbData = sfuData.GB[gbID][sbID];
+
+            return sbData;
           }
+        }
       }
+    }
 
-      console.log(`${sbID} not found under any SFU`);
-      return null;
+    console.log(`${sbID} not found under any SFU`);
+    return null;
   } else if (enteredValue.startsWith("GB")) {
     const gbID = enteredValue;
 
     for (const sfuKey in jsonData) {
-        if (jsonData.hasOwnProperty(sfuKey) && jsonData[sfuKey]["GB"]) {
-            const gbIDs = Object.keys(jsonData[sfuKey]["GB"]);
-            
-            if (gbIDs.includes(gbID)) {
-                return jsonData[sfuKey]["GB"][gbID];
-            }
+      if (jsonData.hasOwnProperty(sfuKey) && jsonData[sfuKey]["GB"]) {
+        const gbIDs = Object.keys(jsonData[sfuKey]["GB"]);
+
+        if (gbIDs.includes(gbID)) {
+          return jsonData[sfuKey]["GB"][gbID];
         }
+      }
     }
     return null;
-} else if (enteredValue.startsWith("SFU")){
-  const sfuKey = enteredValue;
+  } else if (enteredValue.startsWith("SFU")) {
+    const sfuKey = enteredValue;
 
     if (jsonData[sfuKey]) {
-        const sfuData = jsonData[sfuKey];
-        // Add your processing logic for SFU03 data here
-        console.log(`Data for ${sfuKey}:`, sfuData);
-        return sfuData;
+      const sfuData = jsonData[sfuKey];
+      // Add your processing logic for SFU03 data here
+      console.log(`Data for ${sfuKey}:`, sfuData);
+      return sfuData;
     } else {
-        console.log(`${sfuKey} not found in the JSON data.`);
-        return null;
+      console.log(`${sfuKey} not found in the JSON data.`);
+      return null;
     }
-}
- else {
+  }
+  else {
     // Invalid input
     console.log("Invalid input. Please enter a valid SB or GB ID.");
   }
@@ -207,14 +212,14 @@ app.get("/downloadExcel", async (req, res) => {
   try {
     const userProvidedDocumentId = req.query.MFU_ID;
     const selectedDatabaseKey = req.query.databaseKey;
-    console.log("ID:",userProvidedDocumentId);
+    console.log("ID:", userProvidedDocumentId);
 
     let excelData = null;
 
     if (selectedDatabaseKey == "SFU") {
       const sheetsSnapshot = await db.ref(selectedDatabaseKey).child(userProvidedDocumentId).once("value");
       const sheetData = sheetsSnapshot.val();
-      console.log("sheetData:",sheetData);
+      console.log("sheetData:", sheetData);
 
 
       if (!sheetData) {
@@ -250,72 +255,72 @@ app.get("/downloadExcel", async (req, res) => {
   }
 });
 
-function transformDatasfu(jsonData,selectedDatabaseKey) {
+function transformDatasfu(jsonData, selectedDatabaseKey) {
   const result = [];
-  
+
   const selectedData = jsonData;
 
   // Iterate over batches
   Object.keys(selectedData).forEach(batchId => {
-      if (batchId === 'DATE' || batchId === 'TIME' || batchId === 'operatorId') {
-          return; // Skip unnecessary rows
+    if (batchId === 'DATE' || batchId === 'TIME' || batchId === 'operatorId') {
+      return; // Skip unnecessary rows
+    }
+
+    const batchData = selectedData[batchId];
+
+    // Iterate over sub-batches
+    Object.keys(batchData).forEach(subBatchId => {
+      if (subBatchId === 'DATE' || subBatchId === 'TIME' || subBatchId === 'operatorId') {
+        return; // Skip unnecessary rows
       }
 
-      const batchData = selectedData[batchId];
+      const subBatchData = batchData[subBatchId];
 
-      // Iterate over sub-batches
-      Object.keys(batchData).forEach(subBatchId => {
-          if (subBatchId === 'DATE' || subBatchId === 'TIME' || subBatchId === 'operatorId') {
-              return; // Skip unnecessary rows
+      Object.keys(subBatchData).forEach(ssubBatchId => {
+        console.log('subBatchData:', ssubBatchId);
+
+        if (ssubBatchId === 'DATE' || ssubBatchId === 'TIME' || ssubBatchId === 'operatorId') {
+          return; // Skip unnecessary rows
+        }
+        const ssubBatchData = subBatchData[ssubBatchId];
+
+        Object.keys(ssubBatchData).forEach(sssubBatchId => {
+          console.log('subBatchData:', sssubBatchId);
+
+          if (sssubBatchId === 'DATE' || sssubBatchId === 'TIME' || sssubBatchId === 'operatorId' || sssubBatchId === 'SC_ID' || sssubBatchId === 'SCp' || sssubBatchId === 'VIN_ID' || sssubBatchId === 'VTBL_ID') {
+            return; // Skip unnecessary rows
           }
-
-          const subBatchData = batchData[subBatchId];
-
-          Object.keys(subBatchData).forEach(ssubBatchId => {
-              console.log('subBatchData:',ssubBatchId);
-
-              if (ssubBatchId === 'DATE' || ssubBatchId === 'TIME' || ssubBatchId === 'operatorId') {
-                  return; // Skip unnecessary rows
-              }
-              const ssubBatchData = subBatchData[ssubBatchId];
-
-              Object.keys(ssubBatchData).forEach(sssubBatchId => {
-                  console.log('subBatchData:',sssubBatchId);
-
-                  if (sssubBatchId === 'DATE' || sssubBatchId === 'TIME' || sssubBatchId === 'operatorId' || sssubBatchId === 'SC_ID' || sssubBatchId === 'SCp' || sssubBatchId === 'VIN_ID' || sssubBatchId === 'VTBL_ID') {
-                      return; // Skip unnecessary rows
-                  }
-                  const sssubBatchData = ssubBatchData[sssubBatchId];
+          const sssubBatchData = ssubBatchData[sssubBatchId];
 
           const row = {
-              'LOCATION': selectedDatabaseKey||'',
-              'SFU': batchId || '',
-              GB_ID: ssubBatchId || '',
-              'GENERAL-BATCH DATE': ssubBatchData.DATE || '',
-              'GENERAL-BATCH TIME': ssubBatchData.TIME || '',
-              SB_ID: sssubBatchId || '',
-              'SUB-BATCH DATE': sssubBatchData.DATE || '',
-              'SUB-BATCH TIME': sssubBatchData.TIME || '',
-              'SC_ID': sssubBatchData.SC_ID || '',
-              '%SC': sssubBatchData.SCp || '',
-              'VIN_ID': sssubBatchData.VIN_ID || '',
-              'VTBL_ID':sssubBatchData.VTBL_ID || '',
-              OPERATOR: ssubBatchData.operatorId || '',
-              'SOAKING PH': sssubBatchData.SOAKING?.ph || '',
-              'SOAKING START': sssubBatchData.SOAKING?.START?.StartTime || '',
-              'SOAKING STOP': sssubBatchData.SOAKING?.STOP?.StopTime || '',
-              'BOILING START': sssubBatchData.BOILING?.START?.StartTime || '',
-              'BOILING Reboil': sssubBatchData.BOILING?.REBOIL?.ReboilTime || '',
-              'BOILING STOP': sssubBatchData.BOILING?.STOP?.StopTime || '',
-              'COOLING TEMPERATURE': sssubBatchData.INOCULATION?.temperature || '',
-              'SFU START': sssubBatchData.SFU?.START?.StartTime || '',
-              'SFU STOP': sssubBatchData.SFU?.STOP?.StopTime || '',
+            'LOCATION': selectedDatabaseKey || '',
+            'SFU': batchId || '',
+            GB_ID: ssubBatchId || '',
+            'GENERAL-BATCH DATE': ssubBatchData.DATE || '',
+            'GENERAL-BATCH TIME': ssubBatchData.TIME || '',
+            SB_ID: sssubBatchId || '',
+            'SUB-BATCH DATE': sssubBatchData.DATE || '',
+            'SUB-BATCH TIME': sssubBatchData.TIME || '',
+            'SC_ID': sssubBatchData.SC_ID || '',
+            '%SC': sssubBatchData.SCp || '',
+            'VIN_ID': sssubBatchData.VIN_ID || '',
+            'VTBL_ID': sssubBatchData.VTBL_ID || '',
+            OPERATOR: ssubBatchData.operatorId || '',
+            'SOAKING PH': sssubBatchData.SOAKING?.ph || '',
+            'SOAKING START': sssubBatchData.SOAKING?.START?.StartTime || '',
+            'SOAKING STOP': sssubBatchData.SOAKING?.STOP?.StopTime || '',
+            'BOILING START': sssubBatchData.BOILING?.START?.StartTime || '',
+            'BOILING Reboil': sssubBatchData.BOILING?.REBOIL?.ReboilTime || '',
+            'BOILING STOP': sssubBatchData.BOILING?.STOP?.StopTime || '',
+            'COOLING TEMPERATURE': sssubBatchData.INOCULATION?.temperature || '',
+            'SFU START': sssubBatchData.SFU?.START?.StartTime || '',
+            'SFU STOP': sssubBatchData.SFU?.STOP?.StopTime || '',
           };
 
           result.push(row);
+        });
       });
-      });
-      });
+    });
   });
 
   return result;
@@ -412,7 +417,7 @@ async function generateExcelBuffer(data, userProvidedDocumentId) {
     const columnData = { header: headerText, key, width: initialWidth };
     columnWidths[key] = initialWidth;
     return columnData;
-})
+  })
 
   worksheet.addRows(data);
 

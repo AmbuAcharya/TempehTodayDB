@@ -157,14 +157,14 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
                             const transformedData = transformDatasfusb(rawData, userInput);
                             setData(transformedData);
                         }
-                    }else if (userInput.includes('GB')) {
+                    } else if (userInput.includes('GB')) {
                         if (!rawData) {
                             setErrorMessage(`No Data found for ${userInput}`);
                         } else {
                             const transformedData = transformDatasfugb(rawData, userInput);
                             setData(transformedData);
                         }
-                    }else if (userInput.includes('SFU')) {
+                    } else if (userInput.includes('SFU')) {
                         if (!rawData) {
                             setErrorMessage(`No Data found for ${userInput}`);
                         } else {
@@ -172,12 +172,20 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
                             setData(transformedData);
                         }
                     }
-                    else{
-                    const transformedData = transformDatasfu(rawData, selectedMFUKey);
-                    setData(transformedData);
+                    else {
+                        const transformedData = transformDatasfu(rawData, selectedMFUKey);
+                        setData(transformedData);
                     }
                 }
-            } else {
+            } else if (selectedDatabaseKey === "RAW_MATERIALS") {
+                if (!rawData) {
+                    setErrorMessage(`No Data found for ${selectedMFUKey}`);
+                } else {
+                    const transformedData = transformDataRawMaterials(rawData, selectedMFUKey);
+                    setData(transformedData);
+                }
+            }
+            else {
                 if (userInput.includes('SB')) {
                     if (!rawData) {
                         setErrorMessage(`No Data found for ${userInput}`);
@@ -443,27 +451,27 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
             console.error('Invalid jsonData structure');
             return [];
         }
-    
+
         const result = [];
-        
-        const jsonData=jsonDatas.GB;
-    
+
+        const jsonData = jsonDatas.GB;
+
         Object.keys(jsonData).forEach(gbID => {
             const gbData = jsonData[gbID];
-            console.log("GBdta:",gbID);
+            console.log("GBdta:", gbID);
 
             Object.keys(gbData).forEach(sbID => {
                 if (['DATE', 'TIME', 'operatorId'].includes(sbID)) {
                     return; // Skip unnecessary rows
                 }
-    
+
                 const sbData = gbData[sbID];
-    
+
                 if (!sbData || typeof sbData !== 'object') {
                     console.error(`Invalid sbData structure for SB_ID: ${sbID}`);
                     return;
                 }
-    
+
                 const row = {
                     GB_ID: gbID || '',
                     'GENERAL-BATCH DATE': gbData.DATE || '',
@@ -486,11 +494,11 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
                     'SFU START': sbData.SFU?.START?.StartTime || '',
                     'SFU STOP': sbData.SFU?.STOP?.StopTime || '',
                 };
-    
+
                 result.push(row);
             });
         });
-    
+
         return result;
     }
 
@@ -566,6 +574,104 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
 
         return result;
     }
+
+    const transformDataRawMaterials = (jsonData, selectedKey) => {
+        console.log();
+        const result = [];
+        if (!jsonData || typeof jsonData !== 'object') {
+            console.error('Invalid jsonData structure');
+            return [];
+        }
+        if (selectedKey === "Product intake") {
+            Object.keys(jsonData).forEach(sbID => {
+                if (['DATE', 'TIME', 'operatorId'].includes(sbID)) {
+                    return; // Skip unnecessary rows
+                }
+
+                const sbData = jsonData[sbID];
+                const { "Date of intake": DateOfIntake, "In Freezer (hide?)": InFreezer, Operator, "Quality approved (name)": QualityApproved, "Total weight": TotalWeight, "Used in Batch": UsedInBatch } = sbData
+
+                if (!sbData || typeof sbData !== 'object') {
+                    console.error(`Invalid sbData structure for SB_ID: ${sbID}`);
+                    return;
+                }
+
+                const row = {
+                    "MFU SBID": sbID || '',
+                    'DATE OF INTAKE': DateOfIntake || '',
+                    'In Freezer (hide?)': InFreezer || '',
+                    'Operator': Operator || '',
+                    'Quality approved (name)': QualityApproved || '',
+                    "Total Weight": TotalWeight || '',
+                    "Used In Batch": UsedInBatch || ''
+
+                };
+
+                result.push(row);
+            });
+
+        } else if (selectedKey === "Rice flower") {
+            Object.keys(jsonData).forEach(sbID => {
+                if (['DATE', 'TIME', 'operatorId'].includes(sbID)) {
+                    return; // Skip unnecessary rows
+                }
+
+                const sbData = jsonData[sbID];
+                const { "Expiry date": ExpiryDate, "Invoice No": InvoiceNo, "Lot nr": LotNr, "Receipt date": ReceiptDate, "Residual stock": ResidualStock, "Supplier": Supplier } = sbData
+
+                if (!sbData || typeof sbData !== 'object') {
+                    console.error(`Invalid sbData structure for SB_ID: ${sbID}`);
+                    return;
+                }
+
+                const row = {
+                    "BatchID": sbID || '',
+                    "Expiry date": ExpiryDate || '',
+                    "Invoice No": InvoiceNo || '',
+                    "Lot nr": LotNr || '',
+                    "Receipt date": ReceiptDate || '',
+                    "Residual stock": ResidualStock || '',
+                    "Supplier": Supplier || ''
+
+                };
+
+                result.push(row);
+            });
+        } else if (selectedKey === "Soybean") {
+            Object.keys(jsonData).forEach(sbID => {
+                if (['DATE', 'TIME', 'operatorId'].includes(sbID)) {
+                    return; // Skip unnecessary rows
+                }
+
+                const sbData = jsonData[sbID];
+                const { "Expiry date": ExpiryDate, "Harvest date": HarvestDate, "Invoice No": InvoiceNo, "Receipt date": ReceiptDate, "Residual stock": ResidualStock, SoyBID, Strain, "Supplier": Supplier } = sbData
+
+                if (!sbData || typeof sbData !== 'object') {
+                    console.error(`Invalid sbData structure for SB_ID: ${sbID}`);
+                    return;
+                }
+
+                const row = {
+                    "BatchID": sbID || '',
+                    "Expiry date": ExpiryDate || '',
+                    "Harvest date": HarvestDate,
+                    "Invoice No": InvoiceNo || '',
+                    "Receipt date": ReceiptDate || '',
+                    "Residual stock": ResidualStock || '',
+                    "SoyBID": SoyBID || '',
+                    Strain: Strain || '',
+                    "Supplier": Supplier || ''
+
+                };
+
+                result.push(row);
+            });
+        }
+
+
+        return result;
+    }
+
 
 
     return (
