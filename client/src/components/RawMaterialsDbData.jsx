@@ -31,18 +31,8 @@ const RawMaterialsDbData = ({
             </select>
           </label>
         </>
-      ) : (
-        <label htmlFor="mfuInput" className="block mb-4">
-          <b>Select SFU_ID:</b>
-          <input
-            type="text"
-            id="mfuInput"
-            value={selectedMFUKey}
-            onChange={(e) => handleMFUKeyChange(e)}
-            className="w-full p-2 border rounded"
-          />
-        </label>
-      )}
+      ) : null}
+
       <div className="flex justify-between">
         {fileInputVisible ? (
           <>

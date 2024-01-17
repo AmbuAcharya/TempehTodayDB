@@ -72,6 +72,12 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                                 operatorId: OPERATOR_ID || null
                                             };
                                         }
+                                        else {
+                                            // Update existing data if GB_ID already exists
+                                            GBNode[GB_ID].DATE = GB_DATE || GBNode[GB_ID].DATE;
+                                            GBNode[GB_ID].TIME = GB_TIME || GBNode[GB_ID].TIME;
+                                            GBNode[GB_ID].operatorId = OPERATOR_ID || GBNode[GB_ID].operatorId;
+                                        }
 
                                         if (!GBNode[GB_ID][SB_ID]) {
                                             GBNode[GB_ID][SB_ID] = {
@@ -192,201 +198,6 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                     }
 
                 } else if (selectedDatabaseKey === "SFU") {
-                    // try {
-                    //     const workbook = read(file.buffer, { type: 'buffer' });
-                    //     const sheetNames = workbook.SheetNames;
-
-                    //     if (sheetNames.length > 0) {
-                    //         console.log('Workbook contains sheets');
-
-                    //         const refPath = `${selectedDatabaseKey}`;
-                    //         const refNode = ref(db, refPath);
-
-                    //         const existingDataSnapshot = await get(refNode);
-                    //         const existingData = existingDataSnapshot.val();
-
-                    //         const result = { ...existingData };
-                    //         console.log('Existing data:', result);
-
-                    //         if (sheetNames.length > 0) {
-                    //             const firstSheetName = sheetNames[0];
-                    //             const firstSheet = workbook.Sheets[firstSheetName];
-
-                    //             let sfuCellValue;
-                    //             for (const col in firstSheet) {
-                    //                 if (col.startsWith('!')) continue;
-                    //                 const header = firstSheet[col].v;
-                    //                 if (header === 'SFU') {
-                    //                     const rowIndex = parseInt(col.substring(1));
-                    //                     const nextRow = rowIndex + 1;
-                    //                     const sfuCell = firstSheet[col.replace(rowIndex, nextRow.toString())];
-                    //                     sfuCellValue = sfuCell ? sfuCell.v : undefined;
-                    //                     break;
-                    //                 }
-                    //             }
-
-                    //             if (sfuCellValue) {
-                    //                 if (!result[selectedMFUKey]) {
-                    //                     result[selectedMFUKey] = {
-                    //                         [sfuCellValue]: {
-                    //                             GB: {}
-                    //                         }
-                    //                     };
-                    //                 }
-
-                    //                 const GBNode = result[selectedMFUKey][sfuCellValue].GB;
-
-                    //                 for (const sheetName of sheetNames) {
-                    //                     const sheet = workbook.Sheets[sheetName];
-
-                    //                     try {
-                    //                         const excelData = utils.sheet_to_json(sheet, { raw: false });
-                    //                         console.log(`Processing sheet "${sheetName}" with ${excelData.length} rows`);
-                    //                         if (excelData.length === 0) {
-                    //                             setErrorMessage('No data in Excel');
-                    //                             console.log('No data in Excel');
-                    //                         } else {
-                    //                             excelData.forEach(row => {
-                    //                                 const { GB_ID, 'GENERAL-BATCH\nDATE': GB_DATE, 'GENERAL-BATCH\nTIME': GB_TIME, SB_ID, 'SUB-BATCH\nDATE': SB_DATE, 'SUB-BATCH\nTIME': SB_TIME, SC_ID, '%SC': SCp, VIN_ID, VTBL_ID, OPERATOR, 'SOAKING\nPH': SOAKING_PH, 'SOAKING\nSTART': SOAKING_START, 'SOAKING\nSTOP': SOAKING_STOP, 'BOILING\nSTART': BOILING_START, 'BOILING\nReboil': BOILING_Reboil, 'BOILING\nSTOP': BOILING_STOP, 'COOLING\nTEMPERATURE': INOCULATION_TEMPERATURE, 'SFU\nSTART': SFU_START, 'SFU\nSTOP': SFU_STOP } = row;
-
-                    //                                 if (!GBNode[GB_ID]) {
-                    //                                     GBNode[GB_ID] = {
-                    //                                         DATE: GB_DATE || null,
-                    //                                         TIME: GB_TIME || null,
-                    //                                         operatorId: OPERATOR || null,
-                    //                                     };
-                    //                                 }
-
-                    //                                 if (!GBNode[GB_ID][SB_ID]) {
-                    //                                     GBNode[GB_ID][SB_ID] = {
-                    //                                         BOILING: {
-                    //                                             REBOIL: {
-                    //                                                 ReboilTime: BOILING_Reboil || null,
-                    //                                                 Operator_ID: OPERATOR || null,
-                    //                                             },
-                    //                                             STOP: {
-                    //                                                 StopTime: BOILING_STOP || null,
-                    //                                                 Operator_ID: OPERATOR || null,
-                    //                                             },
-                    //                                             START: {
-                    //                                                 StartTime: BOILING_START || null,
-                    //                                                 Operator_ID: OPERATOR || null,
-                    //                                             }
-                    //                                         },
-                    //                                         DATE: SB_DATE || null,
-
-                    //                                         INOCULATION: {
-                    //                                             Operator_ID: OPERATOR || null,
-                    //                                             temperature: INOCULATION_TEMPERATURE || null,
-                    //                                         },
-                    //                                         SFU: {
-                    //                                             START: {
-                    //                                                 StartTime: SFU_START || null,
-                    //                                                 Operator_ID: OPERATOR || null,
-                    //                                             },
-                    //                                             STOP: {
-                    //                                                 StopTime: SFU_STOP || null,
-                    //                                                 Operator_ID: OPERATOR || null,
-                    //                                             }
-                    //                                         },
-                    //                                         SOAKING: {
-                    //                                             START: {
-                    //                                                 StartTime: SOAKING_START || null,
-                    //                                                 Operator_ID: OPERATOR || null,
-                    //                                             },
-                    //                                             STOP: {
-                    //                                                 StopTime: SOAKING_STOP || null,
-                    //                                                 Operator_ID: OPERATOR || null,
-                    //                                             },
-                    //                                             ph: SOAKING_PH || null,
-                    //                                         },
-                    //                                         SC_ID: SC_ID || null,
-                    //                                         SCp: SCp || null,
-                    //                                         VIN_ID: VIN_ID || null,
-                    //                                         VTBL_ID: VTBL_ID || null,
-                    //                                         TIME: SB_TIME || null,
-                    //                                         operatorId: OPERATOR || null,
-                    //                                     };
-                    //                                 } else {
-                    //                                     // Update existing data if GB_ID and SB_ID already exist
-                    //                                     GBNode[GB_ID][SB_ID] = {
-                    //                                         BOILING: {
-                    //                                             REBOIL: {
-                    //                                                 ReboilTime: BOILING_Reboil || null,
-                    //                                                 Operator_ID: OPERATOR || null,
-                    //                                             },
-                    //                                             STOP: {
-                    //                                                 StopTime: BOILING_STOP || null,
-                    //                                                 Operator_ID: OPERATOR || null,
-                    //                                             },
-                    //                                             START: {
-                    //                                                 StartTime: BOILING_START || null,
-                    //                                                 Operator_ID: OPERATOR || null,
-                    //                                             }
-                    //                                         },
-                    //                                         DATE: SB_DATE || null,
-                    //                                         INOCULATION: {
-                    //                                             Operator_ID: OPERATOR || null,
-                    //                                             temperature: INOCULATION_TEMPERATURE || null,
-                    //                                         },
-                    //                                         SFU: {
-                    //                                             START: {
-                    //                                                 StartTime: SFU_START || null,
-                    //                                                 Operator_ID: OPERATOR || null,
-                    //                                             },
-                    //                                             STOP: {
-                    //                                                 StopTime: SFU_STOP || null,
-                    //                                                 Operator_ID: OPERATOR || null,
-                    //                                             }
-                    //                                         },
-                    //                                         SOAKING: {
-                    //                                             START: {
-                    //                                                 StartTime: SOAKING_START || null,
-                    //                                                 Operator_ID: OPERATOR || null,
-                    //                                             },
-                    //                                             STOP: {
-                    //                                                 StopTime: SOAKING_STOP || null,
-                    //                                                 Operator_ID: OPERATOR || null,
-                    //                                             },
-                    //                                             ph: SOAKING_PH || null,
-                    //                                         },
-                    //                                         SC_ID: SC_ID || null,
-                    //                                         SCp: SCp || null,
-                    //                                         VIN_ID: VIN_ID || null,
-                    //                                         VTBL_ID: VTBL_ID || null,
-                    //                                         TIME: SB_TIME || null,
-                    //                                         operatorId: OPERATOR || null,
-                    //                                     };
-                    //                                 }
-                    //                             });
-
-                    //                             setMessage('File uploaded successfully');
-                    //                             console.log('File uploaded successfully');
-                    //                         }
-                    //                     } catch (sheetError) {
-                    //                         console.error(`Error processing sheet "${sheetName}":`, sheetError);
-                    //                         // Handle the error, set an appropriate error message, or skip the sheet
-                    //                     }
-                    //                 }
-
-                    //                 console.log('Data processing complete. Uploading to the database.');
-                    //                 // Set the value in the database
-                    //                 await set(refNode, result);
-
-                    //             } else {
-                    //                 console.error('Workbook does not contain any sheets.');
-                    //                 // Handle the case where the workbook is empty
-                    //                 setErrorMessage('Workbook does not contain any sheets.');
-                    //             }
-                    //         }
-                    //     }
-                    // } catch (error) {
-                    //     setMessage('');
-                    //     setErrorMessage('Enter Location');
-                    //     console.error('Error uploading file:', error);
-                    // } finally {
-                    //     setLoading(false);
-                    // }
                     try {
                         const workbook = read(file.buffer, { type: 'buffer' });
                         const sheetNames = workbook.SheetNames;
@@ -464,6 +275,12 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                                             TIME: GB_TIME || null,
                                                             operatorId: OPERATOR || null,
                                                         };
+                                                    }
+                                                    else {
+                                                        // Update existing data if GB_ID already exists
+                                                        GBNode[GB_ID].DATE = GB_DATE || GBNode[GB_ID].DATE;
+                                                        GBNode[GB_ID].TIME = GB_TIME || GBNode[GB_ID].TIME;
+                                                        GBNode[GB_ID].operatorId = OPERATOR || GBNode[GB_ID].operatorId;
                                                     }
                     
                                                     if (!GBNode[GB_ID][SB_ID]) {
@@ -595,6 +412,42 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                         setLoading(false);
                     }
                     
+                }else if (selectedDatabaseKey === "RAW MATERIALS") {
+                    try {
+                        const workbook = read(file.buffer, { type: 'buffer' });
+                        const sheetNames = workbook.SheetNames;
+            
+                        if (sheetNames.length > 0) {
+                            console.log('Workbook contains sheets');
+            
+                            const refPath = `${selectedDatabaseKey}`;
+                            const refNode = ref(db, refPath);
+            
+                            const existingDataSnapshot = await get(refNode);
+                            const existingData = existingDataSnapshot.val() || {}; // Default to an empty object if no data
+            
+                            const sheetName = sheetNames[0]; // Assuming you want to upload the first sheet
+            
+                            const sheetData = workbook.Sheets[sheetName];
+                            const jsonData = utils.sheet_to_json(sheetData);
+                            console.log("data:",jsonData);
+            
+                            jsonData.forEach((row) => {
+                                const soyBID = row.SoyBID; // Assuming SoyBID is a unique identifier
+                                if (soyBID) {
+                                    existingData[soyBID] = row;
+                                }
+                            });
+            
+                            // Upload the updated data back to Firebase
+                            await set(refNode, existingData);
+            
+                            console.log('Data uploaded successfully:', existingData);
+                        }
+                    } catch (error) {
+                        console.error('Error uploading data to Firebase:', error);
+                    }
+                        
                 }
             } catch (error) {
                 console.error(error);

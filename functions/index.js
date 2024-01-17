@@ -401,14 +401,6 @@ async function generateExcelBuffer(data, userProvidedDocumentId) {
 
   const keys = Object.keys(data[0]);
   const columnWidths = {};
-  // worksheet.columns = keys.map((key) => {
-  //   const headerText = key.replace(/ /g, '\n'); // Use line break instead of space for multi-line header
-  //   const headerLength = headerText.length;
-  //   const initialWidth = Math.max(headerLength, 15);
-  //   const columnData = { header: headerText, key, width: initialWidth };
-  //   columnWidths[key] = initialWidth;
-  //   return columnData;
-  // });
 
   worksheet.columns = keys.map((key) => {
     const headerText = key.replace(/ /g, '\n'); // Remove line break and spaces
