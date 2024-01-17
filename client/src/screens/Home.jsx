@@ -576,7 +576,6 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
     }
 
     const transformDataRawMaterials = (jsonData, selectedKey) => {
-        console.log();
         const result = [];
         if (!jsonData || typeof jsonData !== 'object') {
             console.error('Invalid jsonData structure');
@@ -644,7 +643,35 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
                 }
 
                 const sbData = jsonData[sbID];
-                const { "Expiry date": ExpiryDate, "Harvest date": HarvestDate, "Invoice No": InvoiceNo, "Receipt date": ReceiptDate, "Residual stock": ResidualStock, SoyBID, Strain, "Supplier": Supplier } = sbData
+                const { "Expiry date": ExpiryDate, "Harvest date": HarvestDate, "Invoice No": InvoiceNo, "Receipt date": ReceiptDate, "Residual stock": ResidualStock, Strain, "Supplier": Supplier } = sbData
+
+                if (!sbData || typeof sbData !== 'object') {
+                    console.error(`Invalid sbData structure for SB_ID: ${sbID}`);
+                    return;
+                }
+
+                const row = {
+                    "SoyBID": sbID || '',
+                    "Expiry date": ExpiryDate || '',
+                    "Harvest date": HarvestDate,
+                    "Invoice No": InvoiceNo || '',
+                    "Receipt date": ReceiptDate || '',
+                    "Residual stock": ResidualStock || '',
+                    Strain: Strain || '',
+                    "Supplier": Supplier || ''
+
+                };
+
+                result.push(row);
+            });
+        } else if (selectedKey === "Starter Culture") {
+            Object.keys(jsonData).forEach(sbID => {
+                if (['DATE', 'TIME', 'operatorId'].includes(sbID)) {
+                    return; // Skip unnecessary rows
+                }
+
+                const sbData = jsonData[sbID];
+                const { "Expiry date": ExpiryDate, "Invoice No": InvoiceNo, "Lot nr": LotNr, "Receipt date": ReceiptDate, "Starter Culture_ID": StarterCulture_ID, Strain, "Supplier": Supplier } = sbData
 
                 if (!sbData || typeof sbData !== 'object') {
                     console.error(`Invalid sbData structure for SB_ID: ${sbID}`);
@@ -654,11 +681,10 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
                 const row = {
                     "BatchID": sbID || '',
                     "Expiry date": ExpiryDate || '',
-                    "Harvest date": HarvestDate,
                     "Invoice No": InvoiceNo || '',
+                    "Lot nr": LotNr || '',
                     "Receipt date": ReceiptDate || '',
-                    "Residual stock": ResidualStock || '',
-                    "SoyBID": SoyBID || '',
+                    "Starter Culture_ID": StarterCulture_ID || '',
                     Strain: Strain || '',
                     "Supplier": Supplier || ''
 
@@ -666,6 +692,64 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
 
                 result.push(row);
             });
+        } else if (selectedKey === "Vinegar") {
+            Object.keys(jsonData).forEach(sbID => {
+                if (['DATE', 'TIME', 'operatorId'].includes(sbID)) {
+                    return; // Skip unnecessary rows
+                }
+
+                const sbData = jsonData[sbID];
+                const { "Batch ID": BatchID, "Expiry date": ExpiryDate, "Invoice No": InvoiceNo, "Lot nr": LotNr, "Receipt date": ReceiptDate, "Residual stock": ResidualStock, Strain, "Supplier": Supplier } = sbData
+
+                if (!sbData || typeof sbData !== 'object') {
+                    console.error(`Invalid sbData structure for SB_ID: ${sbID}`);
+                    return;
+                }
+
+                const row = {
+                    "VID": sbID || '',
+                    "Batch ID": BatchID,
+                    "Expiry Date": ExpiryDate || '',
+                    "Invoice No": InvoiceNo || '',
+                    "Lot nr": LotNr || '',
+                    "Receipt date": ReceiptDate || '',
+                    "Residual stock": ResidualStock,
+                    "Supplier": Supplier || ''
+
+                };
+
+                result.push(row);
+            });
+
+        } else if (selectedKey === "Vitblend") {
+            Object.keys(jsonData).forEach(sbID => {
+                if (['DATE', 'TIME', 'operatorId'].includes(sbID)) {
+                    return; // Skip unnecessary rows
+                }
+
+                const sbData = jsonData[sbID];
+                const { "Expiry date": ExpiryDate, "Invoice No": InvoiceNo, "Lot nr": LotNr, "Production date": ProductionDate, "Receipt date": ReceiptDate, "Residual stock": ResidualStock, Strain, "Supplier": Supplier } = sbData
+
+                if (!sbData || typeof sbData !== 'object') {
+                    console.error(`Invalid sbData structure for SB_ID: ${sbID}`);
+                    return;
+                }
+
+                const row = {
+                    "VitBl_ID": sbID || '',
+                    "Expiry Date": ExpiryDate || '',
+                    "Invoice No": InvoiceNo || '',
+                    "Lot nr": LotNr || '',
+                    "Production date": ProductionDate || '',
+                    "Receipt date": ReceiptDate || '',
+                    "Residual stock": ResidualStock,
+                    "Supplier": Supplier || ''
+
+                };
+
+                result.push(row);
+            });
+
         }
 
 
