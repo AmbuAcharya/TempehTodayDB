@@ -36,6 +36,23 @@ const RawMaterialsDbData = ({
       <div className="flex justify-between">
         {fileInputVisible ? (
           <>
+          <div>
+            <label htmlFor="mfuSelect" className="block mb-4">
+              <span className="font-bold text-blue-500">Select Raw Material:</span>
+              <select
+                id="mfuSelect"
+                value={selectedMFUKey}
+                onChange={handleMFUKeyChange}
+                className="w-full p-2 border rounded"
+              >
+                <option disabled className="bg-yellow-100" value="">Select Raw Material</option>
+                {mfuIds.map((key) => (
+                  <option className="bg-yellow-100" key={key} value={key}>
+                    {key}
+                  </option>
+                ))}
+              </select>
+            </label>
             <input type="file" onChange={handleFileChange} className="mr-2" />
             <button
               onClick={handleFileUpload}
@@ -49,9 +66,12 @@ const RawMaterialsDbData = ({
             }} className="px-4 py-2 hover:text-blue-500">
               Close
             </button>
+            </div>
           </>
+        
         ) : (
           <>
+          
             <button
               onClick={() => setFileInputVisible(true)}
               className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600 mr-2"

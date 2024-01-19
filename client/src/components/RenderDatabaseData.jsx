@@ -431,6 +431,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                         setErrorMessage('No data in Excel');
                                         console.log('No data in Excel');
                                     } else {
+                                        if(selectedMFUKey==="Soybean"){
                                         for (const row of excelData) {
                                             // Extract SoyBID from the Excel column 'SoyBID'
                                             const SoyBID = row['SoyBID'];
@@ -440,21 +441,23 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             }
 
                                             // Replace 'RAW_MATERIALS' with the actual value of selectedDatabaseKey
-                                            const refPath = `${selectedDatabaseKey}/${sheetName}/${SoyBID}`;
+                                            const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${SoyBID}`;
                                             const refNode = ref(db, refPath);
 
                                             const existingDataSnapshot = await get(refNode);
                                             const existingData = existingDataSnapshot.val();
-
+                                            
+                                            
                                             const result = {
-                                                Supplier: row['Supplier'] || null,
-                                                HarvestDate: row['Harvest date'] || null,
-                                                Strain: row['Strain'] || null,
-                                                LotNr: row['Lot nr'] || null,
-                                                ExpiryDate: row['Expiry date'] || null,
-                                                ReceiptDate: row['Receipt date'] || null,
-                                                InvoiceNo: row['Invoice No'] || null,
-                                                SoyBID: SoyBID || null,
+                                                RESIDUALSTK:row['RESIDUAL\nSTOCK'] || null,
+                                                SUPPLIER: row['SUPPLIER'] || null,
+                                                HARVESTDATE: row['HARVEST\nDATE'] || null,
+                                                STRAIN: row['STRAIN'] || null,
+                                                LOT_NR: row['LOT\nNR'] || null,
+                                                EXPIRYDATE: row['EXPIRY\nDATE'] || null,
+                                                RECEIPTDATE: row['RECEIPT\nDATE'] || null,
+                                                INVOICENO: row['INVOICE\nNO'] || null,
+                                                SOYBID: SoyBID || null,
                                             };
 
                                             console.log('Existing data:', existingData);
@@ -466,6 +469,189 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             setMessage('File uploaded successfully');
                                             console.log('File uploaded successfully');
                                         }
+                                    }else if(selectedMFUKey==="Starter Culture"){
+                                        for (const row of excelData) {
+                                            // Extract SoyBID from the Excel column 'SoyBID'
+                                            const ScID = row['STARTER\nCULTURE\nID'];
+                                            if (!ScID) {
+                                                console.error('Starter Culture ID is missing in the row. Skipping row.');
+                                                continue;
+                                            }
+
+                                            // Replace 'RAW_MATERIALS' with the actual value of selectedDatabaseKey
+                                            const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${ScID}`;
+                                            const refNode = ref(db, refPath);
+
+                                            const existingDataSnapshot = await get(refNode);
+                                            const existingData = existingDataSnapshot.val();
+                                            
+                                            
+                                            const result = {
+                                                SUPPLIER: row['SUPPLIER'] || null,
+                                                STRAIN: row['STRAIN'] || null,
+                                                LOT_NR: row['LOT\nNR'] || null,
+                                                EXPIRYDATE: row['EXPIRY\nDATE'] || null,
+                                                RECEIPTDATE: row['RECEIPT\nDATE'] || null,
+                                                INVOICENO: row['INVOICE\nNO'] || null,
+                                                ScID: ScID || null,
+                                            };
+
+                                            console.log('Existing data:', existingData);
+                                            console.log('New data:', result);
+
+                                            // Set the value in the database
+                                            await set(refNode, result);
+
+                                            setMessage('File uploaded successfully');
+                                            console.log('File uploaded successfully');
+                                        }
+                                    }else if(selectedMFUKey==="Vitblend"){
+                                        for (const row of excelData) {
+                                            // Extract SoyBID from the Excel column 'SoyBID'
+                                            const VITBLID = row['VITBL_ID'];
+                                            if (!VITBLID) {
+                                                console.error('VITBL_ID is missing in the row. Skipping row.');
+                                                continue;
+                                            }
+
+                                            // Replace 'RAW_MATERIALS' with the actual value of selectedDatabaseKey
+                                            const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${VITBLID}`;
+                                            const refNode = ref(db, refPath);
+
+                                            const existingDataSnapshot = await get(refNode);
+                                            const existingData = existingDataSnapshot.val();
+                                            
+                                            
+                                            const result = {
+                                                RESIDUALSTK:row['RESIDUAL\nSTOCK'] || null,
+                                                SUPPLIER: row['SUPPLIER'] || null,
+                                                PRODDATE: row['PRODUCTION\nDATE'] || null,
+                                                LOT_NR: row['LOT\nNR'] || null,
+                                                EXPIRYDATE: row['EXPIRY\nDATE'] || null,
+                                                RECEIPTDATE: row['RECEIPT\nDATE'] || null,
+                                                INVOICENO: row['INVOICE\nNO'] || null,
+                                                VITBLID: VITBLID || null,
+                                            };
+
+                                            console.log('Existing data:', existingData);
+                                            console.log('New data:', result);
+
+                                            // Set the value in the database
+                                            await set(refNode, result);
+
+                                            setMessage('File uploaded successfully');
+                                            console.log('File uploaded successfully');
+                                        }
+                                    }else if(selectedMFUKey==="Vinegar"){
+                                        for (const row of excelData) {
+                                            // Extract SoyBID from the Excel column 'SoyBID'
+                                            const VID = row['VID'];
+                                            if (!VID) {
+                                                console.error('VID is missing in the row. Skipping row.');
+                                                continue;
+                                            }
+
+                                            // Replace 'RAW_MATERIALS' with the actual value of selectedDatabaseKey
+                                            const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${VID}`;
+                                            const refNode = ref(db, refPath);
+
+                                            const existingDataSnapshot = await get(refNode);
+                                            const existingData = existingDataSnapshot.val();
+                                            
+                                            
+                                            const result = {
+                                                RESIDUALSTK:row['RESIDUAL\nSTOCK'] || null,
+                                                SUPPLIER: row['SUPPLIER'] || null,
+                                                BATCHID: row['BATCH\ID'] || null,
+                                                LOT_NR: row['LOT\nNR'] || null,
+                                                EXPIRYDATE: row['EXPIRY\nDATE'] || null,
+                                                RECEIPTDATE: row['RECEIPT\nDATE'] || null,
+                                                INVOICENO: row['INVOICE\nNO'] || null,
+                                                VID: VID || null,
+                                            };
+
+                                            console.log('Existing data:', existingData);
+                                            console.log('New data:', result);
+
+                                            // Set the value in the database
+                                            await set(refNode, result);
+
+                                            setMessage('File uploaded successfully');
+                                            console.log('File uploaded successfully');
+                                        }
+                                    }else if(selectedMFUKey==="Rice Flower"){
+                                        for (const row of excelData) {
+                                            // Extract SoyBID from the Excel column 'SoyBID'
+                                            const BID = row['BATCH\nID'];
+                                            if (!BID) {
+                                                console.error('Batch ID is missing in the row. Skipping row.');
+                                                continue;
+                                            }
+
+                                            // Replace 'RAW_MATERIALS' with the actual value of selectedDatabaseKey
+                                            const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${BID}`;
+                                            const refNode = ref(db, refPath);
+
+                                            const existingDataSnapshot = await get(refNode);
+                                            const existingData = existingDataSnapshot.val();
+                                            
+                                            
+                                            const result = {
+                                                RESIDUALSTK:row['RESIDUAL\nSTOCK'] || null,
+                                                SUPPLIER: row['SUPPLIER'] || null,
+                                                LOT_NR: row['LOT\nNR'] || null,
+                                                EXPIRYDATE: row['EXPIRY\nDATE'] || null,
+                                                RECEIPTDATE: row['RECEIPT\nDATE'] || null,
+                                                INVOICENO: row['INVOICE\nNO'] || null,
+                                                BID: BID || null,
+                                            };
+
+                                            console.log('Existing data:', existingData);
+                                            console.log('New data:', result);
+
+                                            // Set the value in the database
+                                            await set(refNode, result);
+
+                                            setMessage('File uploaded successfully');
+                                            console.log('File uploaded successfully');
+                                        }
+                                    }else if(selectedMFUKey==="Product intake"){
+                                        for (const row of excelData) {
+                                            // Extract SoyBID from the Excel column 'SoyBID'
+                                            const MFUSBID = row['MFU\nSBID'];
+                                            if (!MFUSBID) {
+                                                console.error('MFU SBID is missing in the row. Skipping row.');
+                                                continue;
+                                            }
+
+                                            // Replace 'RAW_MATERIALS' with the actual value of selectedDatabaseKey
+                                            const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${MFUSBID}`;
+                                            const refNode = ref(db, refPath);
+
+                                            const existingDataSnapshot = await get(refNode);
+                                            const existingData = existingDataSnapshot.val();
+                                            
+                                            
+                                            const result = {
+                                                OPERATOR: row['OPERATOR'] || null,
+                                                TOTALWEIGHT: row['TOTAL\nWEIGHT'] || null,
+                                                DATEINTAKE: row['DATE\nOF\nINTAKE'] || null,
+                                                QUALITYAPP: row['QUALITY\nAPPROVED'] || null,
+                                                INFREEZER: row['IN\nFREEZER'] || null,
+                                                USEDBATCH: row['USED\nIN\nBATCH'] || null,
+                                                MFUSBID: MFUSBID || null,
+                                            };
+
+                                            console.log('Existing data:', existingData);
+                                            console.log('New data:', result);
+
+                                            // Set the value in the database
+                                            await set(refNode, result);
+
+                                            setMessage('File uploaded successfully');
+                                            console.log('File uploaded successfully');
+                                        }
+                                    }
                                     }
                                 } catch (sheetError) {
                                     console.error(`Error processing sheet "${sheetName}":`, sheetError);

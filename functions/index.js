@@ -396,56 +396,56 @@ function transformDataRawMaterials(jsonData, selectedKey) {
 
   const fieldMappings = {
     "Product intake": {
-      "DATE OF INTAKE": "Date of intake",
-      "IN FREEZER": "In Freezer (hide?)",
-      "OPERATOR": "Operator",
-      "QUALITY APPROVED": "Quality approved (name)",
-      "TOTAL WEIGHT": "Total weight",
-      "USED IN BATCH": "Used in Batch"
+        "DATE OF INTAKE": "DATEINTAKE",
+        "IN FREEZER": "INFREEZER",
+        "OPERATOR": "OPERATOR",
+        "QUALITY APPROVED": "QUALITYAPP",
+        "TOTAL WEIGHT": "TOTALWEIGHT",
+        "USED IN BATCH": "USEDBATCH"
     },
     "Rice flower": {
-      "EXPIRY DATE": "Expiry date",
-      "INVOICE NO": "Invoice No",
-      "LOT NR": "Lot nr",
-      "RECEIPT DATE": "Receipt date",
-      "RESIDUAL STOCK": "Residual stock",
-      "SUPPLIER": "Supplier"
+        "RESIDUAL STOCK":"RESIDUALSTK",
+        "EXPIRY DATE": "EXPIRYDATE",
+        "INVOICE NO": "INVOICENO",
+        "RECEIPT DATE": "RECEIPTDATE",
+        "SUPPLIER": "SUPPLIER",
+        "LOT NR":"LOT_NR"
     },
     "Soybean": {
-      "EXPIRY DATE": "Expiry date",
-      "HARVEST DATE": "Harvest date",
-      "INVOICE NO": "Invoice No",
-      "RECEIPT DATE": "Receipt date",
-      "RESIDUAL STOCK": "Residual stock",
-      "STRAIN": "Strain",
-      "SUPPLIER": "Supplier"
+        "RESIDUAL STOCK":"RESIDUALSTK",
+        "EXPIRY DATE": "EXPIRYDATE",
+        "HARVEST DATE": "HARVESTDATE",
+        "INVOICE NO": "INVOICENO",
+        "RECEIPT DATE": "RECEIPTDATE",
+        "STRAIN": "STRAIN",
+        "SUPPLIER": "SUPPLIER",
+        "LOT NR":"LOT_NR"
     },
     "Starter Culture": {
-      "EXPIRY DATE": "Expiry date",
-      "INVOICE NO": "Invoice No",
-      "LOT NR": "Lot nr",
-      "RECEIPT DATE": "Receipt date",
-      "STRAIN": "Strain",
-      "SUPPLIER": "Supplier"
+        "EXPIRY DATE": "EXPIRYDATE",
+        "INVOICE NO": "INVOICENO",
+        "RECEIPT DATE": "RECEIPTDATE",
+        "STRAIN": "STRAIN",
+        "SUPPLIER": "SUPPLIER",
+        "LOT NR":"LOT_NR"
     },
     "Vinegar": {
-      "BATCH ID": "Batch ID",
-      "EXPIRY DATE": "Expiry date",
-      "INVOICE NO": "Invoice No",
-      "LOT NR": "Lot nr",
-      "RECEIPT DATE": "Receipt date",
-      "RESIDUAL STOCK": "Residual stock",
-      "STRAIN": "Strain",
-      "SUPPLIER": "Supplier"
+        "RESIDUAL STOCK":"RESIDUALSTK",
+        "EXPIRY DATE": "EXPIRYDATE",
+        "INVOICE NO": "INVOICENO",
+        "RECEIPT DATE": "RECEIPTDATE",
+        "BATCH ID":"BATCHID",
+        "SUPPLIER": "SUPPLIER",
+        "LOT NR":"LOT_NR"
     },
     "Vitblend": {
-      "EXPIRY DATE": "Expiry date",
-      "INVOICE NO": "Invoice No",
-      "LOT NR": "Lot nr",
-      "PRODUCTION DATE": "Production date",
-      "RECEIPT DATE": "Receipt date",
-      "RESIDUAL STOCK": "Residual stock",
-      "SUPPLIER": "Supplier"
+        "RESIDUAL STOCK":"RESIDUALSTK",
+        "EXPIRY DATE": "EXPIRYDATE",
+        "INVOICE NO": "INVOICENO",
+        "RECEIPT DATE": "RECEIPTDATE",
+        "PRODUCTION DATE":"PRODDATE",
+        "SUPPLIER": "SUPPLIER",
+        "LOT NR":"LOT_NR"
     }
   };
 
@@ -480,7 +480,7 @@ function transformDataRawMaterials(jsonData, selectedKey) {
           return acc;
         }, {})
       } : selectedKey === "Rice flower" ? {
-        "Batch ID": sbID || '',
+        "BATCH ID": sbID || '',
         ...Object.keys(mapping).reduce((acc, key) => {
           acc[key] = sbData[mapping[key]] || '';
           return acc;
@@ -492,7 +492,7 @@ function transformDataRawMaterials(jsonData, selectedKey) {
           return acc;
         }, {})
       } : selectedKey === "Starter Culture" ? {
-        "Starter Culture ID": sbID || '',
+        "STARTER CULTURE ID": sbID || '',
         ...Object.keys(mapping).reduce((acc, key) => {
           acc[key] = sbData[mapping[key]] || '';
           return acc;
@@ -504,7 +504,7 @@ function transformDataRawMaterials(jsonData, selectedKey) {
           return acc;
         }, {})
       } : selectedKey === "Vitblend" ? {
-        "VitBl_ID": sbID || '',
+        "VITBL_ID": sbID || '',
         ...Object.keys(mapping).reduce((acc, key) => {
           acc[key] = sbData[mapping[key]] || '';
           return acc;
