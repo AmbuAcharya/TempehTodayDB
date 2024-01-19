@@ -201,23 +201,23 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                     try {
                         const workbook = read(file.buffer, { type: 'buffer' });
                         const sheetNames = workbook.SheetNames;
-                    
+
                         if (sheetNames.length > 0) {
                             console.log('Workbook contains sheets');
-                    
+
                             const refPath = `${selectedDatabaseKey}`;
                             const refNode = ref(db, refPath);
-                    
+
                             const existingDataSnapshot = await get(refNode);
                             const existingData = existingDataSnapshot.val();
-                    
+
                             const result = { ...existingData };
                             console.log('Existing data:', result);
-                    
+
                             if (sheetNames.length > 0) {
                                 const firstSheetName = sheetNames[0];
                                 const firstSheet = workbook.Sheets[firstSheetName];
-                    
+
                                 let sfuCellValue;
                                 for (const col in firstSheet) {
                                     if (col.startsWith('!')) continue;
@@ -230,7 +230,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                         break;
                                     }
                                 }
-                    
+
                                 if (sfuCellValue) {
                                     if (!result[selectedMFUKey] || !result[selectedMFUKey][sfuCellValue]) {
                                         result[selectedMFUKey] = {
@@ -240,12 +240,12 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             }
                                         };
                                     }
-                    
+
                                     let GBNode = result[selectedMFUKey][sfuCellValue].GB;
-                    
+
                                     for (const sheetName of sheetNames) {
                                         const sheet = workbook.Sheets[sheetName];
-                    
+
                                         try {
                                             const excelData = utils.sheet_to_json(sheet, { raw: false });
                                             console.log(`Processing sheet "${sheetName}" with ${excelData.length} rows`);
@@ -255,20 +255,20 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             } else {
                                                 excelData.forEach(row => {
                                                     const { SFU, GB_ID, 'GENERAL-BATCH\nDATE': GB_DATE, 'GENERAL-BATCH\nTIME': GB_TIME, SB_ID, 'SUB-BATCH\nDATE': SB_DATE, 'SUB-BATCH\nTIME': SB_TIME, SC_ID, '%SC': SCp, VIN_ID, VTBL_ID, OPERATOR, 'SOAKING\nPH': SOAKING_PH, 'SOAKING\nSTART': SOAKING_START, 'SOAKING\nSTOP': SOAKING_STOP, 'BOILING\nSTART': BOILING_START, 'BOILING\nReboil': BOILING_Reboil, 'BOILING\nSTOP': BOILING_STOP, 'COOLING\nTEMPERATURE': INOCULATION_TEMPERATURE, 'SFU\nSTART': SFU_START, 'SFU\nSTOP': SFU_STOP } = row;
-                    
+
                                                     if (SFU !== sfuCellValue) {
                                                         // If SFU value changes, update sfuCellValue and create a new node
                                                         sfuCellValue = SFU;
-                    
+
                                                         if (!result[selectedMFUKey][sfuCellValue]) {
                                                             result[selectedMFUKey][sfuCellValue] = {
                                                                 GB: {}
                                                             };
                                                         }
-                    
+
                                                         GBNode = result[selectedMFUKey][sfuCellValue].GB;
                                                     }
-                    
+
                                                     if (!GBNode[GB_ID]) {
                                                         GBNode[GB_ID] = {
                                                             DATE: GB_DATE || null,
@@ -282,7 +282,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                                         GBNode[GB_ID].TIME = GB_TIME || GBNode[GB_ID].TIME;
                                                         GBNode[GB_ID].operatorId = OPERATOR || GBNode[GB_ID].operatorId;
                                                     }
-                    
+
                                                     if (!GBNode[GB_ID][SB_ID]) {
                                                         GBNode[GB_ID][SB_ID] = {
                                                             BOILING: {
@@ -384,7 +384,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                                         };
                                                     }
                                                 });
-                    
+
                                                 setMessage('File uploaded successfully');
                                                 console.log('File uploaded successfully');
                                             }
@@ -393,7 +393,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             // Handle the error, set an appropriate error message, or skip the sheet
                                         }
                                     }
-                    
+
                                     console.log('Data processing complete. Uploading to the database.');
                                     // Set the value in the database
                                     await set(refNode, result);
@@ -411,44 +411,83 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                     } finally {
                         setLoading(false);
                     }
-                    
-                }else if (selectedDatabaseKey === "RAW MATERIALS") {
+
+                } else if (selectedDatabaseKey === "RAW_MATERIALS") {
                     try {
                         const workbook = read(file.buffer, { type: 'buffer' });
                         const sheetNames = workbook.SheetNames;
-            
+
                         if (sheetNames.length > 0) {
                             console.log('Workbook contains sheets');
-            
-                            const refPath = `${selectedDatabaseKey}`;
-                            const refNode = ref(db, refPath);
-            
-                            const existingDataSnapshot = await get(refNode);
-                            const existingData = existingDataSnapshot.val() || {}; // Default to an empty object if no data
-            
-                            const sheetName = sheetNames[0]; // Assuming you want to upload the first sheet
-            
-                            const sheetData = workbook.Sheets[sheetName];
-                            const jsonData = utils.sheet_to_json(sheetData);
-                            console.log("data:",jsonData);
-            
-                            jsonData.forEach((row) => {
-                                const soyBID = row.SoyBID; // Assuming SoyBID is a unique identifier
-                                if (soyBID) {
-                                    existingData[soyBID] = row;
+
+                            for (const sheetName of sheetNames) {
+                                const sheet = workbook.Sheets[sheetName];
+
+                                try {
+                                    const excelData = utils.sheet_to_json(sheet, { raw: false });
+                                    console.log(`Processing sheet "${sheetName}" with ${excelData.length} rows`);
+
+                                    if (excelData.length === 0) {
+                                        setErrorMessage('No data in Excel');
+                                        console.log('No data in Excel');
+                                    } else {
+                                        for (const row of excelData) {
+                                            // Extract SoyBID from the Excel column 'SoyBID'
+                                            const SoyBID = row['SoyBID'];
+                                            if (!SoyBID) {
+                                                console.error('SoyBID is missing in the row. Skipping row.');
+                                                continue;
+                                            }
+
+                                            // Replace 'RAW_MATERIALS' with the actual value of selectedDatabaseKey
+                                            const refPath = `${selectedDatabaseKey}/${sheetName}/${SoyBID}`;
+                                            const refNode = ref(db, refPath);
+
+                                            const existingDataSnapshot = await get(refNode);
+                                            const existingData = existingDataSnapshot.val();
+
+                                            const result = {
+                                                Supplier: row['Supplier'] || null,
+                                                HarvestDate: row['Harvest date'] || null,
+                                                Strain: row['Strain'] || null,
+                                                LotNr: row['Lot nr'] || null,
+                                                ExpiryDate: row['Expiry date'] || null,
+                                                ReceiptDate: row['Receipt date'] || null,
+                                                InvoiceNo: row['Invoice No'] || null,
+                                                SoyBID: SoyBID || null,
+                                            };
+
+                                            console.log('Existing data:', existingData);
+                                            console.log('New data:', result);
+
+                                            // Set the value in the database
+                                            await set(refNode, result);
+
+                                            setMessage('File uploaded successfully');
+                                            console.log('File uploaded successfully');
+                                        }
+                                    }
+                                } catch (sheetError) {
+                                    console.error(`Error processing sheet "${sheetName}":`, sheetError);
+                                    // Handle the error, set an appropriate error message, or skip the sheet
                                 }
-                            });
-            
-                            // Upload the updated data back to Firebase
-                            await set(refNode, existingData);
-            
-                            console.log('Data uploaded successfully:', existingData);
+                            }
+                            console.log('Data processing complete.');
+                        } else {
+                            console.error('Workbook does not contain any sheets.');
+                            // Handle the case where the workbook is empty
+                            setErrorMessage('Workbook does not contain any sheets.');
                         }
                     } catch (error) {
-                        console.error('Error uploading data to Firebase:', error);
+                        setMessage('');
+                        setErrorMessage('Enter Location');
+                        console.error('Error uploading file:', error);
                     }
-                        
+                    finally {
+                        setLoading(false);
+                    }
                 }
+
             } catch (error) {
                 console.error(error);
             }

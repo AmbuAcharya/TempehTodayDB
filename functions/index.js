@@ -440,7 +440,7 @@ async function generateExcelBuffer(data, userProvidedDocumentId) {
   return excelBuffer;
 }
 
-// exports.app = functions.https.onRequest(app)
+exports.app = functions.https.onRequest(app)
 
-exports.fetchData = functions.https.onRequest(app);
-exports.downloadExcel = functions.https.onRequest(app);
+// exports.fetchData = functions.https.onRequest(app);
+// exports.downloadExcel = functions.https.onRequest(app);

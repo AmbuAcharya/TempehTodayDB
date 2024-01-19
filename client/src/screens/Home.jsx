@@ -64,7 +64,7 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
     // const serverUrl='http://localhost:5001';
     // const serverUrl = 'https://tempehtoday-f866c.web.app';
     serverUrl = window.location.origin;
-    // serverUrl = 'http://localhost:5000/tempehtoday-f866c/us-central1/app';
+    serverUrl = 'http://localhost:5000/tempehtoday-f866c/us-central1/app';
 
     useEffect(() => {
         const databaseRef = ref(db);
