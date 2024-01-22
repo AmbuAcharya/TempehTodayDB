@@ -579,7 +579,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             setMessage('File uploaded successfully');
                                             console.log('File uploaded successfully');
                                         }
-                                    }else if(selectedMFUKey==="Rice Flower"){
+                                    }else if(selectedMFUKey==="Rice flower"){
                                         for (const row of excelData) {
                                             // Extract SoyBID from the Excel column 'SoyBID'
                                             const BID = row['BATCH\nID'];
