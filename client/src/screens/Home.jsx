@@ -144,6 +144,7 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
 
             setErrorMessage('');
             setData('');
+            setMessage('');
 
             if (selectedDatabaseKey === 'SFU') {
                 if (!rawData) {
@@ -580,56 +581,56 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
 
         const fieldMappings = {
             "Product intake": {
+                "OPERATOR": "OPERATOR",
                 "DATE OF INTAKE": "DATEINTAKE",
                 "IN FREEZER": "INFREEZER",
-                "OPERATOR": "OPERATOR",
                 "QUALITY APPROVED": "QUALITYAPP",
                 "TOTAL WEIGHT": "TOTALWEIGHT",
                 "USED IN BATCH": "USEDBATCH"
             },
             "Rice flower": {
-                "RESIDUAL STOCK":"RESIDUALSTK",
-                "EXPIRY DATE": "EXPIRYDATE",
+                "LOT NR":"LOT_NR",
+                "SUPPLIER": "SUPPLIER",
                 "INVOICE NO": "INVOICENO",
                 "RECEIPT DATE": "RECEIPTDATE",
-                "SUPPLIER": "SUPPLIER",
-                "LOT NR":"LOT_NR"
-            },
-            "Soybean": {
                 "RESIDUAL STOCK":"RESIDUALSTK",
                 "EXPIRY DATE": "EXPIRYDATE",
+            },
+            "Soybean": {
+                "LOT NR":"LOT_NR",
+                "SUPPLIER": "SUPPLIER",
                 "HARVEST DATE": "HARVESTDATE",
                 "INVOICE NO": "INVOICENO",
                 "RECEIPT DATE": "RECEIPTDATE",
+                "RESIDUAL STOCK":"RESIDUALSTK",
                 "STRAIN": "STRAIN",
-                "SUPPLIER": "SUPPLIER",
-                "LOT NR":"LOT_NR"
+                "EXPIRY DATE": "EXPIRYDATE",
             },
             "Starter Culture": {
-                "EXPIRY DATE": "EXPIRYDATE",
+                "LOT NR":"LOT_NR",
+                "SUPPLIER": "SUPPLIER",
                 "INVOICE NO": "INVOICENO",
                 "RECEIPT DATE": "RECEIPTDATE",
                 "STRAIN": "STRAIN",
-                "SUPPLIER": "SUPPLIER",
-                "LOT NR":"LOT_NR"
+                "EXPIRY DATE": "EXPIRYDATE",
             },
             "Vinegar": {
-                "RESIDUAL STOCK":"RESIDUALSTK",
-                "EXPIRY DATE": "EXPIRYDATE",
+                "BATCH ID":"BATCHID",
+                "LOT NR":"LOT_NR",
+                "SUPPLIER": "SUPPLIER",
                 "INVOICE NO": "INVOICENO",
                 "RECEIPT DATE": "RECEIPTDATE",
-                "BATCH ID":"BATCHID",
-                "SUPPLIER": "SUPPLIER",
-                "LOT NR":"LOT_NR"
-            },
-            "Vitblend": {
                 "RESIDUAL STOCK":"RESIDUALSTK",
                 "EXPIRY DATE": "EXPIRYDATE",
+            },
+            "Vitblend": {
+                "LOT NR":"LOT_NR",
+                "SUPPLIER": "SUPPLIER",
                 "INVOICE NO": "INVOICENO",
                 "RECEIPT DATE": "RECEIPTDATE",
                 "PRODUCTION DATE":"PRODDATE",
-                "SUPPLIER": "SUPPLIER",
-                "LOT NR":"LOT_NR"
+                "RESIDUAL STOCK":"RESIDUALSTK",
+                "EXPIRY DATE": "EXPIRYDATE",
             }
         };
 

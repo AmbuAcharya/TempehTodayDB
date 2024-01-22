@@ -439,7 +439,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                                 console.error('SoyBID is missing in the row. Skipping row.');
                                                 continue;
                                             }
-
+                                            else{
                                             // Replace 'RAW_MATERIALS' with the actual value of selectedDatabaseKey
                                             const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${SoyBID}`;
                                             const refNode = ref(db, refPath);
@@ -468,6 +468,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
 
                                             setMessage('File uploaded successfully');
                                             console.log('File uploaded successfully');
+                                            }
                                         }
                                     }else if(selectedMFUKey==="Starter Culture"){
                                         for (const row of excelData) {
@@ -475,9 +476,10 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             const ScID = row['STARTER\nCULTURE\nID'];
                                             if (!ScID) {
                                                 console.error('Starter Culture ID is missing in the row. Skipping row.');
+                                                setErrorMessage('No Valid Excel File');
                                                 continue;
                                             }
-
+                                            else{
                                             // Replace 'RAW_MATERIALS' with the actual value of selectedDatabaseKey
                                             const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${ScID}`;
                                             const refNode = ref(db, refPath);
@@ -501,9 +503,10 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
 
                                             // Set the value in the database
                                             await set(refNode, result);
-
                                             setMessage('File uploaded successfully');
                                             console.log('File uploaded successfully');
+                                            }
+                                            
                                         }
                                     }else if(selectedMFUKey==="Vitblend"){
                                         for (const row of excelData) {
@@ -511,9 +514,10 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             const VITBLID = row['VITBL_ID'];
                                             if (!VITBLID) {
                                                 console.error('VITBL_ID is missing in the row. Skipping row.');
+                                                setErrorMessage('No Valid Excel File');
                                                 continue;
                                             }
-
+                                            else{
                                             // Replace 'RAW_MATERIALS' with the actual value of selectedDatabaseKey
                                             const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${VITBLID}`;
                                             const refNode = ref(db, refPath);
@@ -542,15 +546,17 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             setMessage('File uploaded successfully');
                                             console.log('File uploaded successfully');
                                         }
+                                        }
                                     }else if(selectedMFUKey==="Vinegar"){
                                         for (const row of excelData) {
                                             // Extract SoyBID from the Excel column 'SoyBID'
                                             const VID = row['VID'];
                                             if (!VID) {
                                                 console.error('VID is missing in the row. Skipping row.');
+                                                setErrorMessage('No Valid Excel File');
                                                 continue;
                                             }
-
+                                            else{
                                             // Replace 'RAW_MATERIALS' with the actual value of selectedDatabaseKey
                                             const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${VID}`;
                                             const refNode = ref(db, refPath);
@@ -579,15 +585,17 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             setMessage('File uploaded successfully');
                                             console.log('File uploaded successfully');
                                         }
+                                        }
                                     }else if(selectedMFUKey==="Rice flower"){
                                         for (const row of excelData) {
                                             // Extract SoyBID from the Excel column 'SoyBID'
                                             const BID = row['BATCH\nID'];
                                             if (!BID) {
                                                 console.error('Batch ID is missing in the row. Skipping row.');
+                                                setErrorMessage('No Valid Excel File');
                                                 continue;
                                             }
-
+                                            else{
                                             // Replace 'RAW_MATERIALS' with the actual value of selectedDatabaseKey
                                             const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${BID}`;
                                             const refNode = ref(db, refPath);
@@ -611,9 +619,9 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
 
                                             // Set the value in the database
                                             await set(refNode, result);
-
                                             setMessage('File uploaded successfully');
                                             console.log('File uploaded successfully');
+                                        }
                                         }
                                     }else if(selectedMFUKey==="Product intake"){
                                         for (const row of excelData) {
@@ -621,9 +629,10 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             const MFUSBID = row['MFU\nSBID'];
                                             if (!MFUSBID) {
                                                 console.error('MFU SBID is missing in the row. Skipping row.');
+                                                setErrorMessage('No Valid Excel File');
                                                 continue;
                                             }
-
+                                            else{
                                             // Replace 'RAW_MATERIALS' with the actual value of selectedDatabaseKey
                                             const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${MFUSBID}`;
                                             const refNode = ref(db, refPath);
@@ -647,12 +656,13 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
 
                                             // Set the value in the database
                                             await set(refNode, result);
-
                                             setMessage('File uploaded successfully');
                                             console.log('File uploaded successfully');
                                         }
+                                        }
                                     }
                                     }
+                                    
                                 } catch (sheetError) {
                                     console.error(`Error processing sheet "${sheetName}":`, sheetError);
                                     // Handle the error, set an appropriate error message, or skip the sheet
@@ -679,6 +689,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
             }
         }
     };
+
     const handleFileChange = useCallback((e) => {
         const selectedFile = e.target.files[0];
         const reader = new FileReader();
