@@ -588,3 +588,710 @@
 [debug] [2024-01-17T07:25:38.279Z] Could not find functions.yaml. Must use http discovery
 [debug] [2024-01-17T07:25:38.285Z] Found firebase-functions binary at 'E:\Projects\office\TempehTodayFinal\functions\node_modules\.bin\firebase-functions'
 [debug] [2024-01-17T07:25:38.292Z] File E:\Projects\office\TempehTodayFinal\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File E:\\Projects\\office\\TempehTodayFinal\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-01-22T05:25:28.269Z] ----------------------------------------------------------------------
+[debug] [2024-01-22T05:25:28.271Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\georg\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve --only functions
+[debug] [2024-01-22T05:25:28.272Z] CLI Version:   13.0.3
+[debug] [2024-01-22T05:25:28.272Z] Platform:      win32
+[debug] [2024-01-22T05:25:28.272Z] Node Version:  v20.10.0
+[debug] [2024-01-22T05:25:28.273Z] Time:          Mon Jan 22 2024 10:55:28 GMT+0530 (India Standard Time)
+[debug] [2024-01-22T05:25:28.273Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-01-22T05:25:28.276Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2024-01-22T05:25:28.413Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-01-22T05:25:28.413Z] > authorizing via signed-in user (tempeh.today@gmail.com)
+[debug] [2024-01-22T05:25:28.414Z] [iam] checking project tempehtoday-f866c for permissions ["firebase.projects.get"]
+[debug] [2024-01-22T05:25:28.415Z] > refreshing access token with scopes: []
+[debug] [2024-01-22T05:25:28.416Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-01-22T05:25:28.416Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-01-22T05:25:28.617Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-01-22T05:25:28.617Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-01-22T05:25:28.626Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/tempehtoday-f866c:testIamPermissions [none]
+[debug] [2024-01-22T05:25:28.626Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/tempehtoday-f866c:testIamPermissions x-goog-quota-user=projects/tempehtoday-f866c
+[debug] [2024-01-22T05:25:28.627Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/tempehtoday-f866c:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-01-22T05:25:29.002Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2024-01-22T05:25:29.002Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2024-01-22T05:25:29.961Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/tempehtoday-f866c:testIamPermissions 200
+[debug] [2024-01-22T05:25:29.961Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/tempehtoday-f866c:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-01-22T05:25:29.962Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/tempehtoday-f866c [none]
+[debug] [2024-01-22T05:25:30.633Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/tempehtoday-f866c 200
+[debug] [2024-01-22T05:25:30.634Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/tempehtoday-f866c {"projectId":"tempehtoday-f866c","projectNumber":"480889957394","displayName":"tempehtoday","name":"projects/tempehtoday-f866c","resources":{"hostingSite":"tempehtoday-f866c","realtimeDatabaseInstance":"tempehtoday-f866c-default-rtdb","storageBucket":"tempehtoday-f866c.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_06f5e165-9622-4c1e-87cb-90aba439a927"}
+[debug] [2024-01-22T05:25:30.638Z] defaultcredentials: writing to file C:\Users\georg\AppData\Roaming\firebase\tempeh_today_gmail.com_application_default_credentials.json
+[debug] [2024-01-22T05:25:30.640Z] Setting GAC to C:\Users\georg\AppData\Roaming\firebase\tempeh_today_gmail.com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\georg\\AppData\\Roaming\\firebase\\tempeh_today_gmail.com_application_default_credentials.json"}}
+[debug] [2024-01-22T05:25:30.641Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/tempehtoday-f866c/adminSdkConfig [none]
+[debug] [2024-01-22T05:25:30.963Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/tempehtoday-f866c/adminSdkConfig 200
+[debug] [2024-01-22T05:25:30.963Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/tempehtoday-f866c/adminSdkConfig {"projectId":"tempehtoday-f866c","databaseURL":"https://tempehtoday-f866c-default-rtdb.firebaseio.com","storageBucket":"tempehtoday-f866c.appspot.com","locationId":"us-central"}
+[info] i  functions: Watching "E:\Projects\office\TempehTodayFinal\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"E:\\Projects\\office\\TempehTodayFinal\\functions\" for Cloud Functions..."}}
+[debug] [2024-01-22T05:25:30.986Z] Validating nodejs source
+[debug] [2024-01-22T05:25:32.487Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "connect-busboy": "^1.0.0",
+    "cors": "^2.8.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.18.2",
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.3.1",
+    "multer": "^1.4.5-lts.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-01-22T05:25:32.487Z] Building nodejs source
+[debug] [2024-01-22T05:25:32.487Z] Failed to find version of module node: reached end of search path E:\Projects\office\TempehTodayFinal\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2024-01-22T05:25:32.489Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-01-22T05:25:32.497Z] Found firebase-functions binary at 'E:\Projects\office\TempehTodayFinal\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8147
+
+[debug] [2024-01-22T05:25:35.342Z] Got response from /__/functions.yaml {"endpoints":{"fetchData":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"fetchData"},"downloadExcel":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"downloadExcel"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[info] +  functions: Loaded functions definitions from source: fetchData, downloadExcel. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: fetchData, downloadExcel."}}
+[info] +  functions[us-central1-fetchData]: http function initialized (http://localhost:5000/tempehtoday-f866c/us-central1/fetchData). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://localhost:5000/tempehtoday-f866c/us-central1/fetchData)."}}
+[info] +  functions[us-central1-downloadExcel]: http function initialized (http://localhost:5000/tempehtoday-f866c/us-central1/downloadExcel). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://localhost:5000/tempehtoday-f866c/us-central1/downloadExcel)."}}
+[debug] [2024-01-22T06:54:59.693Z] ----------------------------------------------------------------------
+[debug] [2024-01-22T06:54:59.695Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\georg\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve --only functions
+[debug] [2024-01-22T06:54:59.696Z] CLI Version:   13.0.3
+[debug] [2024-01-22T06:54:59.696Z] Platform:      win32
+[debug] [2024-01-22T06:54:59.696Z] Node Version:  v20.10.0
+[debug] [2024-01-22T06:54:59.696Z] Time:          Mon Jan 22 2024 12:24:59 GMT+0530 (India Standard Time)
+[debug] [2024-01-22T06:54:59.696Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-01-22T06:54:59.843Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-01-22T06:54:59.844Z] > authorizing via signed-in user (tempeh.today@gmail.com)
+[debug] [2024-01-22T06:54:59.844Z] [iam] checking project tempehtoday-f866c for permissions ["firebase.projects.get"]
+[debug] [2024-01-22T06:54:59.845Z] > refreshing access token with scopes: []
+[debug] [2024-01-22T06:54:59.848Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-01-22T06:54:59.848Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-01-22T06:55:00.025Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-01-22T06:55:00.026Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-01-22T06:55:00.035Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/tempehtoday-f866c:testIamPermissions [none]
+[debug] [2024-01-22T06:55:00.036Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/tempehtoday-f866c:testIamPermissions x-goog-quota-user=projects/tempehtoday-f866c
+[debug] [2024-01-22T06:55:00.036Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/tempehtoday-f866c:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-01-22T06:55:00.366Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/tempehtoday-f866c:testIamPermissions 200
+[debug] [2024-01-22T06:55:00.367Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/tempehtoday-f866c:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-01-22T06:55:00.368Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/tempehtoday-f866c [none]
+[debug] [2024-01-22T06:55:00.751Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/tempehtoday-f866c 200
+[debug] [2024-01-22T06:55:00.752Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/tempehtoday-f866c {"projectId":"tempehtoday-f866c","projectNumber":"480889957394","displayName":"tempehtoday","name":"projects/tempehtoday-f866c","resources":{"hostingSite":"tempehtoday-f866c","realtimeDatabaseInstance":"tempehtoday-f866c-default-rtdb","storageBucket":"tempehtoday-f866c.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_06f5e165-9622-4c1e-87cb-90aba439a927"}
+[debug] [2024-01-22T06:55:00.755Z] defaultcredentials: writing to file C:\Users\georg\AppData\Roaming\firebase\tempeh_today_gmail.com_application_default_credentials.json
+[debug] [2024-01-22T06:55:00.757Z] Setting GAC to C:\Users\georg\AppData\Roaming\firebase\tempeh_today_gmail.com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\georg\\AppData\\Roaming\\firebase\\tempeh_today_gmail.com_application_default_credentials.json"}}
+[debug] [2024-01-22T06:55:00.758Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/tempehtoday-f866c/adminSdkConfig [none]
+[debug] [2024-01-22T06:55:01.217Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/tempehtoday-f866c/adminSdkConfig 200
+[debug] [2024-01-22T06:55:01.217Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/tempehtoday-f866c/adminSdkConfig {"projectId":"tempehtoday-f866c","databaseURL":"https://tempehtoday-f866c-default-rtdb.firebaseio.com","storageBucket":"tempehtoday-f866c.appspot.com","locationId":"us-central"}
+[info] i  functions: Watching "E:\Projects\office\TempehTodayFinal\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"E:\\Projects\\office\\TempehTodayFinal\\functions\" for Cloud Functions..."}}
+[debug] [2024-01-22T06:55:01.239Z] Validating nodejs source
+[debug] [2024-01-22T06:55:02.744Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "connect-busboy": "^1.0.0",
+    "cors": "^2.8.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.18.2",
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.3.1",
+    "multer": "^1.4.5-lts.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-01-22T06:55:02.744Z] Building nodejs source
+[debug] [2024-01-22T06:55:02.744Z] Failed to find version of module node: reached end of search path E:\Projects\office\TempehTodayFinal\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2024-01-22T06:55:02.747Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-01-22T06:55:02.755Z] Found firebase-functions binary at 'E:\Projects\office\TempehTodayFinal\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8513
+
+[debug] [2024-01-22T06:55:04.694Z] Got response from /__/functions.yaml {"endpoints":{"fetchData":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"fetchData"},"downloadExcel":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"downloadExcel"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[info] +  functions: Loaded functions definitions from source: fetchData, downloadExcel. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: fetchData, downloadExcel."}}
+[info] +  functions[us-central1-fetchData]: http function initialized (http://localhost:5000/tempehtoday-f866c/us-central1/fetchData). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://localhost:5000/tempehtoday-f866c/us-central1/fetchData)."}}
+[info] +  functions[us-central1-downloadExcel]: http function initialized (http://localhost:5000/tempehtoday-f866c/us-central1/downloadExcel). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://localhost:5000/tempehtoday-f866c/us-central1/downloadExcel)."}}
+[debug] [2024-01-22T06:55:32.125Z] [work-queue] {"queuedWork":["/tempehtoday-f866c/us-central1/fetchData-2024-01-22T06:55:32.125Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:55:32.125Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/tempehtoday-f866c/us-central1/fetchData-2024-01-22T06:55:32.125Z"],"workRunningCount":1}
+[debug] [2024-01-22T06:55:32.126Z] Accepted request GET /tempehtoday-f866c/us-central1/fetchData?MFU_ID=MFU_002&databaseKey=MFU_DB&enteredValue= --> us-central1-fetchData
+[debug] [2024-01-22T06:55:32.131Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-01-22T06:55:32.131Z] [functions] Got req.url=/tempehtoday-f866c/us-central1/fetchData?MFU_ID=MFU_002&databaseKey=MFU_DB&enteredValue=, mapping to path=/?MFU_ID=MFU_002&databaseKey=MFU_DB&enteredValue= {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/tempehtoday-f866c/us-central1/fetchData?MFU_ID=MFU_002&databaseKey=MFU_DB&enteredValue=, mapping to path=/?MFU_ID=MFU_002&databaseKey=MFU_DB&enteredValue="}}
+[debug] [2024-01-22T06:55:32.140Z] [worker-pool] addWorker(us-central1-fetchData) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(us-central1-fetchData)"}}
+[debug] [2024-01-22T06:55:32.141Z] [worker-pool] Adding worker with key us-central1-fetchData, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key us-central1-fetchData, total=1"}}
+[debug] [2024-01-22T06:55:33.367Z] [runtime-status] [17484] Resolved module firebase-admin {"declared":true,"installed":true,"version":"11.11.1","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [17484] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"11.11.1\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2024-01-22T06:55:33.368Z] [runtime-status] [17484] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [17484] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:55:33.368Z] [runtime-status] [17484] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [17484] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2024-01-22T06:55:33.369Z] [runtime-status] [17484] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [17484] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:55:33.614Z] [runtime-status] [17484] Checked functions.config() {"config":{}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [17484] Checked functions.config() {\"config\":{}}"}}
+[debug] [2024-01-22T06:55:33.614Z] [runtime-status] [17484] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [17484] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}}"}}
+[debug] [2024-01-22T06:55:33.614Z] [runtime-status] [17484] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [17484] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:55:33.616Z] [runtime-status] [17484] Resolved module firebase-admin {"declared":true,"installed":true,"version":"11.11.1","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [17484] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"11.11.1\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2024-01-22T06:55:33.618Z] [runtime-status] [17484] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [17484] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:55:33.618Z] [runtime-status] [17484] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"11.11.1","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-admin\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [17484] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"11.11.1\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}}"}}
+[debug] [2024-01-22T06:55:34.276Z] [runtime-status] [17484] initializeApp(DEFAULT) {"credential":{"implicit":false,"projectId":"tempehtoday-f866c","privateKey":"-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDOO4zOy2gO7PLi\nsdCb9IcN0s8xTIk6umj+lnAB/aeOcrh2rcmfaHwNQ79DNwSLUgHeGFhbe9w/71dO\n1wMeMETNYPWh1QQWGvK3UyuRhFtjxfjcAORVRnTOSIOjTIL/U1i5b4lnlcQirNCJ\niYyf2FMtEM+uQQEYqw8xVXOXJD/OKeAkTx4TGTvU/Icu8r71IrzI81+sBz4v/yDy\nXKdCHLhESgM0OFFNZxgbQyPuqH+FnO7zb3wDojK3PUQmylAnP+g78hh5dUbWDA4W\n6m6iv26u36U3rveP3NXUVVMXq5FvgIsUTDn0RI6pHIahi3WSI7sE8i9q4A+sqlcE\nFPKDkKN3AgMBAAECggEAF3DtsoGsnGmyuoazQKQc3RA1ob5ifheQde5Gi/YMyg8L\nHYjnuSPzWb9LaZ9CzSKEo33JPpjHskgI+KVNguxsnZrkQJae+3OTsWJq5NmSWQxj\nGtVKdCY+gkX8GcnJaAPNZW0imptg1aomnUN9BZwylBWW7ZEQ8qta3jopbygHzUMr\n/wmL5b0RFrRtO2QkhuP+weGPhfPdSa+S8lIiUgLXwTUXZeqBhYb+WwzPEMiPDMS+\ntMbv6+oNVrYX+x3e6vL479021OgMqdOJIMxkblIVd8u1lV3bXN/72QIWmttxaEvw\n5vjmol3YOxmnpFu1fAhnf5R6lFM6z7IhsenUJJ4PfQKBgQDrS56cofTI+Lrl/t8p\nAGPw35wga86QV4a/gM61i+huneKlKKrF2UWSJKC8BAERTR1UDEAVpha4k2aI9G1p\ndNh28dNWxDdS+o2UjLoFYQ+IF755f9hCqUXM/OjkuNIdZ/yBayN/rMs7jIu9Vok4\nvMOarpjxBx27v0DSGukKORVMUwKBgQDgYT+BgbJaV5iqE+aF4JDZd64/oOFf8m7W\n5kyzYi9BXyr1lTjCdKhJ8+QR9SvrD+Pry3VG3jxlupU+1c7mCeYLyG8R0rKuT2G2\nNqHwHSqudQsp0FxvYCSau3aMURzb+qOtLySJezrw2VCSAjnjQtAdCebSTZaEgyu8\n9e0irlrHzQKBgDYduUgrE6KZWlsFiIvklBfVRhJK2UJnbw1icahdmkK+u17jAIvq\nkc6v7+vuO9Sf2Mv42VBhV75x4FZFaVik0BhjPAkrrdG+4Is25p3QGgNh+qP1HGcQ\niYZA8MuSGnk67l9RpeN6eW+jvov4eCz9dTuBRpnA2jzRGvZ3y/tW76gTAoGBALAh\nJiyOlmX8JMY84NNuN8W9AHbJ3p/mOcNO/B5DkDyMa7hi7i8WS5PhcsH15geabZsG\nFoUOpfJkyAqO4t4IHyBYsXcYIVJa1aSmte85tetDzQOBn0199r3PMXtroG+9CwZC\n3zdcGCQ/MdOrE62lIJ/qydmDNgfGv2qQ0RhMLM5xAoGBAN5+vc0Sv0kVJPIYIGqh\nUDbgRRRPDQfKfcBAUmA5sDh6n8H3VeZSp7UZPZUFQ44fZfd+ebQzj+6KCnXOqBIH\n4HEE6VIYhGHr4SCy77bie30/rc41wUKh8Lrblg38AICORG9ZgdoU1WFNHXC4pFqK\nMIA8e443B2TP639A9FMIt71T\n-----END PRIVATE KEY-----\n","clientEmail":"firebase-adminsdk-t0ceu@tempehtoday-f866c.iam.gserviceaccount.com","httpClient":{"retry":{"maxRetries":4,"statusCodes":[503],"ioErrorCodes":["ECONNRESET","ETIMEDOUT"],"backOffFactor":0.5,"maxDelayInMillis":60000}}},"databaseURL":"https://tempehtoday-f866c-default-rtdb.firebaseio.com/","storageBucket":"tempehtoday-f866c.appspot.com"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [17484] initializeApp(DEFAULT) {\"credential\":{\"implicit\":false,\"projectId\":\"tempehtoday-f866c\",\"privateKey\":\"-----BEGIN PRIVATE KEY-----\\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDOO4zOy2gO7PLi\\nsdCb9IcN0s8xTIk6umj+lnAB/aeOcrh2rcmfaHwNQ79DNwSLUgHeGFhbe9w/71dO\\n1wMeMETNYPWh1QQWGvK3UyuRhFtjxfjcAORVRnTOSIOjTIL/U1i5b4lnlcQirNCJ\\niYyf2FMtEM+uQQEYqw8xVXOXJD/OKeAkTx4TGTvU/Icu8r71IrzI81+sBz4v/yDy\\nXKdCHLhESgM0OFFNZxgbQyPuqH+FnO7zb3wDojK3PUQmylAnP+g78hh5dUbWDA4W\\n6m6iv26u36U3rveP3NXUVVMXq5FvgIsUTDn0RI6pHIahi3WSI7sE8i9q4A+sqlcE\\nFPKDkKN3AgMBAAECggEAF3DtsoGsnGmyuoazQKQc3RA1ob5ifheQde5Gi/YMyg8L\\nHYjnuSPzWb9LaZ9CzSKEo33JPpjHskgI+KVNguxsnZrkQJae+3OTsWJq5NmSWQxj\\nGtVKdCY+gkX8GcnJaAPNZW0imptg1aomnUN9BZwylBWW7ZEQ8qta3jopbygHzUMr\\n/wmL5b0RFrRtO2QkhuP+weGPhfPdSa+S8lIiUgLXwTUXZeqBhYb+WwzPEMiPDMS+\\ntMbv6+oNVrYX+x3e6vL479021OgMqdOJIMxkblIVd8u1lV3bXN/72QIWmttxaEvw\\n5vjmol3YOxmnpFu1fAhnf5R6lFM6z7IhsenUJJ4PfQKBgQDrS56cofTI+Lrl/t8p\\nAGPw35wga86QV4a/gM61i+huneKlKKrF2UWSJKC8BAERTR1UDEAVpha4k2aI9G1p\\ndNh28dNWxDdS+o2UjLoFYQ+IF755f9hCqUXM/OjkuNIdZ/yBayN/rMs7jIu9Vok4\\nvMOarpjxBx27v0DSGukKORVMUwKBgQDgYT+BgbJaV5iqE+aF4JDZd64/oOFf8m7W\\n5kyzYi9BXyr1lTjCdKhJ8+QR9SvrD+Pry3VG3jxlupU+1c7mCeYLyG8R0rKuT2G2\\nNqHwHSqudQsp0FxvYCSau3aMURzb+qOtLySJezrw2VCSAjnjQtAdCebSTZaEgyu8\\n9e0irlrHzQKBgDYduUgrE6KZWlsFiIvklBfVRhJK2UJnbw1icahdmkK+u17jAIvq\\nkc6v7+vuO9Sf2Mv42VBhV75x4FZFaVik0BhjPAkrrdG+4Is25p3QGgNh+qP1HGcQ\\niYZA8MuSGnk67l9RpeN6eW+jvov4eCz9dTuBRpnA2jzRGvZ3y/tW76gTAoGBALAh\\nJiyOlmX8JMY84NNuN8W9AHbJ3p/mOcNO/B5DkDyMa7hi7i8WS5PhcsH15geabZsG\\nFoUOpfJkyAqO4t4IHyBYsXcYIVJa1aSmte85tetDzQOBn0199r3PMXtroG+9CwZC\\n3zdcGCQ/MdOrE62lIJ/qydmDNgfGv2qQ0RhMLM5xAoGBAN5+vc0Sv0kVJPIYIGqh\\nUDbgRRRPDQfKfcBAUmA5sDh6n8H3VeZSp7UZPZUFQ44fZfd+ebQzj+6KCnXOqBIH\\n4HEE6VIYhGHr4SCy77bie30/rc41wUKh8Lrblg38AICORG9ZgdoU1WFNHXC4pFqK\\nMIA8e443B2TP639A9FMIt71T\\n-----END PRIVATE KEY-----\\n\",\"clientEmail\":\"firebase-adminsdk-t0ceu@tempehtoday-f866c.iam.gserviceaccount.com\",\"httpClient\":{\"retry\":{\"maxRetries\":4,\"statusCodes\":[503],\"ioErrorCodes\":[\"ECONNRESET\",\"ETIMEDOUT\"],\"backOffFactor\":0.5,\"maxDelayInMillis\":60000}}},\"databaseURL\":\"https://tempehtoday-f866c-default-rtdb.firebaseio.com/\",\"storageBucket\":\"tempehtoday-f866c.appspot.com\"}"}}
+[warn] !  functions: The Realtime Database emulator is not running, so calls to Realtime Database will affect production. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"The Realtime Database emulator is not running, so calls to Realtime Database will affect production."}}
+[warn] !  functions: The Firebase Storage emulator is not running, so calls to Firebase Storage will affect production. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"The Firebase Storage emulator is not running, so calls to Firebase Storage will affect production."}}
+[debug] [2024-01-22T06:55:34.438Z] [runtime-status] [17484] Functions runtime initialized. {"cwd":"E:\\Projects\\office\\TempehTodayFinal\\functions","node_version":"20.10.0"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [17484] Functions runtime initialized. {\"cwd\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\",\"node_version\":\"20.10.0\"}"}}
+[debug] [2024-01-22T06:55:34.439Z] [runtime-status] [17484] Listening to port: \\?\pipe\fire_emu_696260829afc3775 {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [17484] Listening to port: \\\\?\\pipe\\fire_emu_696260829afc3775"}}
+[debug] [2024-01-22T06:55:34.471Z] [worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: IDLE"}}
+[debug] [2024-01-22T06:55:34.471Z] [worker-pool] submitRequest(triggerId=us-central1-fetchData) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-fetchData)"}}
+[info] i  functions: Beginning execution of "us-central1-fetchData" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"Beginning execution of \"us-central1-fetchData\""}}
+[debug] [2024-01-22T06:55:34.472Z] [worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: BUSY"}}
+[debug] [2024-01-22T06:55:34.479Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-fetchData" in 8.044ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"Finished \"us-central1-fetchData\" in 8.044ms"}}
+[debug] [2024-01-22T06:55:34.481Z] [worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: IDLE"}}
+[debug] [2024-01-22T06:55:34.481Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-01-22T06:55:34.482Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-01-22T06:55:34.482Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:55:37.216Z] [work-queue] {"queuedWork":["/tempehtoday-f866c/us-central1/fetchData-2024-01-22T06:55:37.216Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:55:37.216Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/tempehtoday-f866c/us-central1/fetchData-2024-01-22T06:55:37.216Z"],"workRunningCount":1}
+[debug] [2024-01-22T06:55:37.216Z] Accepted request GET /tempehtoday-f866c/us-central1/fetchData?MFU_ID=MFU_002&databaseKey=MFU_DB&enteredValue= --> us-central1-fetchData
+[debug] [2024-01-22T06:55:37.217Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-01-22T06:55:37.217Z] [functions] Got req.url=/tempehtoday-f866c/us-central1/fetchData?MFU_ID=MFU_002&databaseKey=MFU_DB&enteredValue=, mapping to path=/?MFU_ID=MFU_002&databaseKey=MFU_DB&enteredValue= {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/tempehtoday-f866c/us-central1/fetchData?MFU_ID=MFU_002&databaseKey=MFU_DB&enteredValue=, mapping to path=/?MFU_ID=MFU_002&databaseKey=MFU_DB&enteredValue="}}
+[debug] [2024-01-22T06:55:37.217Z] [worker-pool] submitRequest(triggerId=us-central1-fetchData) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-fetchData)"}}
+[info] i  functions: Beginning execution of "us-central1-fetchData" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"Beginning execution of \"us-central1-fetchData\""}}
+[debug] [2024-01-22T06:55:37.218Z] [worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: BUSY"}}
+[debug] [2024-01-22T06:55:37.223Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-fetchData" in 5.4018ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"Finished \"us-central1-fetchData\" in 5.4018ms"}}
+[debug] [2024-01-22T06:55:37.224Z] [worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: IDLE"}}
+[debug] [2024-01-22T06:55:37.224Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-01-22T06:55:37.224Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-01-22T06:55:37.225Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:55:37.995Z] [work-queue] {"queuedWork":["/tempehtoday-f866c/us-central1/fetchData-2024-01-22T06:55:37.995Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:55:37.995Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/tempehtoday-f866c/us-central1/fetchData-2024-01-22T06:55:37.995Z"],"workRunningCount":1}
+[debug] [2024-01-22T06:55:37.995Z] Accepted request GET /tempehtoday-f866c/us-central1/fetchData?MFU_ID=MFU_002&databaseKey=MFU_DB&enteredValue= --> us-central1-fetchData
+[debug] [2024-01-22T06:55:37.996Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-01-22T06:55:37.996Z] [functions] Got req.url=/tempehtoday-f866c/us-central1/fetchData?MFU_ID=MFU_002&databaseKey=MFU_DB&enteredValue=, mapping to path=/?MFU_ID=MFU_002&databaseKey=MFU_DB&enteredValue= {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/tempehtoday-f866c/us-central1/fetchData?MFU_ID=MFU_002&databaseKey=MFU_DB&enteredValue=, mapping to path=/?MFU_ID=MFU_002&databaseKey=MFU_DB&enteredValue="}}
+[debug] [2024-01-22T06:55:37.996Z] [worker-pool] submitRequest(triggerId=us-central1-fetchData) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-fetchData)"}}
+[info] i  functions: Beginning execution of "us-central1-fetchData" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"Beginning execution of \"us-central1-fetchData\""}}
+[debug] [2024-01-22T06:55:37.997Z] [worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: BUSY"}}
+[debug] [2024-01-22T06:55:38.001Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-fetchData" in 4.2532ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"Finished \"us-central1-fetchData\" in 4.2532ms"}}
+[debug] [2024-01-22T06:55:38.002Z] [worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: IDLE"}}
+[debug] [2024-01-22T06:55:38.002Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-01-22T06:55:38.002Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-01-22T06:55:38.002Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:56:20.008Z] [work-queue] {"queuedWork":["/tempehtoday-f866c/us-central1/downloadExcel-2024-01-22T06:56:20.007Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:56:20.009Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/tempehtoday-f866c/us-central1/downloadExcel-2024-01-22T06:56:20.007Z"],"workRunningCount":1}
+[debug] [2024-01-22T06:56:20.009Z] Accepted request GET /tempehtoday-f866c/us-central1/downloadExcel --> us-central1-downloadExcel
+[debug] [2024-01-22T06:56:20.014Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-01-22T06:56:20.015Z] [functions] Got req.url=/tempehtoday-f866c/us-central1/downloadExcel, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/tempehtoday-f866c/us-central1/downloadExcel, mapping to path=/"}}
+[debug] [2024-01-22T06:56:20.020Z] [worker-pool] addWorker(us-central1-downloadExcel) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(us-central1-downloadExcel)"}}
+[debug] [2024-01-22T06:56:20.021Z] [worker-pool] Adding worker with key us-central1-downloadExcel, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key us-central1-downloadExcel, total=1"}}
+[debug] [2024-01-22T06:56:21.298Z] [runtime-status] [15872] Resolved module firebase-admin {"declared":true,"installed":true,"version":"11.11.1","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [15872] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"11.11.1\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2024-01-22T06:56:21.300Z] [runtime-status] [15872] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [15872] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:56:21.300Z] [runtime-status] [15872] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [15872] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2024-01-22T06:56:21.301Z] [runtime-status] [15872] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [15872] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:56:21.541Z] [runtime-status] [15872] Checked functions.config() {"config":{}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [15872] Checked functions.config() {\"config\":{}}"}}
+[debug] [2024-01-22T06:56:21.541Z] [runtime-status] [15872] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [15872] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}}"}}
+[debug] [2024-01-22T06:56:21.542Z] [runtime-status] [15872] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [15872] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:56:21.543Z] [runtime-status] [15872] Resolved module firebase-admin {"declared":true,"installed":true,"version":"11.11.1","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [15872] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"11.11.1\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2024-01-22T06:56:21.545Z] [runtime-status] [15872] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [15872] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:56:21.545Z] [runtime-status] [15872] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"11.11.1","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-admin\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [15872] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"11.11.1\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}}"}}
+[debug] [2024-01-22T06:56:22.194Z] [runtime-status] [15872] initializeApp(DEFAULT) {"credential":{"implicit":false,"projectId":"tempehtoday-f866c","privateKey":"-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDOO4zOy2gO7PLi\nsdCb9IcN0s8xTIk6umj+lnAB/aeOcrh2rcmfaHwNQ79DNwSLUgHeGFhbe9w/71dO\n1wMeMETNYPWh1QQWGvK3UyuRhFtjxfjcAORVRnTOSIOjTIL/U1i5b4lnlcQirNCJ\niYyf2FMtEM+uQQEYqw8xVXOXJD/OKeAkTx4TGTvU/Icu8r71IrzI81+sBz4v/yDy\nXKdCHLhESgM0OFFNZxgbQyPuqH+FnO7zb3wDojK3PUQmylAnP+g78hh5dUbWDA4W\n6m6iv26u36U3rveP3NXUVVMXq5FvgIsUTDn0RI6pHIahi3WSI7sE8i9q4A+sqlcE\nFPKDkKN3AgMBAAECggEAF3DtsoGsnGmyuoazQKQc3RA1ob5ifheQde5Gi/YMyg8L\nHYjnuSPzWb9LaZ9CzSKEo33JPpjHskgI+KVNguxsnZrkQJae+3OTsWJq5NmSWQxj\nGtVKdCY+gkX8GcnJaAPNZW0imptg1aomnUN9BZwylBWW7ZEQ8qta3jopbygHzUMr\n/wmL5b0RFrRtO2QkhuP+weGPhfPdSa+S8lIiUgLXwTUXZeqBhYb+WwzPEMiPDMS+\ntMbv6+oNVrYX+x3e6vL479021OgMqdOJIMxkblIVd8u1lV3bXN/72QIWmttxaEvw\n5vjmol3YOxmnpFu1fAhnf5R6lFM6z7IhsenUJJ4PfQKBgQDrS56cofTI+Lrl/t8p\nAGPw35wga86QV4a/gM61i+huneKlKKrF2UWSJKC8BAERTR1UDEAVpha4k2aI9G1p\ndNh28dNWxDdS+o2UjLoFYQ+IF755f9hCqUXM/OjkuNIdZ/yBayN/rMs7jIu9Vok4\nvMOarpjxBx27v0DSGukKORVMUwKBgQDgYT+BgbJaV5iqE+aF4JDZd64/oOFf8m7W\n5kyzYi9BXyr1lTjCdKhJ8+QR9SvrD+Pry3VG3jxlupU+1c7mCeYLyG8R0rKuT2G2\nNqHwHSqudQsp0FxvYCSau3aMURzb+qOtLySJezrw2VCSAjnjQtAdCebSTZaEgyu8\n9e0irlrHzQKBgDYduUgrE6KZWlsFiIvklBfVRhJK2UJnbw1icahdmkK+u17jAIvq\nkc6v7+vuO9Sf2Mv42VBhV75x4FZFaVik0BhjPAkrrdG+4Is25p3QGgNh+qP1HGcQ\niYZA8MuSGnk67l9RpeN6eW+jvov4eCz9dTuBRpnA2jzRGvZ3y/tW76gTAoGBALAh\nJiyOlmX8JMY84NNuN8W9AHbJ3p/mOcNO/B5DkDyMa7hi7i8WS5PhcsH15geabZsG\nFoUOpfJkyAqO4t4IHyBYsXcYIVJa1aSmte85tetDzQOBn0199r3PMXtroG+9CwZC\n3zdcGCQ/MdOrE62lIJ/qydmDNgfGv2qQ0RhMLM5xAoGBAN5+vc0Sv0kVJPIYIGqh\nUDbgRRRPDQfKfcBAUmA5sDh6n8H3VeZSp7UZPZUFQ44fZfd+ebQzj+6KCnXOqBIH\n4HEE6VIYhGHr4SCy77bie30/rc41wUKh8Lrblg38AICORG9ZgdoU1WFNHXC4pFqK\nMIA8e443B2TP639A9FMIt71T\n-----END PRIVATE KEY-----\n","clientEmail":"firebase-adminsdk-t0ceu@tempehtoday-f866c.iam.gserviceaccount.com","httpClient":{"retry":{"maxRetries":4,"statusCodes":[503],"ioErrorCodes":["ECONNRESET","ETIMEDOUT"],"backOffFactor":0.5,"maxDelayInMillis":60000}}},"databaseURL":"https://tempehtoday-f866c-default-rtdb.firebaseio.com/","storageBucket":"tempehtoday-f866c.appspot.com"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [15872] initializeApp(DEFAULT) {\"credential\":{\"implicit\":false,\"projectId\":\"tempehtoday-f866c\",\"privateKey\":\"-----BEGIN PRIVATE KEY-----\\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDOO4zOy2gO7PLi\\nsdCb9IcN0s8xTIk6umj+lnAB/aeOcrh2rcmfaHwNQ79DNwSLUgHeGFhbe9w/71dO\\n1wMeMETNYPWh1QQWGvK3UyuRhFtjxfjcAORVRnTOSIOjTIL/U1i5b4lnlcQirNCJ\\niYyf2FMtEM+uQQEYqw8xVXOXJD/OKeAkTx4TGTvU/Icu8r71IrzI81+sBz4v/yDy\\nXKdCHLhESgM0OFFNZxgbQyPuqH+FnO7zb3wDojK3PUQmylAnP+g78hh5dUbWDA4W\\n6m6iv26u36U3rveP3NXUVVMXq5FvgIsUTDn0RI6pHIahi3WSI7sE8i9q4A+sqlcE\\nFPKDkKN3AgMBAAECggEAF3DtsoGsnGmyuoazQKQc3RA1ob5ifheQde5Gi/YMyg8L\\nHYjnuSPzWb9LaZ9CzSKEo33JPpjHskgI+KVNguxsnZrkQJae+3OTsWJq5NmSWQxj\\nGtVKdCY+gkX8GcnJaAPNZW0imptg1aomnUN9BZwylBWW7ZEQ8qta3jopbygHzUMr\\n/wmL5b0RFrRtO2QkhuP+weGPhfPdSa+S8lIiUgLXwTUXZeqBhYb+WwzPEMiPDMS+\\ntMbv6+oNVrYX+x3e6vL479021OgMqdOJIMxkblIVd8u1lV3bXN/72QIWmttxaEvw\\n5vjmol3YOxmnpFu1fAhnf5R6lFM6z7IhsenUJJ4PfQKBgQDrS56cofTI+Lrl/t8p\\nAGPw35wga86QV4a/gM61i+huneKlKKrF2UWSJKC8BAERTR1UDEAVpha4k2aI9G1p\\ndNh28dNWxDdS+o2UjLoFYQ+IF755f9hCqUXM/OjkuNIdZ/yBayN/rMs7jIu9Vok4\\nvMOarpjxBx27v0DSGukKORVMUwKBgQDgYT+BgbJaV5iqE+aF4JDZd64/oOFf8m7W\\n5kyzYi9BXyr1lTjCdKhJ8+QR9SvrD+Pry3VG3jxlupU+1c7mCeYLyG8R0rKuT2G2\\nNqHwHSqudQsp0FxvYCSau3aMURzb+qOtLySJezrw2VCSAjnjQtAdCebSTZaEgyu8\\n9e0irlrHzQKBgDYduUgrE6KZWlsFiIvklBfVRhJK2UJnbw1icahdmkK+u17jAIvq\\nkc6v7+vuO9Sf2Mv42VBhV75x4FZFaVik0BhjPAkrrdG+4Is25p3QGgNh+qP1HGcQ\\niYZA8MuSGnk67l9RpeN6eW+jvov4eCz9dTuBRpnA2jzRGvZ3y/tW76gTAoGBALAh\\nJiyOlmX8JMY84NNuN8W9AHbJ3p/mOcNO/B5DkDyMa7hi7i8WS5PhcsH15geabZsG\\nFoUOpfJkyAqO4t4IHyBYsXcYIVJa1aSmte85tetDzQOBn0199r3PMXtroG+9CwZC\\n3zdcGCQ/MdOrE62lIJ/qydmDNgfGv2qQ0RhMLM5xAoGBAN5+vc0Sv0kVJPIYIGqh\\nUDbgRRRPDQfKfcBAUmA5sDh6n8H3VeZSp7UZPZUFQ44fZfd+ebQzj+6KCnXOqBIH\\n4HEE6VIYhGHr4SCy77bie30/rc41wUKh8Lrblg38AICORG9ZgdoU1WFNHXC4pFqK\\nMIA8e443B2TP639A9FMIt71T\\n-----END PRIVATE KEY-----\\n\",\"clientEmail\":\"firebase-adminsdk-t0ceu@tempehtoday-f866c.iam.gserviceaccount.com\",\"httpClient\":{\"retry\":{\"maxRetries\":4,\"statusCodes\":[503],\"ioErrorCodes\":[\"ECONNRESET\",\"ETIMEDOUT\"],\"backOffFactor\":0.5,\"maxDelayInMillis\":60000}}},\"databaseURL\":\"https://tempehtoday-f866c-default-rtdb.firebaseio.com/\",\"storageBucket\":\"tempehtoday-f866c.appspot.com\"}"}}
+[debug] [2024-01-22T06:56:22.342Z] [runtime-status] [15872] Functions runtime initialized. {"cwd":"E:\\Projects\\office\\TempehTodayFinal\\functions","node_version":"20.10.0"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [15872] Functions runtime initialized. {\"cwd\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\",\"node_version\":\"20.10.0\"}"}}
+[debug] [2024-01-22T06:56:22.343Z] [runtime-status] [15872] Listening to port: \\?\pipe\fire_emu_e70e11c5e6900bad {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [15872] Listening to port: \\\\?\\pipe\\fire_emu_e70e11c5e6900bad"}}
+[debug] [2024-01-22T06:56:22.352Z] [worker-us-central1-downloadExcel-2bf7b971-dd18-4390-9acf-b7ca5aac9177]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[worker-us-central1-downloadExcel-2bf7b971-dd18-4390-9acf-b7ca5aac9177]: IDLE"}}
+[debug] [2024-01-22T06:56:22.353Z] [worker-pool] submitRequest(triggerId=us-central1-downloadExcel) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-downloadExcel)"}}
+[info] i  functions: Beginning execution of "us-central1-downloadExcel" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"Beginning execution of \"us-central1-downloadExcel\""}}
+[debug] [2024-01-22T06:56:22.354Z] [worker-us-central1-downloadExcel-2bf7b971-dd18-4390-9acf-b7ca5aac9177]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[worker-us-central1-downloadExcel-2bf7b971-dd18-4390-9acf-b7ca5aac9177]: BUSY"}}
+[debug] [2024-01-22T06:56:22.362Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-downloadExcel" in 8.4719ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"Finished \"us-central1-downloadExcel\" in 8.4719ms"}}
+[debug] [2024-01-22T06:56:22.362Z] [worker-us-central1-downloadExcel-2bf7b971-dd18-4390-9acf-b7ca5aac9177]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[worker-us-central1-downloadExcel-2bf7b971-dd18-4390-9acf-b7ca5aac9177]: IDLE"}}
+[debug] [2024-01-22T06:56:22.363Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-01-22T06:56:22.363Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-01-22T06:56:22.363Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:56:49.989Z] [work-queue] {"queuedWork":["/tempehtoday-f866c/us-central1/app/downloadExcel-2024-01-22T06:56:49.989Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:56:49.989Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/tempehtoday-f866c/us-central1/app/downloadExcel-2024-01-22T06:56:49.989Z"],"workRunningCount":1}
+[debug] [2024-01-22T06:56:49.991Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:56:50.115Z] Functions emulator received unknown request at path /favicon.ico
+[debug] [2024-01-22T06:57:00.290Z] [work-queue] {"queuedWork":["/tempehtoday-f866c/us-central1/downloadExcel-2024-01-22T06:57:00.290Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:57:00.291Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/tempehtoday-f866c/us-central1/downloadExcel-2024-01-22T06:57:00.290Z"],"workRunningCount":1}
+[debug] [2024-01-22T06:57:00.291Z] Accepted request GET /tempehtoday-f866c/us-central1/downloadExcel --> us-central1-downloadExcel
+[debug] [2024-01-22T06:57:00.294Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-01-22T06:57:00.294Z] [functions] Got req.url=/tempehtoday-f866c/us-central1/downloadExcel, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/tempehtoday-f866c/us-central1/downloadExcel, mapping to path=/"}}
+[debug] [2024-01-22T06:57:00.294Z] [worker-pool] submitRequest(triggerId=us-central1-downloadExcel) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-downloadExcel)"}}
+[info] i  functions: Beginning execution of "us-central1-downloadExcel" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"Beginning execution of \"us-central1-downloadExcel\""}}
+[debug] [2024-01-22T06:57:00.295Z] [worker-us-central1-downloadExcel-2bf7b971-dd18-4390-9acf-b7ca5aac9177]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[worker-us-central1-downloadExcel-2bf7b971-dd18-4390-9acf-b7ca5aac9177]: BUSY"}}
+[debug] [2024-01-22T06:57:00.298Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-downloadExcel" in 3.5361ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"Finished \"us-central1-downloadExcel\" in 3.5361ms"}}
+[debug] [2024-01-22T06:57:00.299Z] [worker-us-central1-downloadExcel-2bf7b971-dd18-4390-9acf-b7ca5aac9177]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[worker-us-central1-downloadExcel-2bf7b971-dd18-4390-9acf-b7ca5aac9177]: IDLE"}}
+[debug] [2024-01-22T06:57:00.299Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-01-22T06:57:00.299Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-01-22T06:57:00.299Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:57:47.054Z] File E:\Projects\office\TempehTodayFinal\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File E:\\Projects\\office\\TempehTodayFinal\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-01-22T06:57:48.065Z] Validating nodejs source
+[debug] [2024-01-22T06:57:49.454Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "connect-busboy": "^1.0.0",
+    "cors": "^2.8.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.18.2",
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.3.1",
+    "multer": "^1.4.5-lts.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-01-22T06:57:49.454Z] Building nodejs source
+[debug] [2024-01-22T06:57:49.454Z] Failed to find version of module node: reached end of search path E:\Projects\office\TempehTodayFinal\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2024-01-22T06:57:49.455Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-01-22T06:57:49.462Z] Found firebase-functions binary at 'E:\Projects\office\TempehTodayFinal\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8277
+
+[debug] [2024-01-22T06:57:50.697Z] Got response from /__/functions.yaml {"endpoints":{"fetchData":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"fetchData"},"downloadExcel":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"downloadExcel"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2024-01-22T06:57:51.320Z] File E:\Projects\office\TempehTodayFinal\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File E:\\Projects\\office\\TempehTodayFinal\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-01-22T06:57:52.328Z] Validating nodejs source
+[debug] [2024-01-22T06:57:53.981Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "connect-busboy": "^1.0.0",
+    "cors": "^2.8.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.18.2",
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.3.1",
+    "multer": "^1.4.5-lts.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-01-22T06:57:53.981Z] Building nodejs source
+[debug] [2024-01-22T06:57:53.981Z] Failed to find version of module node: reached end of search path E:\Projects\office\TempehTodayFinal\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2024-01-22T06:57:53.982Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-01-22T06:57:53.987Z] Found firebase-functions binary at 'E:\Projects\office\TempehTodayFinal\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8238
+
+[debug] [2024-01-22T06:57:55.677Z] Got response from /__/functions.yaml {"endpoints":{"fetchData":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"fetchData"},"downloadExcel":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"downloadExcel"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[info] +  functions: Loaded functions definitions from source: fetchData, downloadExcel. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: fetchData, downloadExcel."}}
+[debug] [2024-01-22T06:57:55.738Z] [worker-pool] Shutting down IDLE worker (us-central1-fetchData) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Shutting down IDLE worker (us-central1-fetchData)"}}
+[debug] [2024-01-22T06:57:55.738Z] [worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: FINISHING {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: FINISHING"}}
+[debug] [2024-01-22T06:57:55.738Z] [worker-pool] Shutting down IDLE worker (us-central1-downloadExcel) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Shutting down IDLE worker (us-central1-downloadExcel)"}}
+[debug] [2024-01-22T06:57:55.738Z] [worker-us-central1-downloadExcel-2bf7b971-dd18-4390-9acf-b7ca5aac9177]: FINISHING {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[worker-us-central1-downloadExcel-2bf7b971-dd18-4390-9acf-b7ca5aac9177]: FINISHING"}}
+[debug] [2024-01-22T06:57:55.758Z] [worker-us-central1-downloadExcel-2bf7b971-dd18-4390-9acf-b7ca5aac9177]: exited {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[worker-us-central1-downloadExcel-2bf7b971-dd18-4390-9acf-b7ca5aac9177]: exited"}}
+[debug] [2024-01-22T06:57:55.758Z] [worker-us-central1-downloadExcel-2bf7b971-dd18-4390-9acf-b7ca5aac9177]: FINISHED {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[worker-us-central1-downloadExcel-2bf7b971-dd18-4390-9acf-b7ca5aac9177]: FINISHED"}}
+[debug] [2024-01-22T06:57:55.759Z] [worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: exited {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: exited"}}
+[debug] [2024-01-22T06:57:55.760Z] [worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: FINISHED {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[worker-us-central1-fetchData-42dd7f42-b901-4c66-abce-6707f1b184c7]: FINISHED"}}
+[debug] [2024-01-22T06:57:57.139Z] File E:\Projects\office\TempehTodayFinal\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File E:\\Projects\\office\\TempehTodayFinal\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-01-22T06:57:58.141Z] Validating nodejs source
+[debug] [2024-01-22T06:58:01.030Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "connect-busboy": "^1.0.0",
+    "cors": "^2.8.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.18.2",
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.3.1",
+    "multer": "^1.4.5-lts.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-01-22T06:58:01.030Z] Building nodejs source
+[debug] [2024-01-22T06:58:01.030Z] Failed to find version of module node: reached end of search path E:\Projects\office\TempehTodayFinal\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2024-01-22T06:58:01.032Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-01-22T06:58:01.040Z] Found firebase-functions binary at 'E:\Projects\office\TempehTodayFinal\functions\node_modules\.bin\firebase-functions'
+[info] +  functions: Loaded functions definitions from source: fetchData, downloadExcel. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: fetchData, downloadExcel."}}
+[debug] [2024-01-22T06:58:01.050Z] File E:\Projects\office\TempehTodayFinal\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File E:\\Projects\\office\\TempehTodayFinal\\functions\\index.js changed, reloading triggers"}}
+[info] Serving at port 8687
+
+[debug] [2024-01-22T06:58:02.066Z] Validating nodejs source
+[debug] [2024-01-22T06:58:05.450Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "connect-busboy": "^1.0.0",
+    "cors": "^2.8.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.18.2",
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.3.1",
+    "multer": "^1.4.5-lts.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-01-22T06:58:05.450Z] Building nodejs source
+[debug] [2024-01-22T06:58:05.450Z] Failed to find version of module node: reached end of search path E:\Projects\office\TempehTodayFinal\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2024-01-22T06:58:05.453Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-01-22T06:58:05.462Z] Found firebase-functions binary at 'E:\Projects\office\TempehTodayFinal\functions\node_modules\.bin\firebase-functions'
+[debug] [2024-01-22T06:58:05.469Z] Got response from /__/functions.yaml {"endpoints":{"fetchData":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"fetchData"},"downloadExcel":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"downloadExcel"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[info] Serving at port 8499
+
+[debug] [2024-01-22T06:58:08.030Z] Got response from /__/functions.yaml {"endpoints":{"fetchData":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"fetchData"},"downloadExcel":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"downloadExcel"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2024-01-22T06:58:10.327Z] File E:\Projects\office\TempehTodayFinal\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File E:\\Projects\\office\\TempehTodayFinal\\functions\\index.js changed, reloading triggers"}}
+[info] +  functions: Loaded functions definitions from source: fetchData, downloadExcel. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: fetchData, downloadExcel."}}
+[debug] [2024-01-22T06:58:11.330Z] Validating nodejs source
+[debug] [2024-01-22T06:58:13.620Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "connect-busboy": "^1.0.0",
+    "cors": "^2.8.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.18.2",
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.3.1",
+    "multer": "^1.4.5-lts.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-01-22T06:58:13.621Z] Building nodejs source
+[debug] [2024-01-22T06:58:13.621Z] Failed to find version of module node: reached end of search path E:\Projects\office\TempehTodayFinal\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2024-01-22T06:58:13.623Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-01-22T06:58:13.633Z] Found firebase-functions binary at 'E:\Projects\office\TempehTodayFinal\functions\node_modules\.bin\firebase-functions'
+[info] +  functions: Loaded functions definitions from source: fetchData, downloadExcel. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: fetchData, downloadExcel."}}
+[debug] [2024-01-22T06:58:13.646Z] File E:\Projects\office\TempehTodayFinal\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File E:\\Projects\\office\\TempehTodayFinal\\functions\\index.js changed, reloading triggers"}}
+[info] Serving at port 8585
+
+[debug] [2024-01-22T06:58:14.587Z] File E:\Projects\office\TempehTodayFinal\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File E:\\Projects\\office\\TempehTodayFinal\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-01-22T06:58:15.597Z] Validating nodejs source
+[debug] [2024-01-22T06:58:17.448Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "connect-busboy": "^1.0.0",
+    "cors": "^2.8.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.18.2",
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.3.1",
+    "multer": "^1.4.5-lts.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-01-22T06:58:17.448Z] Building nodejs source
+[debug] [2024-01-22T06:58:17.448Z] Failed to find version of module node: reached end of search path E:\Projects\office\TempehTodayFinal\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2024-01-22T06:58:17.450Z] Got response from /__/functions.yaml {"endpoints":{"fetchData":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"fetchData"},"downloadExcel":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"downloadExcel"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2024-01-22T06:58:17.451Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-01-22T06:58:17.459Z] Found firebase-functions binary at 'E:\Projects\office\TempehTodayFinal\functions\node_modules\.bin\firebase-functions'
+[debug] [2024-01-22T06:58:17.843Z] [work-queue] {"queuedWork":["/tempehtoday-f866c/us-central1/downloadExcel-2024-01-22T06:58:17.843Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:58:17.844Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/tempehtoday-f866c/us-central1/downloadExcel-2024-01-22T06:58:17.843Z"],"workRunningCount":1}
+[debug] [2024-01-22T06:58:17.844Z] Accepted request GET /tempehtoday-f866c/us-central1/downloadExcel --> us-central1-downloadExcel
+[debug] [2024-01-22T06:58:17.852Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-01-22T06:58:17.854Z] [functions] Got req.url=/tempehtoday-f866c/us-central1/downloadExcel, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/tempehtoday-f866c/us-central1/downloadExcel, mapping to path=/"}}
+[debug] [2024-01-22T06:58:17.854Z] [worker-pool] Cleaned up workers for us-central1-fetchData: 1 --> 0 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Cleaned up workers for us-central1-fetchData: 1 --> 0"}}
+[debug] [2024-01-22T06:58:17.854Z] [worker-pool] Cleaned up workers for us-central1-downloadExcel: 1 --> 0 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Cleaned up workers for us-central1-downloadExcel: 1 --> 0"}}
+[debug] [2024-01-22T06:58:17.862Z] [worker-pool] addWorker(us-central1-downloadExcel) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(us-central1-downloadExcel)"}}
+[debug] [2024-01-22T06:58:17.862Z] [worker-pool] Adding worker with key us-central1-downloadExcel, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key us-central1-downloadExcel, total=1"}}
+[info] Serving at port 8070
+
+[debug] [2024-01-22T06:58:19.838Z] Got response from /__/functions.yaml {"endpoints":{"fetchData":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"fetchData"},"downloadExcel":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"downloadExcel"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2024-01-22T06:58:19.981Z] [work-queue] {"queuedWork":["/tempehtoday-f866c/us-central1/fetchData-2024-01-22T06:58:19.981Z"],"queueLength":1,"runningWork":["/tempehtoday-f866c/us-central1/downloadExcel-2024-01-22T06:58:17.843Z"],"workRunningCount":1}
+[debug] [2024-01-22T06:58:19.982Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/tempehtoday-f866c/us-central1/downloadExcel-2024-01-22T06:58:17.843Z","/tempehtoday-f866c/us-central1/fetchData-2024-01-22T06:58:19.981Z"],"workRunningCount":2}
+[debug] [2024-01-22T06:58:19.982Z] Accepted request GET /tempehtoday-f866c/us-central1/fetchData --> us-central1-fetchData
+[debug] [2024-01-22T06:58:19.983Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-01-22T06:58:19.983Z] [functions] Got req.url=/tempehtoday-f866c/us-central1/fetchData, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/tempehtoday-f866c/us-central1/fetchData, mapping to path=/"}}
+[debug] [2024-01-22T06:58:19.992Z] [worker-pool] addWorker(us-central1-fetchData) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(us-central1-fetchData)"}}
+[debug] [2024-01-22T06:58:19.992Z] [worker-pool] Adding worker with key us-central1-fetchData, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key us-central1-fetchData, total=1"}}
+[debug] [2024-01-22T06:58:20.304Z] [runtime-status] [1932] Resolved module firebase-admin {"declared":true,"installed":true,"version":"11.11.1","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [1932] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"11.11.1\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2024-01-22T06:58:20.306Z] [runtime-status] [1932] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [1932] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:58:20.307Z] [runtime-status] [1932] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [1932] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2024-01-22T06:58:20.308Z] [runtime-status] [1932] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [1932] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:58:20.817Z] [runtime-status] [1932] Checked functions.config() {"config":{}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [1932] Checked functions.config() {\"config\":{}}"}}
+[debug] [2024-01-22T06:58:20.818Z] [runtime-status] [1932] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [1932] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}}"}}
+[debug] [2024-01-22T06:58:20.819Z] [runtime-status] [1932] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [1932] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:58:20.826Z] [runtime-status] [1932] Resolved module firebase-admin {"declared":true,"installed":true,"version":"11.11.1","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [1932] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"11.11.1\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2024-01-22T06:58:20.831Z] [runtime-status] [1932] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [1932] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:58:20.832Z] [runtime-status] [1932] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"11.11.1","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-admin\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [1932] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"11.11.1\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}}"}}
+[info] +  functions: Loaded functions definitions from source: fetchData, downloadExcel. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: fetchData, downloadExcel."}}
+[debug] [2024-01-22T06:58:22.753Z] [runtime-status] [1932] initializeApp(DEFAULT) {"credential":{"implicit":false,"projectId":"tempehtoday-f866c","privateKey":"-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDOO4zOy2gO7PLi\nsdCb9IcN0s8xTIk6umj+lnAB/aeOcrh2rcmfaHwNQ79DNwSLUgHeGFhbe9w/71dO\n1wMeMETNYPWh1QQWGvK3UyuRhFtjxfjcAORVRnTOSIOjTIL/U1i5b4lnlcQirNCJ\niYyf2FMtEM+uQQEYqw8xVXOXJD/OKeAkTx4TGTvU/Icu8r71IrzI81+sBz4v/yDy\nXKdCHLhESgM0OFFNZxgbQyPuqH+FnO7zb3wDojK3PUQmylAnP+g78hh5dUbWDA4W\n6m6iv26u36U3rveP3NXUVVMXq5FvgIsUTDn0RI6pHIahi3WSI7sE8i9q4A+sqlcE\nFPKDkKN3AgMBAAECggEAF3DtsoGsnGmyuoazQKQc3RA1ob5ifheQde5Gi/YMyg8L\nHYjnuSPzWb9LaZ9CzSKEo33JPpjHskgI+KVNguxsnZrkQJae+3OTsWJq5NmSWQxj\nGtVKdCY+gkX8GcnJaAPNZW0imptg1aomnUN9BZwylBWW7ZEQ8qta3jopbygHzUMr\n/wmL5b0RFrRtO2QkhuP+weGPhfPdSa+S8lIiUgLXwTUXZeqBhYb+WwzPEMiPDMS+\ntMbv6+oNVrYX+x3e6vL479021OgMqdOJIMxkblIVd8u1lV3bXN/72QIWmttxaEvw\n5vjmol3YOxmnpFu1fAhnf5R6lFM6z7IhsenUJJ4PfQKBgQDrS56cofTI+Lrl/t8p\nAGPw35wga86QV4a/gM61i+huneKlKKrF2UWSJKC8BAERTR1UDEAVpha4k2aI9G1p\ndNh28dNWxDdS+o2UjLoFYQ+IF755f9hCqUXM/OjkuNIdZ/yBayN/rMs7jIu9Vok4\nvMOarpjxBx27v0DSGukKORVMUwKBgQDgYT+BgbJaV5iqE+aF4JDZd64/oOFf8m7W\n5kyzYi9BXyr1lTjCdKhJ8+QR9SvrD+Pry3VG3jxlupU+1c7mCeYLyG8R0rKuT2G2\nNqHwHSqudQsp0FxvYCSau3aMURzb+qOtLySJezrw2VCSAjnjQtAdCebSTZaEgyu8\n9e0irlrHzQKBgDYduUgrE6KZWlsFiIvklBfVRhJK2UJnbw1icahdmkK+u17jAIvq\nkc6v7+vuO9Sf2Mv42VBhV75x4FZFaVik0BhjPAkrrdG+4Is25p3QGgNh+qP1HGcQ\niYZA8MuSGnk67l9RpeN6eW+jvov4eCz9dTuBRpnA2jzRGvZ3y/tW76gTAoGBALAh\nJiyOlmX8JMY84NNuN8W9AHbJ3p/mOcNO/B5DkDyMa7hi7i8WS5PhcsH15geabZsG\nFoUOpfJkyAqO4t4IHyBYsXcYIVJa1aSmte85tetDzQOBn0199r3PMXtroG+9CwZC\n3zdcGCQ/MdOrE62lIJ/qydmDNgfGv2qQ0RhMLM5xAoGBAN5+vc0Sv0kVJPIYIGqh\nUDbgRRRPDQfKfcBAUmA5sDh6n8H3VeZSp7UZPZUFQ44fZfd+ebQzj+6KCnXOqBIH\n4HEE6VIYhGHr4SCy77bie30/rc41wUKh8Lrblg38AICORG9ZgdoU1WFNHXC4pFqK\nMIA8e443B2TP639A9FMIt71T\n-----END PRIVATE KEY-----\n","clientEmail":"firebase-adminsdk-t0ceu@tempehtoday-f866c.iam.gserviceaccount.com","httpClient":{"retry":{"maxRetries":4,"statusCodes":[503],"ioErrorCodes":["ECONNRESET","ETIMEDOUT"],"backOffFactor":0.5,"maxDelayInMillis":60000}}},"databaseURL":"https://tempehtoday-f866c-default-rtdb.firebaseio.com/","storageBucket":"tempehtoday-f866c.appspot.com"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [1932] initializeApp(DEFAULT) {\"credential\":{\"implicit\":false,\"projectId\":\"tempehtoday-f866c\",\"privateKey\":\"-----BEGIN PRIVATE KEY-----\\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDOO4zOy2gO7PLi\\nsdCb9IcN0s8xTIk6umj+lnAB/aeOcrh2rcmfaHwNQ79DNwSLUgHeGFhbe9w/71dO\\n1wMeMETNYPWh1QQWGvK3UyuRhFtjxfjcAORVRnTOSIOjTIL/U1i5b4lnlcQirNCJ\\niYyf2FMtEM+uQQEYqw8xVXOXJD/OKeAkTx4TGTvU/Icu8r71IrzI81+sBz4v/yDy\\nXKdCHLhESgM0OFFNZxgbQyPuqH+FnO7zb3wDojK3PUQmylAnP+g78hh5dUbWDA4W\\n6m6iv26u36U3rveP3NXUVVMXq5FvgIsUTDn0RI6pHIahi3WSI7sE8i9q4A+sqlcE\\nFPKDkKN3AgMBAAECggEAF3DtsoGsnGmyuoazQKQc3RA1ob5ifheQde5Gi/YMyg8L\\nHYjnuSPzWb9LaZ9CzSKEo33JPpjHskgI+KVNguxsnZrkQJae+3OTsWJq5NmSWQxj\\nGtVKdCY+gkX8GcnJaAPNZW0imptg1aomnUN9BZwylBWW7ZEQ8qta3jopbygHzUMr\\n/wmL5b0RFrRtO2QkhuP+weGPhfPdSa+S8lIiUgLXwTUXZeqBhYb+WwzPEMiPDMS+\\ntMbv6+oNVrYX+x3e6vL479021OgMqdOJIMxkblIVd8u1lV3bXN/72QIWmttxaEvw\\n5vjmol3YOxmnpFu1fAhnf5R6lFM6z7IhsenUJJ4PfQKBgQDrS56cofTI+Lrl/t8p\\nAGPw35wga86QV4a/gM61i+huneKlKKrF2UWSJKC8BAERTR1UDEAVpha4k2aI9G1p\\ndNh28dNWxDdS+o2UjLoFYQ+IF755f9hCqUXM/OjkuNIdZ/yBayN/rMs7jIu9Vok4\\nvMOarpjxBx27v0DSGukKORVMUwKBgQDgYT+BgbJaV5iqE+aF4JDZd64/oOFf8m7W\\n5kyzYi9BXyr1lTjCdKhJ8+QR9SvrD+Pry3VG3jxlupU+1c7mCeYLyG8R0rKuT2G2\\nNqHwHSqudQsp0FxvYCSau3aMURzb+qOtLySJezrw2VCSAjnjQtAdCebSTZaEgyu8\\n9e0irlrHzQKBgDYduUgrE6KZWlsFiIvklBfVRhJK2UJnbw1icahdmkK+u17jAIvq\\nkc6v7+vuO9Sf2Mv42VBhV75x4FZFaVik0BhjPAkrrdG+4Is25p3QGgNh+qP1HGcQ\\niYZA8MuSGnk67l9RpeN6eW+jvov4eCz9dTuBRpnA2jzRGvZ3y/tW76gTAoGBALAh\\nJiyOlmX8JMY84NNuN8W9AHbJ3p/mOcNO/B5DkDyMa7hi7i8WS5PhcsH15geabZsG\\nFoUOpfJkyAqO4t4IHyBYsXcYIVJa1aSmte85tetDzQOBn0199r3PMXtroG+9CwZC\\n3zdcGCQ/MdOrE62lIJ/qydmDNgfGv2qQ0RhMLM5xAoGBAN5+vc0Sv0kVJPIYIGqh\\nUDbgRRRPDQfKfcBAUmA5sDh6n8H3VeZSp7UZPZUFQ44fZfd+ebQzj+6KCnXOqBIH\\n4HEE6VIYhGHr4SCy77bie30/rc41wUKh8Lrblg38AICORG9ZgdoU1WFNHXC4pFqK\\nMIA8e443B2TP639A9FMIt71T\\n-----END PRIVATE KEY-----\\n\",\"clientEmail\":\"firebase-adminsdk-t0ceu@tempehtoday-f866c.iam.gserviceaccount.com\",\"httpClient\":{\"retry\":{\"maxRetries\":4,\"statusCodes\":[503],\"ioErrorCodes\":[\"ECONNRESET\",\"ETIMEDOUT\"],\"backOffFactor\":0.5,\"maxDelayInMillis\":60000}}},\"databaseURL\":\"https://tempehtoday-f866c-default-rtdb.firebaseio.com/\",\"storageBucket\":\"tempehtoday-f866c.appspot.com\"}"}}
+[debug] [2024-01-22T06:58:23.175Z] [runtime-status] [1932] Functions runtime initialized. {"cwd":"E:\\Projects\\office\\TempehTodayFinal\\functions","node_version":"20.10.0"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [1932] Functions runtime initialized. {\"cwd\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\",\"node_version\":\"20.10.0\"}"}}
+[debug] [2024-01-22T06:58:23.176Z] [runtime-status] [1932] Listening to port: \\?\pipe\fire_emu_fdba877467ddb8f9 {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[runtime-status] [1932] Listening to port: \\\\?\\pipe\\fire_emu_fdba877467ddb8f9"}}
+[debug] [2024-01-22T06:58:23.210Z] [runtime-status] [18192] Resolved module firebase-admin {"declared":true,"installed":true,"version":"11.11.1","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [18192] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"11.11.1\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2024-01-22T06:58:23.215Z] [runtime-status] [18192] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [18192] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:58:23.217Z] [runtime-status] [18192] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [18192] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2024-01-22T06:58:23.219Z] [runtime-status] [18192] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [18192] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:58:23.263Z] [worker-us-central1-downloadExcel-e360a0f4-7070-4f5b-a491-d3d66e9327d5]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[worker-us-central1-downloadExcel-e360a0f4-7070-4f5b-a491-d3d66e9327d5]: IDLE"}}
+[debug] [2024-01-22T06:58:23.264Z] [worker-pool] submitRequest(triggerId=us-central1-downloadExcel) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-downloadExcel)"}}
+[info] i  functions: Beginning execution of "us-central1-downloadExcel" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"Beginning execution of \"us-central1-downloadExcel\""}}
+[debug] [2024-01-22T06:58:23.265Z] [worker-us-central1-downloadExcel-e360a0f4-7070-4f5b-a491-d3d66e9327d5]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[worker-us-central1-downloadExcel-e360a0f4-7070-4f5b-a491-d3d66e9327d5]: BUSY"}}
+[debug] [2024-01-22T06:58:23.280Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-downloadExcel" in 15.4927ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"Finished \"us-central1-downloadExcel\" in 15.4927ms"}}
+[debug] [2024-01-22T06:58:23.281Z] [worker-us-central1-downloadExcel-e360a0f4-7070-4f5b-a491-d3d66e9327d5]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[worker-us-central1-downloadExcel-e360a0f4-7070-4f5b-a491-d3d66e9327d5]: IDLE"}}
+[debug] [2024-01-22T06:58:23.282Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-01-22T06:58:23.282Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/tempehtoday-f866c/us-central1/fetchData-2024-01-22T06:58:19.981Z"],"workRunningCount":1}
+[debug] [2024-01-22T06:58:23.686Z] [runtime-status] [18192] Checked functions.config() {"config":{}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [18192] Checked functions.config() {\"config\":{}}"}}
+[debug] [2024-01-22T06:58:23.686Z] [runtime-status] [18192] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [18192] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}}"}}
+[debug] [2024-01-22T06:58:23.687Z] [runtime-status] [18192] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [18192] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:58:23.689Z] [runtime-status] [18192] Resolved module firebase-admin {"declared":true,"installed":true,"version":"11.11.1","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [18192] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"11.11.1\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2024-01-22T06:58:23.692Z] [runtime-status] [18192] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [18192] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:58:23.692Z] [runtime-status] [18192] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"11.11.1","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-admin\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [18192] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"11.11.1\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}}"}}
+[debug] [2024-01-22T06:58:23.891Z] [work-queue] {"queuedWork":["/tempehtoday-f866c/us-central1/fetchDatabaseKeys-2024-01-22T06:58:23.891Z"],"queueLength":1,"runningWork":["/tempehtoday-f866c/us-central1/fetchData-2024-01-22T06:58:19.981Z"],"workRunningCount":1}
+[debug] [2024-01-22T06:58:23.891Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/tempehtoday-f866c/us-central1/fetchData-2024-01-22T06:58:19.981Z","/tempehtoday-f866c/us-central1/fetchDatabaseKeys-2024-01-22T06:58:23.891Z"],"workRunningCount":2}
+[debug] [2024-01-22T06:58:23.892Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/tempehtoday-f866c/us-central1/fetchData-2024-01-22T06:58:19.981Z"],"workRunningCount":1}
+[debug] [2024-01-22T06:58:24.869Z] [runtime-status] [18192] initializeApp(DEFAULT) {"credential":{"implicit":false,"projectId":"tempehtoday-f866c","privateKey":"-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDOO4zOy2gO7PLi\nsdCb9IcN0s8xTIk6umj+lnAB/aeOcrh2rcmfaHwNQ79DNwSLUgHeGFhbe9w/71dO\n1wMeMETNYPWh1QQWGvK3UyuRhFtjxfjcAORVRnTOSIOjTIL/U1i5b4lnlcQirNCJ\niYyf2FMtEM+uQQEYqw8xVXOXJD/OKeAkTx4TGTvU/Icu8r71IrzI81+sBz4v/yDy\nXKdCHLhESgM0OFFNZxgbQyPuqH+FnO7zb3wDojK3PUQmylAnP+g78hh5dUbWDA4W\n6m6iv26u36U3rveP3NXUVVMXq5FvgIsUTDn0RI6pHIahi3WSI7sE8i9q4A+sqlcE\nFPKDkKN3AgMBAAECggEAF3DtsoGsnGmyuoazQKQc3RA1ob5ifheQde5Gi/YMyg8L\nHYjnuSPzWb9LaZ9CzSKEo33JPpjHskgI+KVNguxsnZrkQJae+3OTsWJq5NmSWQxj\nGtVKdCY+gkX8GcnJaAPNZW0imptg1aomnUN9BZwylBWW7ZEQ8qta3jopbygHzUMr\n/wmL5b0RFrRtO2QkhuP+weGPhfPdSa+S8lIiUgLXwTUXZeqBhYb+WwzPEMiPDMS+\ntMbv6+oNVrYX+x3e6vL479021OgMqdOJIMxkblIVd8u1lV3bXN/72QIWmttxaEvw\n5vjmol3YOxmnpFu1fAhnf5R6lFM6z7IhsenUJJ4PfQKBgQDrS56cofTI+Lrl/t8p\nAGPw35wga86QV4a/gM61i+huneKlKKrF2UWSJKC8BAERTR1UDEAVpha4k2aI9G1p\ndNh28dNWxDdS+o2UjLoFYQ+IF755f9hCqUXM/OjkuNIdZ/yBayN/rMs7jIu9Vok4\nvMOarpjxBx27v0DSGukKORVMUwKBgQDgYT+BgbJaV5iqE+aF4JDZd64/oOFf8m7W\n5kyzYi9BXyr1lTjCdKhJ8+QR9SvrD+Pry3VG3jxlupU+1c7mCeYLyG8R0rKuT2G2\nNqHwHSqudQsp0FxvYCSau3aMURzb+qOtLySJezrw2VCSAjnjQtAdCebSTZaEgyu8\n9e0irlrHzQKBgDYduUgrE6KZWlsFiIvklBfVRhJK2UJnbw1icahdmkK+u17jAIvq\nkc6v7+vuO9Sf2Mv42VBhV75x4FZFaVik0BhjPAkrrdG+4Is25p3QGgNh+qP1HGcQ\niYZA8MuSGnk67l9RpeN6eW+jvov4eCz9dTuBRpnA2jzRGvZ3y/tW76gTAoGBALAh\nJiyOlmX8JMY84NNuN8W9AHbJ3p/mOcNO/B5DkDyMa7hi7i8WS5PhcsH15geabZsG\nFoUOpfJkyAqO4t4IHyBYsXcYIVJa1aSmte85tetDzQOBn0199r3PMXtroG+9CwZC\n3zdcGCQ/MdOrE62lIJ/qydmDNgfGv2qQ0RhMLM5xAoGBAN5+vc0Sv0kVJPIYIGqh\nUDbgRRRPDQfKfcBAUmA5sDh6n8H3VeZSp7UZPZUFQ44fZfd+ebQzj+6KCnXOqBIH\n4HEE6VIYhGHr4SCy77bie30/rc41wUKh8Lrblg38AICORG9ZgdoU1WFNHXC4pFqK\nMIA8e443B2TP639A9FMIt71T\n-----END PRIVATE KEY-----\n","clientEmail":"firebase-adminsdk-t0ceu@tempehtoday-f866c.iam.gserviceaccount.com","httpClient":{"retry":{"maxRetries":4,"statusCodes":[503],"ioErrorCodes":["ECONNRESET","ETIMEDOUT"],"backOffFactor":0.5,"maxDelayInMillis":60000}}},"databaseURL":"https://tempehtoday-f866c-default-rtdb.firebaseio.com/","storageBucket":"tempehtoday-f866c.appspot.com"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [18192] initializeApp(DEFAULT) {\"credential\":{\"implicit\":false,\"projectId\":\"tempehtoday-f866c\",\"privateKey\":\"-----BEGIN PRIVATE KEY-----\\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDOO4zOy2gO7PLi\\nsdCb9IcN0s8xTIk6umj+lnAB/aeOcrh2rcmfaHwNQ79DNwSLUgHeGFhbe9w/71dO\\n1wMeMETNYPWh1QQWGvK3UyuRhFtjxfjcAORVRnTOSIOjTIL/U1i5b4lnlcQirNCJ\\niYyf2FMtEM+uQQEYqw8xVXOXJD/OKeAkTx4TGTvU/Icu8r71IrzI81+sBz4v/yDy\\nXKdCHLhESgM0OFFNZxgbQyPuqH+FnO7zb3wDojK3PUQmylAnP+g78hh5dUbWDA4W\\n6m6iv26u36U3rveP3NXUVVMXq5FvgIsUTDn0RI6pHIahi3WSI7sE8i9q4A+sqlcE\\nFPKDkKN3AgMBAAECggEAF3DtsoGsnGmyuoazQKQc3RA1ob5ifheQde5Gi/YMyg8L\\nHYjnuSPzWb9LaZ9CzSKEo33JPpjHskgI+KVNguxsnZrkQJae+3OTsWJq5NmSWQxj\\nGtVKdCY+gkX8GcnJaAPNZW0imptg1aomnUN9BZwylBWW7ZEQ8qta3jopbygHzUMr\\n/wmL5b0RFrRtO2QkhuP+weGPhfPdSa+S8lIiUgLXwTUXZeqBhYb+WwzPEMiPDMS+\\ntMbv6+oNVrYX+x3e6vL479021OgMqdOJIMxkblIVd8u1lV3bXN/72QIWmttxaEvw\\n5vjmol3YOxmnpFu1fAhnf5R6lFM6z7IhsenUJJ4PfQKBgQDrS56cofTI+Lrl/t8p\\nAGPw35wga86QV4a/gM61i+huneKlKKrF2UWSJKC8BAERTR1UDEAVpha4k2aI9G1p\\ndNh28dNWxDdS+o2UjLoFYQ+IF755f9hCqUXM/OjkuNIdZ/yBayN/rMs7jIu9Vok4\\nvMOarpjxBx27v0DSGukKORVMUwKBgQDgYT+BgbJaV5iqE+aF4JDZd64/oOFf8m7W\\n5kyzYi9BXyr1lTjCdKhJ8+QR9SvrD+Pry3VG3jxlupU+1c7mCeYLyG8R0rKuT2G2\\nNqHwHSqudQsp0FxvYCSau3aMURzb+qOtLySJezrw2VCSAjnjQtAdCebSTZaEgyu8\\n9e0irlrHzQKBgDYduUgrE6KZWlsFiIvklBfVRhJK2UJnbw1icahdmkK+u17jAIvq\\nkc6v7+vuO9Sf2Mv42VBhV75x4FZFaVik0BhjPAkrrdG+4Is25p3QGgNh+qP1HGcQ\\niYZA8MuSGnk67l9RpeN6eW+jvov4eCz9dTuBRpnA2jzRGvZ3y/tW76gTAoGBALAh\\nJiyOlmX8JMY84NNuN8W9AHbJ3p/mOcNO/B5DkDyMa7hi7i8WS5PhcsH15geabZsG\\nFoUOpfJkyAqO4t4IHyBYsXcYIVJa1aSmte85tetDzQOBn0199r3PMXtroG+9CwZC\\n3zdcGCQ/MdOrE62lIJ/qydmDNgfGv2qQ0RhMLM5xAoGBAN5+vc0Sv0kVJPIYIGqh\\nUDbgRRRPDQfKfcBAUmA5sDh6n8H3VeZSp7UZPZUFQ44fZfd+ebQzj+6KCnXOqBIH\\n4HEE6VIYhGHr4SCy77bie30/rc41wUKh8Lrblg38AICORG9ZgdoU1WFNHXC4pFqK\\nMIA8e443B2TP639A9FMIt71T\\n-----END PRIVATE KEY-----\\n\",\"clientEmail\":\"firebase-adminsdk-t0ceu@tempehtoday-f866c.iam.gserviceaccount.com\",\"httpClient\":{\"retry\":{\"maxRetries\":4,\"statusCodes\":[503],\"ioErrorCodes\":[\"ECONNRESET\",\"ETIMEDOUT\"],\"backOffFactor\":0.5,\"maxDelayInMillis\":60000}}},\"databaseURL\":\"https://tempehtoday-f866c-default-rtdb.firebaseio.com/\",\"storageBucket\":\"tempehtoday-f866c.appspot.com\"}"}}
+[info] +  functions: Loaded functions definitions from source: fetchData, downloadExcel. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: fetchData, downloadExcel."}}
+[debug] [2024-01-22T06:58:24.876Z] [worker-pool] Shutting down IDLE worker (us-central1-downloadExcel) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Shutting down IDLE worker (us-central1-downloadExcel)"}}
+[debug] [2024-01-22T06:58:24.876Z] [worker-us-central1-downloadExcel-e360a0f4-7070-4f5b-a491-d3d66e9327d5]: FINISHING {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[worker-us-central1-downloadExcel-e360a0f4-7070-4f5b-a491-d3d66e9327d5]: FINISHING"}}
+[debug] [2024-01-22T06:58:24.894Z] [worker-us-central1-downloadExcel-e360a0f4-7070-4f5b-a491-d3d66e9327d5]: exited {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[worker-us-central1-downloadExcel-e360a0f4-7070-4f5b-a491-d3d66e9327d5]: exited"}}
+[debug] [2024-01-22T06:58:24.894Z] [worker-us-central1-downloadExcel-e360a0f4-7070-4f5b-a491-d3d66e9327d5]: FINISHED {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-downloadExcel"},"extension":{},"message":"[worker-us-central1-downloadExcel-e360a0f4-7070-4f5b-a491-d3d66e9327d5]: FINISHED"}}
+[debug] [2024-01-22T06:58:25.083Z] [runtime-status] [18192] Functions runtime initialized. {"cwd":"E:\\Projects\\office\\TempehTodayFinal\\functions","node_version":"20.10.0"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [18192] Functions runtime initialized. {\"cwd\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\",\"node_version\":\"20.10.0\"}"}}
+[debug] [2024-01-22T06:58:25.083Z] [runtime-status] [18192] Listening to port: \\?\pipe\fire_emu_369bb2224bcf593c {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[runtime-status] [18192] Listening to port: \\\\?\\pipe\\fire_emu_369bb2224bcf593c"}}
+[debug] [2024-01-22T06:58:25.098Z] [worker-us-central1-fetchData-97775977-8b7f-4f86-ba40-8cfa3bafd026]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[worker-us-central1-fetchData-97775977-8b7f-4f86-ba40-8cfa3bafd026]: IDLE"}}
+[debug] [2024-01-22T06:58:25.099Z] [worker-pool] submitRequest(triggerId=us-central1-fetchData) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-fetchData)"}}
+[debug] [2024-01-22T06:58:25.099Z] [worker-pool] Cleaned up workers for us-central1-downloadExcel: 1 --> 0 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Cleaned up workers for us-central1-downloadExcel: 1 --> 0"}}
+[info] i  functions: Beginning execution of "us-central1-fetchData" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"Beginning execution of \"us-central1-fetchData\""}}
+[debug] [2024-01-22T06:58:25.099Z] [worker-us-central1-fetchData-97775977-8b7f-4f86-ba40-8cfa3bafd026]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[worker-us-central1-fetchData-97775977-8b7f-4f86-ba40-8cfa3bafd026]: BUSY"}}
+[debug] [2024-01-22T06:58:25.110Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-fetchData" in 10.8844ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"Finished \"us-central1-fetchData\" in 10.8844ms"}}
+[debug] [2024-01-22T06:58:25.111Z] [worker-us-central1-fetchData-97775977-8b7f-4f86-ba40-8cfa3bafd026]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[worker-us-central1-fetchData-97775977-8b7f-4f86-ba40-8cfa3bafd026]: IDLE"}}
+[debug] [2024-01-22T06:58:25.112Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-01-22T06:58:25.112Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:58:40.859Z] File E:\Projects\office\TempehTodayFinal\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File E:\\Projects\\office\\TempehTodayFinal\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-01-22T06:58:41.480Z] File E:\Projects\office\TempehTodayFinal\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File E:\\Projects\\office\\TempehTodayFinal\\functions\\index.js changed, reloading triggers"}}
+[debug] [2024-01-22T06:58:42.492Z] Validating nodejs source
+[debug] [2024-01-22T06:58:44.412Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "connect-busboy": "^1.0.0",
+    "cors": "^2.8.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.18.2",
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.3.1",
+    "multer": "^1.4.5-lts.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-01-22T06:58:44.413Z] Building nodejs source
+[debug] [2024-01-22T06:58:44.413Z] Failed to find version of module node: reached end of search path E:\Projects\office\TempehTodayFinal\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "20". Using node@20 from host. 
+[debug] [2024-01-22T06:58:44.415Z] [work-queue] {"queuedWork":["/tempehtoday-f866c/us-central1/fetchDatabaseKeys-2024-01-22T06:58:44.415Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:58:44.415Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/tempehtoday-f866c/us-central1/fetchDatabaseKeys-2024-01-22T06:58:44.415Z"],"workRunningCount":1}
+[debug] [2024-01-22T06:58:44.416Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:58:44.416Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-01-22T06:58:44.425Z] Found firebase-functions binary at 'E:\Projects\office\TempehTodayFinal\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8447
+
+[debug] [2024-01-22T06:58:45.878Z] [work-queue] {"queuedWork":["/tempehtoday-f866c/us-central1/fetchDatabaseKeys-2024-01-22T06:58:45.878Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:58:45.879Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/tempehtoday-f866c/us-central1/fetchDatabaseKeys-2024-01-22T06:58:45.878Z"],"workRunningCount":1}
+[debug] [2024-01-22T06:58:45.880Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:58:46.181Z] Got response from /__/functions.yaml {"endpoints":{"fetchData":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"fetchData"},"downloadExcel":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"downloadExcel"},"fetchDatabaseKeys":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"fetchDatabaseKeys"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2024-01-22T06:58:49.999Z] [work-queue] {"queuedWork":["/tempehtoday-f866c/us-central1/fetchDatabaseKeys-2024-01-22T06:58:49.999Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:58:49.999Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/tempehtoday-f866c/us-central1/fetchDatabaseKeys-2024-01-22T06:58:49.999Z"],"workRunningCount":1}
+[debug] [2024-01-22T06:58:50.000Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[info] +  functions: Loaded functions definitions from source: fetchData, downloadExcel, fetchDatabaseKeys. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: fetchData, downloadExcel, fetchDatabaseKeys."}}
+[debug] [2024-01-22T06:58:51.212Z] [worker-pool] Shutting down IDLE worker (us-central1-fetchData) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Shutting down IDLE worker (us-central1-fetchData)"}}
+[debug] [2024-01-22T06:58:51.212Z] [worker-us-central1-fetchData-97775977-8b7f-4f86-ba40-8cfa3bafd026]: FINISHING {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[worker-us-central1-fetchData-97775977-8b7f-4f86-ba40-8cfa3bafd026]: FINISHING"}}
+[info] +  functions[us-central1-fetchDatabaseKeys]: http function initialized (http://localhost:5000/tempehtoday-f866c/us-central1/fetchDatabaseKeys). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://localhost:5000/tempehtoday-f866c/us-central1/fetchDatabaseKeys)."}}
+[debug] [2024-01-22T06:58:51.222Z] [worker-us-central1-fetchData-97775977-8b7f-4f86-ba40-8cfa3bafd026]: exited {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[worker-us-central1-fetchData-97775977-8b7f-4f86-ba40-8cfa3bafd026]: exited"}}
+[debug] [2024-01-22T06:58:51.223Z] [worker-us-central1-fetchData-97775977-8b7f-4f86-ba40-8cfa3bafd026]: FINISHED {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchData"},"extension":{},"message":"[worker-us-central1-fetchData-97775977-8b7f-4f86-ba40-8cfa3bafd026]: FINISHED"}}
+[debug] [2024-01-22T06:58:57.881Z] [work-queue] {"queuedWork":["/tempehtoday-f866c/us-central1/fetchDatabaseKeys-2024-01-22T06:58:57.881Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:58:57.881Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/tempehtoday-f866c/us-central1/fetchDatabaseKeys-2024-01-22T06:58:57.881Z"],"workRunningCount":1}
+[debug] [2024-01-22T06:58:57.881Z] Accepted request GET /tempehtoday-f866c/us-central1/fetchDatabaseKeys --> us-central1-fetchDatabaseKeys
+[debug] [2024-01-22T06:58:57.884Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-01-22T06:58:57.884Z] [functions] Got req.url=/tempehtoday-f866c/us-central1/fetchDatabaseKeys, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/tempehtoday-f866c/us-central1/fetchDatabaseKeys, mapping to path=/"}}
+[debug] [2024-01-22T06:58:57.884Z] [worker-pool] Cleaned up workers for us-central1-fetchData: 1 --> 0 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Cleaned up workers for us-central1-fetchData: 1 --> 0"}}
+[debug] [2024-01-22T06:58:57.890Z] [worker-pool] addWorker(us-central1-fetchDatabaseKeys) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(us-central1-fetchDatabaseKeys)"}}
+[debug] [2024-01-22T06:58:57.890Z] [worker-pool] Adding worker with key us-central1-fetchDatabaseKeys, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key us-central1-fetchDatabaseKeys, total=1"}}
+[debug] [2024-01-22T06:58:59.167Z] [runtime-status] [2464] Resolved module firebase-admin {"declared":true,"installed":true,"version":"11.11.1","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"[runtime-status] [2464] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"11.11.1\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2024-01-22T06:58:59.168Z] [runtime-status] [2464] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"[runtime-status] [2464] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:58:59.169Z] [runtime-status] [2464] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"[runtime-status] [2464] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2024-01-22T06:58:59.170Z] [runtime-status] [2464] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"[runtime-status] [2464] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:58:59.459Z] [runtime-status] [2464] Checked functions.config() {"config":{}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"[runtime-status] [2464] Checked functions.config() {\"config\":{}}"}}
+[debug] [2024-01-22T06:58:59.459Z] [runtime-status] [2464] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"[runtime-status] [2464] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}}"}}
+[debug] [2024-01-22T06:58:59.460Z] [runtime-status] [2464] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"[runtime-status] [2464] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:58:59.461Z] [runtime-status] [2464] Resolved module firebase-admin {"declared":true,"installed":true,"version":"11.11.1","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"[runtime-status] [2464] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"11.11.1\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2024-01-22T06:58:59.463Z] [runtime-status] [2464] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.6.0","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"[runtime-status] [2464] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.6.0\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2024-01-22T06:58:59.463Z] [runtime-status] [2464] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"11.11.1","resolution":"E:\\Projects\\office\\TempehTodayFinal\\functions\\node_modules\\firebase-admin\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"[runtime-status] [2464] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"11.11.1\",\"resolution\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}}"}}
+[debug] [2024-01-22T06:59:00.173Z] [runtime-status] [2464] initializeApp(DEFAULT) {"credential":{"implicit":false,"projectId":"tempehtoday-f866c","privateKey":"-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDOO4zOy2gO7PLi\nsdCb9IcN0s8xTIk6umj+lnAB/aeOcrh2rcmfaHwNQ79DNwSLUgHeGFhbe9w/71dO\n1wMeMETNYPWh1QQWGvK3UyuRhFtjxfjcAORVRnTOSIOjTIL/U1i5b4lnlcQirNCJ\niYyf2FMtEM+uQQEYqw8xVXOXJD/OKeAkTx4TGTvU/Icu8r71IrzI81+sBz4v/yDy\nXKdCHLhESgM0OFFNZxgbQyPuqH+FnO7zb3wDojK3PUQmylAnP+g78hh5dUbWDA4W\n6m6iv26u36U3rveP3NXUVVMXq5FvgIsUTDn0RI6pHIahi3WSI7sE8i9q4A+sqlcE\nFPKDkKN3AgMBAAECggEAF3DtsoGsnGmyuoazQKQc3RA1ob5ifheQde5Gi/YMyg8L\nHYjnuSPzWb9LaZ9CzSKEo33JPpjHskgI+KVNguxsnZrkQJae+3OTsWJq5NmSWQxj\nGtVKdCY+gkX8GcnJaAPNZW0imptg1aomnUN9BZwylBWW7ZEQ8qta3jopbygHzUMr\n/wmL5b0RFrRtO2QkhuP+weGPhfPdSa+S8lIiUgLXwTUXZeqBhYb+WwzPEMiPDMS+\ntMbv6+oNVrYX+x3e6vL479021OgMqdOJIMxkblIVd8u1lV3bXN/72QIWmttxaEvw\n5vjmol3YOxmnpFu1fAhnf5R6lFM6z7IhsenUJJ4PfQKBgQDrS56cofTI+Lrl/t8p\nAGPw35wga86QV4a/gM61i+huneKlKKrF2UWSJKC8BAERTR1UDEAVpha4k2aI9G1p\ndNh28dNWxDdS+o2UjLoFYQ+IF755f9hCqUXM/OjkuNIdZ/yBayN/rMs7jIu9Vok4\nvMOarpjxBx27v0DSGukKORVMUwKBgQDgYT+BgbJaV5iqE+aF4JDZd64/oOFf8m7W\n5kyzYi9BXyr1lTjCdKhJ8+QR9SvrD+Pry3VG3jxlupU+1c7mCeYLyG8R0rKuT2G2\nNqHwHSqudQsp0FxvYCSau3aMURzb+qOtLySJezrw2VCSAjnjQtAdCebSTZaEgyu8\n9e0irlrHzQKBgDYduUgrE6KZWlsFiIvklBfVRhJK2UJnbw1icahdmkK+u17jAIvq\nkc6v7+vuO9Sf2Mv42VBhV75x4FZFaVik0BhjPAkrrdG+4Is25p3QGgNh+qP1HGcQ\niYZA8MuSGnk67l9RpeN6eW+jvov4eCz9dTuBRpnA2jzRGvZ3y/tW76gTAoGBALAh\nJiyOlmX8JMY84NNuN8W9AHbJ3p/mOcNO/B5DkDyMa7hi7i8WS5PhcsH15geabZsG\nFoUOpfJkyAqO4t4IHyBYsXcYIVJa1aSmte85tetDzQOBn0199r3PMXtroG+9CwZC\n3zdcGCQ/MdOrE62lIJ/qydmDNgfGv2qQ0RhMLM5xAoGBAN5+vc0Sv0kVJPIYIGqh\nUDbgRRRPDQfKfcBAUmA5sDh6n8H3VeZSp7UZPZUFQ44fZfd+ebQzj+6KCnXOqBIH\n4HEE6VIYhGHr4SCy77bie30/rc41wUKh8Lrblg38AICORG9ZgdoU1WFNHXC4pFqK\nMIA8e443B2TP639A9FMIt71T\n-----END PRIVATE KEY-----\n","clientEmail":"firebase-adminsdk-t0ceu@tempehtoday-f866c.iam.gserviceaccount.com","httpClient":{"retry":{"maxRetries":4,"statusCodes":[503],"ioErrorCodes":["ECONNRESET","ETIMEDOUT"],"backOffFactor":0.5,"maxDelayInMillis":60000}}},"databaseURL":"https://tempehtoday-f866c-default-rtdb.firebaseio.com/","storageBucket":"tempehtoday-f866c.appspot.com"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"[runtime-status] [2464] initializeApp(DEFAULT) {\"credential\":{\"implicit\":false,\"projectId\":\"tempehtoday-f866c\",\"privateKey\":\"-----BEGIN PRIVATE KEY-----\\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDOO4zOy2gO7PLi\\nsdCb9IcN0s8xTIk6umj+lnAB/aeOcrh2rcmfaHwNQ79DNwSLUgHeGFhbe9w/71dO\\n1wMeMETNYPWh1QQWGvK3UyuRhFtjxfjcAORVRnTOSIOjTIL/U1i5b4lnlcQirNCJ\\niYyf2FMtEM+uQQEYqw8xVXOXJD/OKeAkTx4TGTvU/Icu8r71IrzI81+sBz4v/yDy\\nXKdCHLhESgM0OFFNZxgbQyPuqH+FnO7zb3wDojK3PUQmylAnP+g78hh5dUbWDA4W\\n6m6iv26u36U3rveP3NXUVVMXq5FvgIsUTDn0RI6pHIahi3WSI7sE8i9q4A+sqlcE\\nFPKDkKN3AgMBAAECggEAF3DtsoGsnGmyuoazQKQc3RA1ob5ifheQde5Gi/YMyg8L\\nHYjnuSPzWb9LaZ9CzSKEo33JPpjHskgI+KVNguxsnZrkQJae+3OTsWJq5NmSWQxj\\nGtVKdCY+gkX8GcnJaAPNZW0imptg1aomnUN9BZwylBWW7ZEQ8qta3jopbygHzUMr\\n/wmL5b0RFrRtO2QkhuP+weGPhfPdSa+S8lIiUgLXwTUXZeqBhYb+WwzPEMiPDMS+\\ntMbv6+oNVrYX+x3e6vL479021OgMqdOJIMxkblIVd8u1lV3bXN/72QIWmttxaEvw\\n5vjmol3YOxmnpFu1fAhnf5R6lFM6z7IhsenUJJ4PfQKBgQDrS56cofTI+Lrl/t8p\\nAGPw35wga86QV4a/gM61i+huneKlKKrF2UWSJKC8BAERTR1UDEAVpha4k2aI9G1p\\ndNh28dNWxDdS+o2UjLoFYQ+IF755f9hCqUXM/OjkuNIdZ/yBayN/rMs7jIu9Vok4\\nvMOarpjxBx27v0DSGukKORVMUwKBgQDgYT+BgbJaV5iqE+aF4JDZd64/oOFf8m7W\\n5kyzYi9BXyr1lTjCdKhJ8+QR9SvrD+Pry3VG3jxlupU+1c7mCeYLyG8R0rKuT2G2\\nNqHwHSqudQsp0FxvYCSau3aMURzb+qOtLySJezrw2VCSAjnjQtAdCebSTZaEgyu8\\n9e0irlrHzQKBgDYduUgrE6KZWlsFiIvklBfVRhJK2UJnbw1icahdmkK+u17jAIvq\\nkc6v7+vuO9Sf2Mv42VBhV75x4FZFaVik0BhjPAkrrdG+4Is25p3QGgNh+qP1HGcQ\\niYZA8MuSGnk67l9RpeN6eW+jvov4eCz9dTuBRpnA2jzRGvZ3y/tW76gTAoGBALAh\\nJiyOlmX8JMY84NNuN8W9AHbJ3p/mOcNO/B5DkDyMa7hi7i8WS5PhcsH15geabZsG\\nFoUOpfJkyAqO4t4IHyBYsXcYIVJa1aSmte85tetDzQOBn0199r3PMXtroG+9CwZC\\n3zdcGCQ/MdOrE62lIJ/qydmDNgfGv2qQ0RhMLM5xAoGBAN5+vc0Sv0kVJPIYIGqh\\nUDbgRRRPDQfKfcBAUmA5sDh6n8H3VeZSp7UZPZUFQ44fZfd+ebQzj+6KCnXOqBIH\\n4HEE6VIYhGHr4SCy77bie30/rc41wUKh8Lrblg38AICORG9ZgdoU1WFNHXC4pFqK\\nMIA8e443B2TP639A9FMIt71T\\n-----END PRIVATE KEY-----\\n\",\"clientEmail\":\"firebase-adminsdk-t0ceu@tempehtoday-f866c.iam.gserviceaccount.com\",\"httpClient\":{\"retry\":{\"maxRetries\":4,\"statusCodes\":[503],\"ioErrorCodes\":[\"ECONNRESET\",\"ETIMEDOUT\"],\"backOffFactor\":0.5,\"maxDelayInMillis\":60000}}},\"databaseURL\":\"https://tempehtoday-f866c-default-rtdb.firebaseio.com/\",\"storageBucket\":\"tempehtoday-f866c.appspot.com\"}"}}
+[debug] [2024-01-22T06:59:00.326Z] [runtime-status] [2464] Functions runtime initialized. {"cwd":"E:\\Projects\\office\\TempehTodayFinal\\functions","node_version":"20.10.0"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"[runtime-status] [2464] Functions runtime initialized. {\"cwd\":\"E:\\\\Projects\\\\office\\\\TempehTodayFinal\\\\functions\",\"node_version\":\"20.10.0\"}"}}
+[debug] [2024-01-22T06:59:00.326Z] [runtime-status] [2464] Listening to port: \\?\pipe\fire_emu_a7701ae9cfe7a538 {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"[runtime-status] [2464] Listening to port: \\\\?\\pipe\\fire_emu_a7701ae9cfe7a538"}}
+[debug] [2024-01-22T06:59:00.440Z] [worker-us-central1-fetchDatabaseKeys-c26db4aa-ee2f-43f4-9cd1-084b6c31d2e0]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"[worker-us-central1-fetchDatabaseKeys-c26db4aa-ee2f-43f4-9cd1-084b6c31d2e0]: IDLE"}}
+[debug] [2024-01-22T06:59:00.440Z] [worker-pool] submitRequest(triggerId=us-central1-fetchDatabaseKeys) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-fetchDatabaseKeys)"}}
+[info] i  functions: Beginning execution of "us-central1-fetchDatabaseKeys" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"Beginning execution of \"us-central1-fetchDatabaseKeys\""}}
+[debug] [2024-01-22T06:59:00.440Z] [worker-us-central1-fetchDatabaseKeys-c26db4aa-ee2f-43f4-9cd1-084b6c31d2e0]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"[worker-us-central1-fetchDatabaseKeys-c26db4aa-ee2f-43f4-9cd1-084b6c31d2e0]: BUSY"}}
+[debug] [2024-01-22T06:59:00.445Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-fetchDatabaseKeys" in 5.3156ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"Finished \"us-central1-fetchDatabaseKeys\" in 5.3156ms"}}
+[debug] [2024-01-22T06:59:00.446Z] [worker-us-central1-fetchDatabaseKeys-c26db4aa-ee2f-43f4-9cd1-084b6c31d2e0]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"[worker-us-central1-fetchDatabaseKeys-c26db4aa-ee2f-43f4-9cd1-084b6c31d2e0]: IDLE"}}
+[debug] [2024-01-22T06:59:00.447Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-01-22T06:59:00.447Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-01-22T06:59:00.447Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:59:00.448Z] [work-queue] {"queuedWork":["/tempehtoday-f866c/us-central1/fetchDatabaseKeys-2024-01-22T06:59:00.448Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:59:00.449Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/tempehtoday-f866c/us-central1/fetchDatabaseKeys-2024-01-22T06:59:00.448Z"],"workRunningCount":1}
+[debug] [2024-01-22T06:59:00.449Z] Accepted request GET /tempehtoday-f866c/us-central1/fetchDatabaseKeys --> us-central1-fetchDatabaseKeys
+[debug] [2024-01-22T06:59:00.450Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2024-01-22T06:59:00.450Z] [functions] Got req.url=/tempehtoday-f866c/us-central1/fetchDatabaseKeys, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/tempehtoday-f866c/us-central1/fetchDatabaseKeys, mapping to path=/"}}
+[debug] [2024-01-22T06:59:00.451Z] [worker-pool] submitRequest(triggerId=us-central1-fetchDatabaseKeys) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-fetchDatabaseKeys)"}}
+[info] i  functions: Beginning execution of "us-central1-fetchDatabaseKeys" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"Beginning execution of \"us-central1-fetchDatabaseKeys\""}}
+[debug] [2024-01-22T06:59:00.452Z] [worker-us-central1-fetchDatabaseKeys-c26db4aa-ee2f-43f4-9cd1-084b6c31d2e0]: BUSY {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"[worker-us-central1-fetchDatabaseKeys-c26db4aa-ee2f-43f4-9cd1-084b6c31d2e0]: BUSY"}}
+[debug] [2024-01-22T06:59:00.458Z] Finishing up request with event=pause {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"Finishing up request with event=pause"}}
+[info] i  functions: Finished "us-central1-fetchDatabaseKeys" in 6.8631ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"Finished \"us-central1-fetchDatabaseKeys\" in 6.8631ms"}}
+[debug] [2024-01-22T06:59:00.459Z] [worker-us-central1-fetchDatabaseKeys-c26db4aa-ee2f-43f4-9cd1-084b6c31d2e0]: IDLE {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"[worker-us-central1-fetchDatabaseKeys-c26db4aa-ee2f-43f4-9cd1-084b6c31d2e0]: IDLE"}}
+[debug] [2024-01-22T06:59:00.459Z] Finishing up request with event=finish {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"Finishing up request with event=finish"}}
+[debug] [2024-01-22T06:59:00.459Z] Finishing up request with event=close {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-fetchDatabaseKeys"},"extension":{},"message":"Finishing up request with event=close"}}
+[debug] [2024-01-22T06:59:00.459Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2024-01-22T06:59:23.995Z] File E:\Projects\office\TempehTodayFinal\functions\index.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File E:\\Projects\\office\\TempehTodayFinal\\functions\\index.js changed, reloading triggers"}}

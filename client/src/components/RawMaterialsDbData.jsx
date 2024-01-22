@@ -32,48 +32,55 @@ const RawMaterialsDbData = ({
           </label>
         </>
       ) : null}
-
-      <div className="flex justify-between">
+      <div className="flex justify-between flex-col">
         {fileInputVisible ? (
           <>
-          <div>
-            <label htmlFor="mfuSelect" className="block mb-4">
-              <span className="font-bold text-blue-500">Select Raw Material:</span>
-              <select
-                id="mfuSelect"
-                value={selectedMFUKey}
-                onChange={handleMFUKeyChange}
-                className="w-full p-2 border rounded"
-              >
-                <option disabled className="bg-yellow-100" value="">Select Raw Material</option>
-                {mfuIds.map((key) => (
-                  <option className="bg-yellow-100" key={key} value={key}>
-                    {key}
+            <div >
+              <label htmlFor="mfuSelect" className="block mb-4 mr-2">
+                <span className="font-bold text-blue-500">Select Raw Material:</span>
+                <select
+                  id="mfuSelect"
+                  value={selectedMFUKey}
+                  onChange={handleMFUKeyChange}
+                  className="w-full p-2 border rounded"
+                >
+                  <option disabled className="bg-yellow-100" value="">
+                    Select Raw Material
                   </option>
-                ))}
-              </select>
-            </label>
-            <input type="file" onChange={handleFileChange} className="mr-2" />
-            <button
-              onClick={handleFileUpload}
-              className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600"
-            >
-              Upload
-            </button>
-            <button onClick={() => {
-              setFileInputVisible(false)
-              handleMFUKeyChange(null)
-            }} className="px-4 py-2 hover:text-blue-500">
-              Close
-            </button>
+                  {mfuIds.map((key) => (
+                    <option className="bg-yellow-100" key={key} value={key}>
+                      {key}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            <div className='flex items-center'>
+              <input type="file" onChange={handleFileChange} className="mr-2" />
+              <button
+                onClick={handleFileUpload}
+                className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600"
+              >
+                Upload
+              </button>
+              <button
+                onClick={() => {
+                  setFileInputVisible(false);
+                  handleMFUKeyChange(null);
+                }}
+                className="px-4 py-2 hover:text-blue-500"
+              >
+                Close
+              </button>
             </div>
           </>
-        
         ) : (
-          <>
-          
+          <div className="flex justify-between">
             <button
-              onClick={() => setFileInputVisible(true)}
+              onClick={() => {
+                handleMFUKeyChange(null);
+                setFileInputVisible(true);
+              }}
               className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600 mr-2"
             >
               Upload File
@@ -84,7 +91,7 @@ const RawMaterialsDbData = ({
             >
               Get Data
             </button>
-          </>
+          </div>
         )}
       </div>
     </div>
