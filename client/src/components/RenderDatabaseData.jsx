@@ -562,7 +562,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             const result = {
                                                 RESIDUALSTK:row['RESIDUAL\nSTOCK'] || null,
                                                 SUPPLIER: row['SUPPLIER'] || null,
-                                                BATCHID: row['BATCH\ID'] || null,
+                                                BATCHID: row['BATCH\nID'] || null,
                                                 LOT_NR: row['LOT\nNR'] || null,
                                                 EXPIRYDATE: row['EXPIRY\nDATE'] || null,
                                                 RECEIPTDATE: row['RECEIPT\nDATE'] || null,
