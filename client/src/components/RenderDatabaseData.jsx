@@ -9,14 +9,14 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
     setErrorMessage, setMessage }) => {
 
     const ColorMapping = {
-        "Green": '34AB83',
+        "Green": '49743A',
         "Red": 'F5692B',
         "Orange": 'F7A81C',
         "Blue": '3634AB',
         "Purple": 'AB34A6',
-        "Yellow": 'D4D400',
+        "Yellow": 'FFFF44',
         "Black": '000000',
-        "Pink": 'AB3449',
+        "Light Blue": '93D3FC',
         "White": 'FDFFFD',
     };
 

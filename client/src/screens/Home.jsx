@@ -223,14 +223,14 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
 
 
     const colorMapping = {
-        "34AB83": "Green",
+        "49743A": "Green",
         "F5692B": "Red",
         "F7A81C": "Orange",
         "3634AB": "Blue",
         "AB34A6": "Purple",
-        "D4D400": "Yellow",
+        "FFFF44": "Yellow",
         "000000": "Black",
-        "AB3449": "Pink",
+        "93D3FC": "Light Blue",
         "FDFFFD": "White",
     };
     const transformDatasb = (sbData, userInput) => {

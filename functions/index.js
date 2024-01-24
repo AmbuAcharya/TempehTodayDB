@@ -329,14 +329,14 @@ function transformDatasfu(jsonData, selectedDatabaseKey) {
 }
 
 const colorMapping = {
-  "34AB83": "Green",
+  "49743A": "Green",
   "F5692B": "Red",
   "F7A81C": "Orange",
   "3634AB": "Blue",
   "AB34A6": "Purple",
-  "D4D400": "Yellow",
-  "FF000000": "Black",
-  "AB3449": "Pink",
+  "FFFF44": "Yellow",
+  "000000": "Black",
+  "93D3FC": "Light Blue",
   "FDFFFD": "White",
 };
 
