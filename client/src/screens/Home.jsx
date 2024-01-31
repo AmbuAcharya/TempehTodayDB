@@ -39,6 +39,7 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
 
     const handleDatabaseKeyChange = useCallback((e) => {
         handleMFUKeyChange(null);
+        setFileInputVisible(false)
         setSelectedDatabaseKey(e.target.value);
     }, []);
 

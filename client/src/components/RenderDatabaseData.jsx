@@ -26,6 +26,45 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
         if (file) {
             setLoading(true);
             try {
+                function extractValueForKeywordRAW(row, keyword) {
+                    let keyWithKeyword = null;
+                    
+                    // Iterate over keys and find the first key containing the current keyword
+                    for (const key in row) {
+                        if (Object.prototype.hasOwnProperty.call(row, key) && key.includes(keyword)) {
+                        keyWithKeyword = key;
+                        break; // Stop iterating after finding the first key containing the keyword
+                        }
+                    }
+                    
+                    // Return the value associated with the keyword
+                    return keyWithKeyword ? row[keyWithKeyword] : null;
+                }
+                
+                function extractValueForKeyword(row, mainKey, subKey) {
+                    let mainKeyFound = false;
+                
+                    // Iterate over keys and find the first key containing the main key
+                    for (const key in row) {
+                        if (Object.prototype.hasOwnProperty.call(row, key) && key.includes(mainKey)) {
+                            mainKeyFound = true;
+                
+                            // Check if the key contains the subkey
+                            if (key.includes(subKey)) {
+                                return row[key];
+                            }
+                        } else if (mainKeyFound) {
+                            // If main key is found and the current key does not contain the subkey,
+                            // check if the next key in the same line contains the subkey
+                            if (key.includes(subKey)) {
+                                return row[key];
+                            }
+                        }
+                    }
+                
+                    return null;
+                }
+                
                 if (selectedDatabaseKey === "MFU_DB") {
                     const workbook = read(file.buffer, { type: 'buffer' });
                     const sheetNames = workbook.SheetNames;
@@ -63,19 +102,19 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                 }
                                 else {
                                     excelData.forEach(row => {
-                                        const { GB_ID, SB_ID, 'GENERAL-BATCH\nDATE': GB_DATE, 'GENERAL-BATCH\nTIME': GB_TIME, 'SUB-BATCH\nDATE': SB_DATE, 'SUB-BATCH\nTIME': SB_TIME, 'OPERATOR': OPERATOR_ID, STATUS, COLOR, 'SOAKING\nSTART': SOAKING_START, 'SOAKING\nSTOP': SOAKING_STOP, 'BOILING\nSTART': BOILING_START, 'BOILING\nReboil': BOILING_Reboil, 'BOILING\nSTOP': BOILING_STOP, 'MFU\nSTART': MFU_START, 'MFU\nSTOP': MFU_STOP, 'COOLING\nTEMPERATURE': INOCULATION_TEMPERATURE, 'SOAKING\nPH': SOAKING_PH } = row;
+                                        const { GB_ID, SB_ID, OPERATOR_ID, STATUS, COLOR } = row;
 
                                         if (!GBNode[GB_ID]) {
                                             GBNode[GB_ID] = {
-                                                DATE: GB_DATE || null,
-                                                TIME: GB_TIME || null,
+                                                DATE: extractValueForKeyword(row,'GENERAL-BATCH', 'DATE') || null,
+                                                TIME: extractValueForKeyword(row,'GENERAL-BATCH','TIME') || null,
                                                 operatorId: OPERATOR_ID || null
                                             };
                                         }
                                         else {
                                             // Update existing data if GB_ID already exists
-                                            GBNode[GB_ID].DATE = GB_DATE || GBNode[GB_ID].DATE;
-                                            GBNode[GB_ID].TIME = GB_TIME || GBNode[GB_ID].TIME;
+                                            GBNode[GB_ID].DATE = extractValueForKeyword(row, 'GENERAL-BATCH','DATE') || GBNode[GB_ID].DATE;
+                                            GBNode[GB_ID].TIME = extractValueForKeyword(row, 'GENERAL-BATCH','TIME') || GBNode[GB_ID].TIME;
                                             GBNode[GB_ID].operatorId = OPERATOR_ID || GBNode[GB_ID].operatorId;
                                         }
 
@@ -83,47 +122,47 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             GBNode[GB_ID][SB_ID] = {
                                                 BOILING: {
                                                     REBOIL: {
-                                                        ReboilTime: BOILING_Reboil || null,
+                                                        ReboilTime: extractValueForKeyword(row,'BOILING','Reboil') || null,
                                                         Operator_ID: OPERATOR_ID || null,
                                                     },
                                                     STOP: {
-                                                        StopTime: BOILING_STOP || null,
+                                                        StopTime: extractValueForKeyword(row,'BOILING','STOP') || null,
                                                         Operator_ID: OPERATOR_ID || null,
                                                     },
                                                     START: {
-                                                        StartTime: BOILING_START || null,
+                                                        StartTime: extractValueForKeyword(row,'BOILING','START') || null,
                                                         Operator_ID: OPERATOR_ID || null,
                                                     }
                                                 },
-                                                DATE: SB_DATE || null,
+                                                DATE: extractValueForKeyword(row,'SUB-BATCH','DATE') || null,
                                                 COLOR: ColorMapping[COLOR] || null,
                                                 INOCULATION: {
                                                     Operator_ID: OPERATOR_ID || null,
-                                                    temperature: INOCULATION_TEMPERATURE || null,
+                                                    temperature: extractValueForKeyword(row,'COOLING','TEMPERATURE') || null,
                                                 },
                                                 MFU: {
                                                     START: {
-                                                        StartTime: MFU_START || null,
+                                                        StartTime: extractValueForKeyword(row,'MFU','START') || null,
                                                         Operator_ID: OPERATOR_ID || null,
                                                     },
                                                     STOP: {
-                                                        StopTime: MFU_STOP || null,
+                                                        StopTime: extractValueForKeyword(row,'MFU','STOP') || null,
                                                         Operator_ID: OPERATOR_ID || null,
                                                     }
                                                 },
                                                 SOAKING: {
                                                     START: {
-                                                        StartTime: SOAKING_START || null,
+                                                        StartTime: extractValueForKeyword(row,'SOAKING','START') || null,
                                                         Operator_ID: OPERATOR_ID || null,
                                                     },
                                                     STOP: {
-                                                        StopTime: SOAKING_STOP || null,
+                                                        StopTime: extractValueForKeyword(row,'SOAKING','STOP') || null,
                                                         Operator_ID: OPERATOR_ID || null,
                                                     },
-                                                    ph: SOAKING_PH || null,
+                                                    ph: extractValueForKeyword(row,'SOAKING','PH') || null,
                                                 },
                                                 status: STATUS || null,
-                                                TIME: SB_TIME || null,
+                                                TIME: extractValueForKeyword(row,'SUB-BATCH','TIME') || null,
                                                 operatorId: OPERATOR_ID || null,
                                             };
                                         }
@@ -132,47 +171,47 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             GBNode[GB_ID][SB_ID] = {
                                                 BOILING: {
                                                     REBOIL: {
-                                                        ReboilTime: BOILING_Reboil || null,
+                                                        ReboilTime: extractValueForKeyword(row,'BOILING','Reboil') || null,
                                                         Operator_ID: OPERATOR_ID || null,
                                                     },
                                                     STOP: {
-                                                        StopTime: BOILING_STOP || null,
+                                                        StopTime: extractValueForKeyword(row,'BOILING','STOP') || null,
                                                         Operator_ID: OPERATOR_ID || null,
                                                     },
                                                     START: {
-                                                        StartTime: BOILING_START || null,
+                                                        StartTime: extractValueForKeyword(row,'BOILING','START') || null,
                                                         Operator_ID: OPERATOR_ID || null,
                                                     }
                                                 },
-                                                DATE: SB_DATE || null,
+                                                DATE: extractValueForKeyword(row,'SUB-BATCH','DATE') || null,
                                                 COLOR: ColorMapping[COLOR] || null,
                                                 INOCULATION: {
                                                     Operator_ID: OPERATOR_ID || null,
-                                                    temperature: INOCULATION_TEMPERATURE || null,
+                                                    temperature: extractValueForKeyword(row,'COOLING','TEMPERATURE') || null,
                                                 },
                                                 MFU: {
                                                     START: {
-                                                        StartTime: MFU_START || null,
+                                                        StartTime: extractValueForKeyword(row,'MFU','START') || null,
                                                         Operator_ID: OPERATOR_ID || null,
                                                     },
                                                     STOP: {
-                                                        StopTime: MFU_STOP || null,
+                                                        StopTime: extractValueForKeyword(row,'MFU','STOP') || null,
                                                         Operator_ID: OPERATOR_ID || null,
                                                     }
                                                 },
                                                 SOAKING: {
                                                     START: {
-                                                        StartTime: SOAKING_START || null,
+                                                        StartTime: extractValueForKeyword(row,'SOAKING','START') || null,
                                                         Operator_ID: OPERATOR_ID || null,
                                                     },
                                                     STOP: {
-                                                        StopTime: SOAKING_STOP || null,
+                                                        StopTime: extractValueForKeyword(row,'SOAKING','STOP') || null,
                                                         Operator_ID: OPERATOR_ID || null,
                                                     },
-                                                    ph: SOAKING_PH || null,
+                                                    ph: extractValueForKeyword(row,'SOAKING','PH') || null,
                                                 },
                                                 status: STATUS || null,
-                                                TIME: SB_TIME || null,
+                                                TIME: extractValueForKeyword(row,'SUB-BATCH','TIME') || null,
                                                 operatorId: OPERATOR_ID || null,
                                             };
                                         }
@@ -184,6 +223,9 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                             } catch (sheetError) {
                                 console.error(`Error processing sheet "${sheetName}":`, sheetError);
                                 // Handle the error, set an appropriate error message, or skip the sheet
+                            }
+                            finally{
+                                setLoading(false);
                             }
                         }
 
@@ -253,9 +295,10 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                                 setErrorMessage('No data in Excel');
                                                 console.log('No data in Excel');
                                             } else {
+
                                                 excelData.forEach(row => {
                                                     const { SFU, GB_ID, 'GENERAL-BATCH\nDATE': GB_DATE, 'GENERAL-BATCH\nTIME': GB_TIME, SB_ID, 'SUB-BATCH\nDATE': SB_DATE, 'SUB-BATCH\nTIME': SB_TIME, SC_ID, '%SC': SCp, VIN_ID, VTBL_ID, OPERATOR, 'SOAKING\nPH': SOAKING_PH, 'SOAKING\nSTART': SOAKING_START, 'SOAKING\nSTOP': SOAKING_STOP, 'BOILING\nSTART': BOILING_START, 'BOILING\nReboil': BOILING_Reboil, 'BOILING\nSTOP': BOILING_STOP, 'COOLING\nTEMPERATURE': INOCULATION_TEMPERATURE, 'SFU\nSTART': SFU_START, 'SFU\nSTOP': SFU_STOP } = row;
-
+                                                    
                                                     if (SFU !== sfuCellValue) {
                                                         // If SFU value changes, update sfuCellValue and create a new node
                                                         sfuCellValue = SFU;
@@ -448,18 +491,22 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             const existingData = existingDataSnapshot.val();
                                             
                                             
-                                            const result = {
-                                                RESIDUALSTK:row['RESIDUAL\nSTOCK'] || null,
-                                                SUPPLIER: row['SUPPLIER'] || null,
-                                                HARVESTDATE: row['HARVEST\nDATE'] || null,
-                                                STRAIN: row['STRAIN'] || null,
-                                                LOT_NR: row['LOT\nNR'] || null,
-                                                EXPIRYDATE: row['EXPIRY\nDATE'] || null,
-                                                RECEIPTDATE: row['RECEIPT\nDATE'] || null,
-                                                INVOICENO: row['INVOICE\nNO'] || null,
-                                                SOYBID: SoyBID || null,
-                                            };
-
+                                              
+                                              const result = {
+                                                RESIDUALSTK: extractValueForKeywordRAW(row, 'RESIDUAL') || null,
+                                                SUPPLIER: row.SUPPLIER || null,
+                                                HARVESTDATE: extractValueForKeywordRAW(row, 'HARVEST') || null,
+                                                STRAIN: row.STRAIN || null,
+                                                LOT_NR: extractValueForKeywordRAW(row, 'LOT')|| null ,
+                                                EXPIRYDATE: extractValueForKeywordRAW(row, 'EXPIRY')|| null,
+                                                RECEIPTDATE: extractValueForKeywordRAW(row, 'RECEIPT')|| null,
+                                                INVOICENO: extractValueForKeywordRAW(row, 'INVOICE')|| null,
+                                                SOYBID: row.SoyBID || null,
+                                              };
+                                              
+                                              
+  
+                                              
                                             console.log('Existing data:', existingData);
                                             console.log('New data:', result);
 
@@ -473,7 +520,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                     }else if(selectedMFUKey==="Starter Culture"){
                                         for (const row of excelData) {
                                             // Extract SoyBID from the Excel column 'SoyBID'
-                                            const ScID = row['STARTER\nCULTURE\nID'];
+                                            const ScID = extractValueForKeywordRAW(row,'STARTER');
                                             if (!ScID) {
                                                 console.error('Starter Culture ID is missing in the row. Skipping row.');
                                                 setErrorMessage('No Valid Excel File');
@@ -491,10 +538,10 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             const result = {
                                                 SUPPLIER: row['SUPPLIER'] || null,
                                                 STRAIN: row['STRAIN'] || null,
-                                                LOT_NR: row['LOT\nNR'] || null,
-                                                EXPIRYDATE: row['EXPIRY\nDATE'] || null,
-                                                RECEIPTDATE: row['RECEIPT\nDATE'] || null,
-                                                INVOICENO: row['INVOICE\nNO'] || null,
+                                                LOT_NR: extractValueForKeywordRAW(row,'LOT') || null,
+                                                EXPIRYDATE: extractValueForKeywordRAW(row,'EXPIRY') || null,
+                                                RECEIPTDATE: extractValueForKeywordRAW(row,'RECEIPT') || null,
+                                                INVOICENO: extractValueForKeywordRAW(row, 'INVOICE') || null,
                                                 ScID: ScID || null,
                                             };
 
@@ -527,13 +574,13 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             
                                             
                                             const result = {
-                                                RESIDUALSTK:row['RESIDUAL\nSTOCK'] || null,
+                                                RESIDUALSTK:extractValueForKeywordRAW(row,'RESIDUAL') || null,
                                                 SUPPLIER: row['SUPPLIER'] || null,
-                                                PRODDATE: row['PRODUCTION\nDATE'] || null,
-                                                LOT_NR: row['LOT\nNR'] || null,
-                                                EXPIRYDATE: row['EXPIRY\nDATE'] || null,
-                                                RECEIPTDATE: row['RECEIPT\nDATE'] || null,
-                                                INVOICENO: row['INVOICE\nNO'] || null,
+                                                PRODDATE: extractValueForKeywordRAW(row,'PRODUCTION') || null,
+                                                LOT_NR: extractValueForKeywordRAW(row,'LOT') || null,
+                                                EXPIRYDATE: extractValueForKeywordRAW(row,'EXPIRY') || null,
+                                                RECEIPTDATE: extractValueForKeywordRAW(row,'RECEIPT') || null,
+                                                INVOICENO: extractValueForKeywordRAW(row,'INVOICE') || null,
                                                 VITBLID: VITBLID || null,
                                             };
 
@@ -566,13 +613,13 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             
                                             
                                             const result = {
-                                                RESIDUALSTK:row['RESIDUAL\nSTOCK'] || null,
+                                                RESIDUALSTK: extractValueForKeywordRAW(row,'RESIDUAL') || null,
                                                 SUPPLIER: row['SUPPLIER'] || null,
-                                                BATCHID: row['BATCH\nID'] || null,
-                                                LOT_NR: row['LOT\nNR'] || null,
-                                                EXPIRYDATE: row['EXPIRY\nDATE'] || null,
-                                                RECEIPTDATE: row['RECEIPT\nDATE'] || null,
-                                                INVOICENO: row['INVOICE\nNO'] || null,
+                                                BATCHID: extractValueForKeywordRAW(row,'BATCH') || null,
+                                                LOT_NR: extractValueForKeywordRAW(row,'LOT') || null,
+                                                EXPIRYDATE: extractValueForKeywordRAW(row,'EXPIRY') || null,
+                                                RECEIPTDATE: extractValueForKeywordRAW(row,'RECEIPT') || null,
+                                                INVOICENO: extractValueForKeywordRAW(row,'INVOICE') || null,
                                                 VID: VID || null,
                                             };
 
@@ -589,7 +636,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                     }else if(selectedMFUKey==="Rice flower"){
                                         for (const row of excelData) {
                                             // Extract SoyBID from the Excel column 'SoyBID'
-                                            const BID = row['BATCH\nID'];
+                                            const BID = extractValueForKeywordRAW(row,'BATCH');
                                             if (!BID) {
                                                 console.error('Batch ID is missing in the row. Skipping row.');
                                                 setErrorMessage('No Valid Excel File');
@@ -605,12 +652,12 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             
                                             
                                             const result = {
-                                                RESIDUALSTK:row['RESIDUAL\nSTOCK'] || null,
+                                                RESIDUALSTK: extractValueForKeywordRAW(row,'RESIDUAL') || null,
                                                 SUPPLIER: row['SUPPLIER'] || null,
-                                                LOT_NR: row['LOT\nNR'] || null,
-                                                EXPIRYDATE: row['EXPIRY\nDATE'] || null,
-                                                RECEIPTDATE: row['RECEIPT\nDATE'] || null,
-                                                INVOICENO: row['INVOICE\nNO'] || null,
+                                                LOT_NR: extractValueForKeywordRAW(row,'LOT') || null,
+                                                EXPIRYDATE: extractValueForKeywordRAW(row,'EXPIRY') || null,
+                                                RECEIPTDATE: extractValueForKeywordRAW(row,'RECEIPT') || null,
+                                                INVOICENO: extractValueForKeywordRAW(row,'INVOICE') || null,
                                                 BID: BID || null,
                                             };
 
@@ -626,7 +673,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                     }else if(selectedMFUKey==="Product intake"){
                                         for (const row of excelData) {
                                             // Extract SoyBID from the Excel column 'SoyBID'
-                                            const MFUSBID = row['MFU\nSBID'];
+                                            const MFUSBID = extractValueForKeywordRAW(row,'MFU');
                                             if (!MFUSBID) {
                                                 console.error('MFU SBID is missing in the row. Skipping row.');
                                                 setErrorMessage('No Valid Excel File');
@@ -643,11 +690,11 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             
                                             const result = {
                                                 OPERATOR: row['OPERATOR'] || null,
-                                                TOTALWEIGHT: row['TOTAL\nWEIGHT'] || null,
-                                                DATEINTAKE: row['DATE\nOF\nINTAKE'] || null,
-                                                QUALITYAPP: row['QUALITY\nAPPROVED'] || null,
-                                                INFREEZER: row['IN\nFREEZER'] || null,
-                                                USEDBATCH: row['USED\nIN\nBATCH'] || null,
+                                                TOTALWEIGHT: extractValueForKeywordRAW(row,'TOTAL') || null,
+                                                DATEINTAKE: extractValueForKeywordRAW(row,'DATE') || null,
+                                                QUALITYAPP: extractValueForKeywordRAW(row,'QUALITY') || null,
+                                                INFREEZER: extractValueForKeywordRAW(row,'IN') || null,
+                                                USEDBATCH: extractValueForKeywordRAW(row,'USED') || null,
                                                 MFUSBID: MFUSBID || null,
                                             };
 

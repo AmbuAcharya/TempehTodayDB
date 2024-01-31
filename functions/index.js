@@ -523,44 +523,41 @@ async function generateExcelBuffer(data, userProvidedDocumentId) {
 
   worksheet.pageSetup.orientation = 'landscape';
   worksheet.pageSetup.fitToPage = true;
-  worksheet.pageSetup.fitToWidth = 1; // Number of pages to fit to (1 means fit to 1 page wide)
-  worksheet.pageSetup.fitToHeight = 0; // Number of pages to fit to (0 means auto-adjust height)
-  worksheet.pageSetup.printTitlesRow = '1'; // Repeat the first row on each printed page
 
   const keys = Object.keys(data[0]);
+
   const columnWidths = {};
 
   worksheet.columns = keys.map((key) => {
-    const headerText = key.replace(/ /g, '\n'); // Remove line break and spaces
+    const headerText = key.replace(/ /g, '\n'); // Use line breaks for headers
     const headerLength = headerText.length;
     const initialWidth = Math.max(headerLength, 15);
     const columnData = { header: headerText, key, width: initialWidth };
     columnWidths[key] = initialWidth;
     return columnData;
-  })
+  });
 
   worksheet.addRows(data);
 
-  // Style headers to be bold and center-aligned
   worksheet.getRow(1).font = { bold: true, horizontal: 'center' };
 
-  // Set alignment for all cells to center and adjust spacing based on max word length
+  // Set alignment for all cells to center
   worksheet.eachRow((row) => {
-    row.eachCell((cell, colNumber) => {
+    row.eachCell((cell) => {
       cell.alignment = { horizontal: 'center' };
-      const columnKey = keys[colNumber - 1];
-      const cellLength = cell.value ? cell.value.toString().length : 0;
-      const columnWidth = Math.max(columnWidths[columnKey], cellLength);
-      worksheet.getColumn(colNumber).width = columnWidth + 2; // Add spacing
     });
   });
 
   // Add table borders to all cells
-  worksheet.eachRow((row, rowNum) => {
-    row.eachCell((cell, colNumber) => {
+  worksheet.eachRow((row) => {
+    row.eachCell((cell) => {
       cell.border = { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } };
+      cell.alignment.wrapText = true;
     });
   });
+
+  // Remove named ranges from the workbook
+  workbook.definedNames = [];
 
   // Generate buffer
   const excelBuffer = await workbook.xlsx.writeBuffer();

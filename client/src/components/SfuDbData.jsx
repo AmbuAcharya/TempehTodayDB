@@ -17,14 +17,14 @@ const SfuDbData = ({
       {!fileInputVisible ? (
         <>
           <label htmlFor="mfuSelect" className="block mb-4">
-            <span className="font-bold text-blue-500">Select SFU ID:</span>
+            <span className="font-bold text-blue-500">Select SFU Location:</span>
             <select
               id="mfuSelect"
               value={selectedMFUKey}
               onChange={handleMFUKeyChange}
               className="w-full p-2 border rounded"
             >
-              <option disabled className="bg-yellow-100" value="">Select SFU ID</option>
+              <option disabled className="bg-yellow-100" value="">Select SFU Location</option>
               {mfuIds.map((key) => (
                 <option className="bg-yellow-100" key={key} value={key}>
                   {key}
@@ -33,7 +33,7 @@ const SfuDbData = ({
             </select>
           </label>
           <label htmlFor="searchInput" className="block mb-4">
-            <span className="font-bold text-blue-500">Find Batch or Operator:</span>
+            <span className="font-bold text-blue-500">Find Batch or SFU:</span>
             <input
               type="text"
               id="searchInput"
@@ -75,8 +75,10 @@ const SfuDbData = ({
         ) : (
           <>
             <button
-              onClick={() => setFileInputVisible(true)}
-              className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600 mr-2"
+              onClick={() => {
+                setFileInputVisible(true)
+                handleMFUKeyChange(null)
+              }} className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer hover:bg-blue-600 mr-2"
             >
               Upload File
             </button>
