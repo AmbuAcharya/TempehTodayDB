@@ -131,6 +131,7 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
         try {
             if (!selectedMFUKey || (selectedMFUKey && explicitGetDataTriggered)) {
                 setData('');
+                setMessage('');
                 setErrorMessage(selectedDatabaseKey === 'MFU_DB'
                     ? 'MFU ID is required'
                     : selectedDatabaseKey === 'SFU'
