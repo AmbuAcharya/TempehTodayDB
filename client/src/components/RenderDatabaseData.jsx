@@ -29,33 +29,27 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                 function extractValueForKeywordRAW(row, keyword) {
                     let keyWithKeyword = null;
                     
-                    // Iterate over keys and find the first key containing the current keyword
                     for (const key in row) {
                         if (Object.prototype.hasOwnProperty.call(row, key) && key.includes(keyword)) {
                         keyWithKeyword = key;
-                        break; // Stop iterating after finding the first key containing the keyword
+                        break; 
                         }
                     }
                     
-                    // Return the value associated with the keyword
                     return keyWithKeyword ? row[keyWithKeyword] : null;
                 }
                 
                 function extractValueForKeyword(row, mainKey, subKey) {
                     let mainKeyFound = false;
                 
-                    // Iterate over keys and find the first key containing the main key
                     for (const key in row) {
                         if (Object.prototype.hasOwnProperty.call(row, key) && key.includes(mainKey)) {
                             mainKeyFound = true;
                 
-                            // Check if the key contains the subkey
                             if (key.includes(subKey)) {
                                 return row[key];
                             }
                         } else if (mainKeyFound) {
-                            // If main key is found and the current key does not contain the subkey,
-                            // check if the next key in the same line contains the subkey
                             if (key.includes(subKey)) {
                                 return row[key];
                             }
