@@ -26,16 +26,32 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
         if (file) {
             setLoading(true);
             try {
+                // function extractValueForKeywordRAW(row, keyword) {
+                //     let keyWithKeyword = null;
+                    
+                //     for (const key in row) {
+                //         if (Object.prototype.hasOwnProperty.call(row, key) && key.includes(keyword)) {
+                //         keyWithKeyword = key;
+                //         break; 
+                //         }
+                //     }
+                    
+                //     return keyWithKeyword ? row[keyWithKeyword] : null;
+                // }
+                
                 function extractValueForKeywordRAW(row, keyword) {
                     let keyWithKeyword = null;
                     
+                    // Iterate through the keys of the 'row' object
                     for (const key in row) {
+                        // Check if the key includes the specified 'keyword'
                         if (Object.prototype.hasOwnProperty.call(row, key) && key.includes(keyword)) {
-                        keyWithKeyword = key;
-                        break; 
+                            keyWithKeyword = key;
+                            break;  // Exit the loop once a matching key is found
                         }
                     }
-                    
+                                   
+                    // Return the value associated with the found key (or null if no matching key is found)
                     return keyWithKeyword ? row[keyWithKeyword] : null;
                 }
                 
@@ -478,7 +494,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             }
                                             else{
                                             // Replace 'RAW_MATERIALS' with the actual value of selectedDatabaseKey
-                                            const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${SoyBID}`;
+                                            const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${SoyBID.replace(/[\.\s]/g, '_')}`;
                                             const refNode = ref(db, refPath);
 
                                             const existingDataSnapshot = await get(refNode);
@@ -522,7 +538,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             }
                                             else{
                                             // Replace 'RAW_MATERIALS' with the actual value of selectedDatabaseKey
-                                            const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${ScID}`;
+                                            const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${ScID.replace(/[\.\s]/g, '_')}`;
                                             const refNode = ref(db, refPath);
 
                                             const existingDataSnapshot = await get(refNode);
@@ -560,7 +576,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             }
                                             else{
                                             // Replace 'RAW_MATERIALS' with the actual value of selectedDatabaseKey
-                                            const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${VITBLID}`;
+                                            const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${VITBLID.replace(/[\.\s]/g, '_')}`;
                                             const refNode = ref(db, refPath);
 
                                             const existingDataSnapshot = await get(refNode);
@@ -599,7 +615,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             }
                                             else{
                                             // Replace 'RAW_MATERIALS' with the actual value of selectedDatabaseKey
-                                            const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${VID}`;
+                                            const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${VID.replace(/[\.\s]/g, '_')}`;
                                             const refNode = ref(db, refPath);
 
                                             const existingDataSnapshot = await get(refNode);
@@ -631,6 +647,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                         for (const row of excelData) {
                                             // Extract SoyBID from the Excel column 'SoyBID'
                                             const BID = extractValueForKeywordRAW(row,'BATCH');
+                                            
                                             if (!BID) {
                                                 console.error('Batch ID is missing in the row. Skipping row.');
                                                 setErrorMessage('No Valid Excel File');
@@ -638,7 +655,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             }
                                             else{
                                             // Replace 'RAW_MATERIALS' with the actual value of selectedDatabaseKey
-                                            const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${BID}`;
+                                            const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${BID.replace(/[\.\s]/g, '_')}`;
                                             const refNode = ref(db, refPath);
 
                                             const existingDataSnapshot = await get(refNode);
@@ -668,6 +685,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                         for (const row of excelData) {
                                             // Extract SoyBID from the Excel column 'SoyBID'
                                             const MFUSBID = extractValueForKeywordRAW(row,'MFU');
+                                            
                                             if (!MFUSBID) {
                                                 console.error('MFU SBID is missing in the row. Skipping row.');
                                                 setErrorMessage('No Valid Excel File');
@@ -675,7 +693,7 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
                                             }
                                             else{
                                             // Replace 'RAW_MATERIALS' with the actual value of selectedDatabaseKey
-                                            const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${MFUSBID}`;
+                                            const refPath = `${selectedDatabaseKey}/${selectedMFUKey}/${MFUSBID.replace(/[\.\s]/g, '_')}`;
                                             const refNode = ref(db, refPath);
 
                                             const existingDataSnapshot = await get(refNode);

@@ -63,8 +63,8 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
 
     var serverUrl = ""
     // const serverUrl='http://localhost:5001';
-    // const serverUrl = 'https://tempehtoday-f866c.web.app';
-    serverUrl = window.location.origin;
+    serverUrl = 'https://tempehtoday-f866c.web.app';
+    // serverUrl = window.location.origin;
     // serverUrl = 'http://localhost:5000/tempehtoday-f866c/us-central1/app';
 
     useEffect(() => {
@@ -667,7 +667,7 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
                 return acc;
                 }, {})
             } : selectedKey === "Rice flower" ? {
-                "BATCH ID": sbID || '',
+                "BATCH ID": sbID.replace(/_/g, '.') || '',
                 ...Object.keys(mapping).reduce((acc, key) => {
                 acc[key] = sbData[mapping[key]] || '';
                 return acc;

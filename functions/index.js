@@ -480,7 +480,7 @@ const transformDataRawMaterials = (jsonData, selectedKey) => {
           return acc;
           }, {})
       } : selectedKey === "Rice flower" ? {
-          "BATCH ID": sbID || '',
+          "BATCH ID": sbID.replace(/_/g, '.') || '',
           ...Object.keys(mapping).reduce((acc, key) => {
           acc[key] = sbData[mapping[key]] || '';
           return acc;
