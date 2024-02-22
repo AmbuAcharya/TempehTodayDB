@@ -324,15 +324,15 @@ const RenderDatabaseData = ({ selectedDatabaseKey, MfuDbData, fileInputVisible, 
 
                                                     if (!GBNode[GB_ID]) {
                                                         GBNode[GB_ID] = {
-                                                            DATE: GB_DATE || null,
-                                                            TIME: GB_TIME || null,
+                                                            DATE: extractValueForKeyword(row, 'GENERAL-BATCH', 'DATE') || null,
+                                                            TIME: extractValueForKeyword(row, 'GENERAL-BATCH', 'TIME') || null,
                                                             operatorId: OPERATOR || null,
                                                         };
                                                     }
                                                     else {
                                                         // Update existing data if GB_ID already exists
-                                                        GBNode[GB_ID].DATE = GB_DATE || GBNode[GB_ID].DATE;
-                                                        GBNode[GB_ID].TIME = GB_TIME || GBNode[GB_ID].TIME;
+                                                        GBNode[GB_ID].DATE = extractValueForKeyword(row, 'GENERAL-BATCH', 'DATE') || GBNode[GB_ID].DATE;
+                                                        GBNode[GB_ID].TIME = extractValueForKeyword(row, 'GENERAL-BATCH', 'TIME') || GBNode[GB_ID].TIME;
                                                         GBNode[GB_ID].operatorId = OPERATOR || GBNode[GB_ID].operatorId;
                                                     }
 
