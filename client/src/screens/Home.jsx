@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { get, off, onValue, ref } from 'firebase/database';
+import { get, set, off, onValue, ref } from 'firebase/database';
 import React, { useCallback, useEffect, useState } from 'react';
 import DatabaseSelection from '../components/DatabaseSelection';
 import DatabaseTable from '../components/DatabaseTable';
@@ -21,6 +21,75 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
     const [userInput, setUserInput] = useState('');
     const [explicitGetDataTriggered, setExplicitGetDataTriggered] = useState(false);
 
+    const initializeFirebaseNodes = async () => {
+        const database = db;
+
+        // Set initial data for MFU_DB if it doesn't exist
+        try {
+            const mfuRef = ref(database, 'MFU_DB');
+            const mfuSnapshot = await get(mfuRef);
+            if (!mfuSnapshot.exists()) {
+                await set(mfuRef, "");
+                console.log('MFU_DB initialized successfully');
+            } else {
+                console.log('MFU_DB already exists');
+            }
+        } catch (error) {
+            console.error('Error initializing MFU_DB:', error.message);
+        }
+
+        // Set initial data for SFU if it doesn't exist
+        try {
+            const sfuRef = ref(database, 'SFU');
+            const sfuSnapshot = await get(sfuRef);
+            if (!sfuSnapshot.exists()) {
+                await set(sfuRef, "");
+                console.log('SFU initialized successfully');
+            } else {
+                console.log('SFU already exists');
+            }
+        } catch (error) {
+            console.error('Error initializing SFU:', error.message);
+        }
+
+        // Set initial data for RAW_MATERIALS
+        try {
+            const rawMaterialsRef = ref(database, 'RAW_MATERIALS');
+            const rawMaterialsSnapshot = await get(rawMaterialsRef);
+
+            if (!rawMaterialsSnapshot.exists()) {
+                // Create RAW_MATERIALS if it doesn't exist
+                const rawMaterialsData = {
+                    'Product intake': "",
+                    'Soybean': "",
+                    'Rice flower': "",
+                    'Starter Culture': "",
+                    'Vinegar': "",
+                    'Vitblend': ""
+                };
+                await set(rawMaterialsRef, rawMaterialsData);
+                console.log('RAW_MATERIALS initialized successfully');
+            } else {
+                console.log('RAW_MATERIALS already exists');
+            }
+
+        } catch (error) {
+            console.error('Error initializing RAW_MATERIALS:', error.message);
+        }
+
+        // Fetch the keys after initializing data
+        const databaseRef = ref(database);
+        try {
+            const existingDataSnapshot = await get(databaseRef);
+            const databaseKeys = Object.keys(existingDataSnapshot.val());
+            console.log('Database keys:', databaseKeys);
+        } catch (error) {
+            console.error('Error fetching initial data:', error.message);
+        }
+    };
+
+    // Call the function to initialize Firebase nodes
+    initializeFirebaseNodes();
 
     useEffect(() => {
         setMfuId('');
@@ -591,25 +660,25 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
                 "USED IN BATCH": "USEDBATCH"
             },
             "Rice flower": {
-                "LOT NR":"LOT_NR",
+                "LOT NR": "LOT_NR",
                 "SUPPLIER": "SUPPLIER",
                 "INVOICE NO": "INVOICENO",
                 "RECEIPT DATE": "RECEIPTDATE",
-                "RESIDUAL STOCK":"RESIDUALSTK",
+                "RESIDUAL STOCK": "RESIDUALSTK",
                 "EXPIRY DATE": "EXPIRYDATE",
             },
             "Soybean": {
-                "LOT NR":"LOT_NR",
+                "LOT NR": "LOT_NR",
                 "SUPPLIER": "SUPPLIER",
                 "HARVEST DATE": "HARVESTDATE",
                 "INVOICE NO": "INVOICENO",
                 "RECEIPT DATE": "RECEIPTDATE",
-                "RESIDUAL STOCK":"RESIDUALSTK",
+                "RESIDUAL STOCK": "RESIDUALSTK",
                 "STRAIN": "STRAIN",
                 "EXPIRY DATE": "EXPIRYDATE",
             },
             "Starter Culture": {
-                "LOT NR":"LOT_NR",
+                "LOT NR": "LOT_NR",
                 "SUPPLIER": "SUPPLIER",
                 "INVOICE NO": "INVOICENO",
                 "RECEIPT DATE": "RECEIPTDATE",
@@ -617,21 +686,21 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
                 "EXPIRY DATE": "EXPIRYDATE",
             },
             "Vinegar": {
-                "BATCH ID":"BATCHID",
-                "LOT NR":"LOT_NR",
+                "BATCH ID": "BATCHID",
+                "LOT NR": "LOT_NR",
                 "SUPPLIER": "SUPPLIER",
                 "INVOICE NO": "INVOICENO",
                 "RECEIPT DATE": "RECEIPTDATE",
-                "RESIDUAL STOCK":"RESIDUALSTK",
+                "RESIDUAL STOCK": "RESIDUALSTK",
                 "EXPIRY DATE": "EXPIRYDATE",
             },
             "Vitblend": {
-                "LOT NR":"LOT_NR",
+                "LOT NR": "LOT_NR",
                 "SUPPLIER": "SUPPLIER",
                 "INVOICE NO": "INVOICENO",
                 "RECEIPT DATE": "RECEIPTDATE",
-                "PRODUCTION DATE":"PRODDATE",
-                "RESIDUAL STOCK":"RESIDUALSTK",
+                "PRODUCTION DATE": "PRODDATE",
+                "RESIDUAL STOCK": "RESIDUALSTK",
                 "EXPIRY DATE": "EXPIRYDATE",
             }
         };
@@ -660,45 +729,45 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
             }
             var row = {};
             row = selectedKey === "Product intake" ?
-            {
-                "MFU SBID": sbID || '',
-                ...Object.keys(mapping).reduce((acc, key) => {
-                acc[key] = sbData[mapping[key]] || '';
-                return acc;
-                }, {})
-            } : selectedKey === "Rice flower" ? {
-                "BATCH ID": sbID.replace(/_/g, '.') || '',
-                ...Object.keys(mapping).reduce((acc, key) => {
-                acc[key] = sbData[mapping[key]] || '';
-                return acc;
-                }, {})
-            } : selectedKey === "Soybean" ? {
-                SoyBID: sbID || '',
-                ...Object.keys(mapping).reduce((acc, key) => {
-                acc[key] = sbData[mapping[key]] || '';
-                return acc;
-                }, {})
-            } : selectedKey === "Starter Culture" ? {
-                "STARTER CULTURE ID": sbID || '',
-                ...Object.keys(mapping).reduce((acc, key) => {
-                acc[key] = sbData[mapping[key]] || '';
-                return acc;
-                }, {})
-            } : selectedKey === "Vinegar" ? {
-                "VID": sbID || '',
-                ...Object.keys(mapping).reduce((acc, key) => {
-                acc[key] = sbData[mapping[key]] || '';
-                return acc;
-                }, {})
-            } : selectedKey === "Vitblend" ? {
-                "VITBL_ID": sbID || '',
-                ...Object.keys(mapping).reduce((acc, key) => {
-                acc[key] = sbData[mapping[key]] || '';
-                return acc;
-                }, {})
-            } : {};
+                {
+                    "MFU SBID": sbID || '',
+                    ...Object.keys(mapping).reduce((acc, key) => {
+                        acc[key] = sbData[mapping[key]] || '';
+                        return acc;
+                    }, {})
+                } : selectedKey === "Rice flower" ? {
+                    "BATCH ID": sbID.replace(/_/g, '.') || '',
+                    ...Object.keys(mapping).reduce((acc, key) => {
+                        acc[key] = sbData[mapping[key]] || '';
+                        return acc;
+                    }, {})
+                } : selectedKey === "Soybean" ? {
+                    SoyBID: sbID || '',
+                    ...Object.keys(mapping).reduce((acc, key) => {
+                        acc[key] = sbData[mapping[key]] || '';
+                        return acc;
+                    }, {})
+                } : selectedKey === "Starter Culture" ? {
+                    "STARTER CULTURE ID": sbID || '',
+                    ...Object.keys(mapping).reduce((acc, key) => {
+                        acc[key] = sbData[mapping[key]] || '';
+                        return acc;
+                    }, {})
+                } : selectedKey === "Vinegar" ? {
+                    "VID": sbID || '',
+                    ...Object.keys(mapping).reduce((acc, key) => {
+                        acc[key] = sbData[mapping[key]] || '';
+                        return acc;
+                    }, {})
+                } : selectedKey === "Vitblend" ? {
+                    "VITBL_ID": sbID || '',
+                    ...Object.keys(mapping).reduce((acc, key) => {
+                        acc[key] = sbData[mapping[key]] || '';
+                        return acc;
+                    }, {})
+                } : {};
 
-                  result.push(row);
+            result.push(row);
         });
 
         return result;
