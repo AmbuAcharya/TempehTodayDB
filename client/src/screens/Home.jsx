@@ -56,14 +56,14 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
         try {
             const rawMaterialsRef = ref(database, 'RAW_MATERIALS');
             const rawMaterialsSnapshot = await get(rawMaterialsRef);
-        
+
             const initializeRawMaterial = async (subRef, defaultValue = "") => {
                 const subSnapshot = await get(ref(database, `RAW_MATERIALS/${subRef}`));
                 if (!subSnapshot.exists()) {
                     await set(ref(database, `RAW_MATERIALS/${subRef}`), defaultValue);
                 }
             };
-        
+
             if (!rawMaterialsSnapshot.exists()) {
                 // Create RAW_MATERIALS if it doesn't exist
                 const rawMaterialsData = {
@@ -392,21 +392,9 @@ const Home = ({ setErrorMessage, setMessage, setLoading }) => {
     }
 
     const transformDataop = (operatorData) => {
-        console.log("OperIma", operatorData.Operator_image);
-        const Op_im = null;
-
-        if (operatorData.Operator_image === "") {
-            Op_im = "No Image";
-            console.log("OperIma", Op_im);
-        }
-        else {
-            Op_im = operatorData.Operator_image;
-            console.log("OperIma", Op_im);
-        }
-
         return [{
             Operator_ID: operatorData.Operator_ID || '',
-            Operator_image: Op_im,
+            Operator_image: operatorData.Operator_image,
             Operator_name: operatorData.Operator_name || '',
         }];
     }
